@@ -4,8 +4,7 @@ class_name StateBase
 extends StateMachineBase
 
 
-var state_name: String:
-	get(): return _pascal_to_snake(name)
+var state_name: String
 
 
 var state_machine: StateMachine
@@ -15,9 +14,6 @@ var _state_active: bool = false
 func _ready() -> void:
 	_state_active = false
 	state_name = _pascal_to_snake(name)
-	
-	if Engine.is_editor_hint():
-		return
 
 
 func _state_init(ste_mch_ref: StateMachine) -> void:
@@ -98,58 +94,3 @@ func state_exited() -> void: pass # TODO: Call
 # ==============================================================================
 func is_active() -> bool:
 	return _state_active
-
-
-func change_to_this_state(target: StateBase) -> void:
-	if target == self:
-		return
-	
-	# Find nearest ancestor
-	var common_ancestor := _find_common_ancestor(target)
-	
-	# Get exiting states
-	var exit_list: Array[StateBase] = []
-	var current: StateBase = self
-	while current and current != common_ancestor:
-		if current._state_active:
-			exit_list.append(current)
-		if current.get_parent() is StateBase:
-			current = current.get_parent()
-		else:
-			current = null
-	
-	# Get entering states
-	var enter_list: Array[StateBase] = []
-	var next: StateBase = target
-	while next and next != common_ancestor:
-		enter_list.push_front(next)
-		next = next.get_parent() if next.get_parent() is StateBase else null
-	
-	# Exit states in exit_list
-	for state in exit_list:
-		state._state_exit()
-	
-	# Enter states in enter_list
-	for state in enter_list:
-		# If parent is a compound change active state
-		if state.get_parent() is CompoundState:
-			state.get_parent()._change_active_state(state)
-		
-		if not state._state_active:
-			state._state_enter()
-
-
-func _find_common_ancestor(other: StateBase) -> StateBase:
-	var self_ancestors: Array = []
-	var current: Node = self
-	while current:
-		self_ancestors.append(current)
-		current = current.get_parent() if current.get_parent() is StateBase else null
-	
-	var other_current: Node = other
-	while other_current:
-		if other_current in self_ancestors:
-			return other_current
-		other_current = other_current.get_parent() if other_current.get_parent() is StateBase else null
-	
-	return null

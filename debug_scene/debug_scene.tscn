@@ -14,55 +14,51 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8kbl7")
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="MovementFSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_n1iyk")
+initial_state = NodePath("Grounded/Idle")
 metadata/_custom_type_script = "uid://bdokhge1uo243"
 
-[node name="Motions" type="Node" parent="StateMachine" node_paths=PackedStringArray("default_state")]
-script = ExtResource("5_oa53o")
-default_state = NodePath("Grounded")
-metadata/_custom_type_script = "uid://bo30nat61essb"
-
-[node name="Grounded" type="Node" parent="StateMachine/Motions" node_paths=PackedStringArray("default_state")]
+[node name="Grounded" type="Node" parent="MovementFSM" node_paths=PackedStringArray("default_state")]
 script = ExtResource("5_oa53o")
 default_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://bo30nat61essb"
 
-[node name="Idle" type="Node" parent="StateMachine/Motions/Grounded"]
+[node name="Idle" type="Node" parent="MovementFSM/Grounded"]
 script = ExtResource("3_bf27r")
 metadata/_custom_type_script = "uid://dghpdyk7uli46"
 
-[node name="Moving" type="Node" parent="StateMachine/Motions/Grounded" node_paths=PackedStringArray("default_state")]
+[node name="Moving" type="Node" parent="MovementFSM/Grounded" node_paths=PackedStringArray("default_state")]
 script = ExtResource("5_oa53o")
 default_state = NodePath("Walking")
 metadata/_custom_type_script = "uid://bo30nat61essb"
 
-[node name="Walking" type="Node" parent="StateMachine/Motions/Grounded/Moving"]
+[node name="Walking" type="Node" parent="MovementFSM/Grounded/Moving"]
 script = ExtResource("3_bf27r")
 metadata/_custom_type_script = "uid://dghpdyk7uli46"
 
-[node name="Sprinting" type="Node" parent="StateMachine/Motions/Grounded/Moving"]
+[node name="Sprinting" type="Node" parent="MovementFSM/Grounded/Moving"]
 script = ExtResource("3_bf27r")
 metadata/_custom_type_script = "uid://dghpdyk7uli46"
 
-[node name="Airborne" type="Node" parent="StateMachine/Motions" node_paths=PackedStringArray("default_state")]
+[node name="Airborne" type="Node" parent="MovementFSM" node_paths=PackedStringArray("default_state")]
 script = ExtResource("5_oa53o")
 default_state = NodePath("Falling")
 metadata/_custom_type_script = "uid://bo30nat61essb"
 
-[node name="Falling" type="Node" parent="StateMachine/Motions/Airborne"]
+[node name="Falling" type="Node" parent="MovementFSM/Airborne"]
 script = ExtResource("3_bf27r")
 metadata/_custom_type_script = "uid://dghpdyk7uli46"
 
-[node name="Jumping" type="Node" parent="StateMachine/Motions/Airborne" node_paths=PackedStringArray("default_state")]
+[node name="Jumping" type="Node" parent="MovementFSM/Airborne" node_paths=PackedStringArray("default_state")]
 script = ExtResource("5_oa53o")
 default_state = NodePath("WalkJumping")
 metadata/_custom_type_script = "uid://bo30nat61essb"
 
-[node name="WalkJumping" type="Node" parent="StateMachine/Motions/Airborne/Jumping"]
+[node name="WalkJumping" type="Node" parent="MovementFSM/Airborne/Jumping"]
 script = ExtResource("3_bf27r")
 metadata/_custom_type_script = "uid://dghpdyk7uli46"
 
-[node name="SprintJumping" type="Node" parent="StateMachine/Motions/Airborne/Jumping"]
+[node name="SprintJumping" type="Node" parent="MovementFSM/Airborne/Jumping"]
 script = ExtResource("3_bf27r")
 metadata/_custom_type_script = "uid://dghpdyk7uli46"
