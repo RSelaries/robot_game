@@ -12,12 +12,11 @@ config_version=5
 
 config/name="robot_game"
 run/main_scene="uid://cmqxw36ylevgh"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 QuestManager="*res://addons/quest_manager/quest_manager.gd"
 PixelateManager="*res://scripts/globals/pixelate_manager.gd"
 GameMenu="*res://scenes/gui_scenes/game_menu/game_menu.tscn"
@@ -44,7 +43,7 @@ window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/asset_placer/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/quest_manager/plugin.cfg", "res://addons/simple_state_machine/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
+enabled=PackedStringArray("res://addons/asset_placer/plugin.cfg", "res://addons/quest_manager/plugin.cfg", "res://addons/simple_state_machine/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
 
 [file_customization]
 

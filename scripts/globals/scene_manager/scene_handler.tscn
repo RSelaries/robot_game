@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c8owtdro0xw7u" path="res://scripts/globals/scene_manager/scene_container.gd" id="2_gbo5k"]
 [ext_resource type="PackedScene" uid="uid://cvf6svlqs7sxm" path="res://scenes/gui_scenes/game_menu/game_menu.tscn" id="3_1a8vu"]
 
-[node name="SceneHandler" type="Control"]
+[node name="SceneHandler" type="Control" unique_id=1282370962]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_oj3oj")
 initial_scene = "res://scenes/world_scenes/test_world/test_world.tscn"
 
-[node name="PixelateSubvprtContainer" type="SubViewportContainer" parent="."]
+[node name="PixelateSubvprtContainer" type="SubViewportContainer" parent="." unique_id=1487476197]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -27,14 +27,14 @@ grow_vertical = 2
 stretch = true
 stretch_shrink = 3
 
-[node name="SubViewport" type="SubViewport" parent="PixelateSubvprtContainer"]
+[node name="SubViewport" type="SubViewport" parent="PixelateSubvprtContainer" unique_id=784331378]
 handle_input_locally = false
 size = Vector2i(640, 361)
 render_target_update_mode = 4
 
-[node name="SceneContainer" type="Node" parent="PixelateSubvprtContainer/SubViewport"]
+[node name="SceneContainer" type="Node" parent="PixelateSubvprtContainer/SubViewport" unique_id=905544754]
 unique_name_in_owner = true
 script = ExtResource("2_gbo5k")
 metadata/_custom_type_script = "uid://c8owtdro0xw7u"
 
-[node name="GameMenu" parent="." instance=ExtResource("3_1a8vu")]
+[node name="GameMenu" parent="." unique_id=1370841532 instance=ExtResource("3_1a8vu")]
