@@ -4,10 +4,19 @@ class_name StateMachine
 extends StateMachineBase
 
 
-@export var initial_state: AtomicState
+signal state_changed(to: StateBase)
 
 
-var active_state: StateBase = null
+@export var initial_state: StateBase:
+	set(value):
+		initial_state = value
+		update_configuration_warnings()
+
+
+var active_state: StateBase = null:
+	set(value):
+		active_state = value
+		state_changed.emit(value)
 
 # ==============================================================================
 # Private Variables
@@ -22,11 +31,6 @@ func _ready() -> void:
 	child_order_changed.connect(_on_child_order_changed)
 	
 	if Engine.is_editor_hint(): return # The rest only run in game
-
-	# check if we have exactly one child that is a state
-	#if get_child_count() != 1:
-		#push_error("StateMachine must have exactly one child")
-		#return
 	
 	# check if the child is a state
 	for child in get_children():
@@ -39,7 +43,38 @@ func _ready() -> void:
 
 
 func _enter_initial_state() -> void:
-	change_state(initial_state)
+	if initial_state:
+		change_state(initial_state)
+	else:
+		push_error("[", name, "] ", "No initial state set.")
+
+
+func _get_state_from_name(state_name: String) -> StateBase:
+	for _state in _states:
+		if _state.state_name == state_name:
+			return _state
+	push_error("[", name, "] ", "Could not find State based on '", state_name, "'.")
+	return null
+
+
+## [param from] being the current state and [param to] being the target state.
+func _find_common_ancestor(from: StateBase, to: StateBase) -> StateBase:
+	if from == null: return null # In the init phase
+	
+	# Get ancestors of active State
+	var from_state_ancestors: Array[StateBase] = []
+	var current: Node = from
+	while current is StateBase:
+		from_state_ancestors.append(current)
+		current = current.get_parent()
+	
+	# If target state ancestor has a parent in commom, return it
+	current = to
+	while current is StateBase:
+		if current in from_state_ancestors:
+			return current
+		current = current.get_parent()
+	return null
 
 
 func _on_child_order_changed() -> void:
@@ -48,19 +83,29 @@ func _on_child_order_changed() -> void:
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
-
-	#if get_children().size() != 1:
-		#warnings.append("The StateMachine should have one (and only one) State node as a direct child.")
-	#elif get_child(0) is not StateBase:
-		#warnings.append("The child must be a State, i.e AtomicState,
-		#CompoundState or ParallelState.")
-
+	
+	if not initial_state:
+		warnings.append("An initial state must be set.")
+	else:
+		if name not in get_state_ancestors_name(initial_state):
+			warnings.append("The initial state must be a child of the state machine.")
+	
 	return warnings
 
 
 # ==============================================================================
 # Public Functions
 # ==============================================================================
+func get_state_ancestors_name(state: StateBase) -> Array[String]:
+	var ancestors: Array[String] = []
+	var current: Node = state
+	while current is StateBase:
+		ancestors.append(current.name)
+		current = current.get_parent()
+	if current is StateMachine:
+		ancestors.append(current.name)
+	return ancestors
+
 
 ## [param state] must either be a [String] name of the state or a direct
 ## reference to the [StateBase]
@@ -68,7 +113,7 @@ func change_state(state: Variant) -> void:
 	var state_ref: StateBase
 	if state is String: state_ref = _get_state_from_name(state)
 	elif state is StateBase: state_ref = state
-	else: push_error("Couldn't find the target state. [param state should be\
+	else: push_error("[", name, "] ", "Couldn't find the target state: ", state, ". [param state should be \
 	either a [String] name of a state or a direct reference.")
 	
 	# Don't change if already in this state
@@ -100,31 +145,3 @@ func change_state(state: Variant) -> void:
 	active_state = state_ref
 	for i in enter_list.size():
 		enter_list[-i - 1]._state_enter()
-
-
-func _get_state_from_name(state_name: String) -> StateBase:
-	for _state in _states:
-		if _state.state_name == state_name:
-			return _state
-	push_error("Could not find State based on '", state_name, "'.")
-	return null
-
-
-## [param from] being the current state and [param to] being the target state.
-func _find_common_ancestor(from: StateBase, to: StateBase) -> StateBase:
-	if from == null: return null # In the init phase
-	
-	# Get ancestors of active State
-	var from_state_ancestors: Array[StateBase] = []
-	var current: Node = from
-	while current is StateBase:
-		from_state_ancestors.append(current)
-		current = current.get_parent()
-	
-	# If target state ancestor has a parent in commom, return it
-	current = to
-	while current is StateBase:
-		if current in from_state_ancestors:
-			return current
-		current = current.get_parent()
-	return null

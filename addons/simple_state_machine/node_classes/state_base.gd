@@ -25,17 +25,13 @@ func _state_init(ste_mch_ref: StateMachine) -> void:
 
 func _state_enter() -> void:
 	if _state_active: return # Can't enter twice
-	
 	_state_active = true
-	print(state_name, " entered !")
 	state_entered()
 
 
 func _state_exit() -> void:
 	if not _state_active: return # Can't exit twice
-	
 	_state_active = false
-	print(state_name, " exited !")
 	state_exited()
 
 
@@ -82,10 +78,15 @@ func _pascal_to_snake(string: String) -> String:
 # ==============================================================================
 # Overridable functions
 # ==============================================================================
+## This function is called every frame (on _process).
 func update(delta: float) -> void: pass
+## This function is called every physics frame (on _physics_process).
 func physics_update(delta: float) -> void: pass
+## This function is called for every _unhandled_input.
 func state_input(event: InputEvent) -> void: pass
+## This function is called each time the state is entered.
 func state_entered() -> void: pass # TODO: Call
+## This function is called each time the state is exited.
 func state_exited() -> void: pass # TODO: Call
 
 

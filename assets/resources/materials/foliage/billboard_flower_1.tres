@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d13wp3v78iv0e"]
+
+[ext_resource type="Shader" uid="uid://bsn24jdep35rh" path="res://assets/shaders/spatials/grass_billboard_sway.gdshader" id="1_w4p6j"]
+[ext_resource type="Texture2D" path="res://assets/textures/foliage/simple_grass_leaves.png" id="2_7kbtm"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_w4p6j")
+shader_parameter/albedo = Color(0.892525, 0.90638, 0.0726429, 1)
+shader_parameter/texture_albedo = ExtResource("2_7kbtm")
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/cuts = 8
+shader_parameter/wind_speed = 2.0
+shader_parameter/wind_direction = Vector2(1, 0.3)
+shader_parameter/wind_waviness = 4.0

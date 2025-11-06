@@ -1,0 +1,1258 @@
+[gd_scene load_steps=24 format=3 uid="uid://cvf6svlqs7sxm"]
+
+[ext_resource type="Theme" uid="uid://bsgssytopcb0" path="res://assets/resources/themes/quest_hud_theme.tres" id="1_2vf0g"]
+[ext_resource type="Script" uid="uid://lvsfg10f0leq" path="res://scenes/gui_scenes/game_menu/game_menu.gd" id="1_ao384"]
+[ext_resource type="Shader" uid="uid://c86j7o251i4y5" path="res://assets/shaders/canvas_item/crt_effect.gdshader" id="1_tlyhk"]
+[ext_resource type="Texture2D" uid="uid://8lo2befdp0jh" path="res://assets/textures/ui/tree_t.png" id="2_7v4g4"]
+[ext_resource type="Texture2D" uid="uid://bbjasgh0j6jdd" path="res://assets/textures/ui/tree_i.png" id="3_h1gtg"]
+[ext_resource type="Texture2D" uid="uid://pjjwbkjfax48" path="res://assets/textures/ui/tree_l.png" id="3_vaq2k"]
+[ext_resource type="Texture2D" uid="uid://da48sl7vtbdw3" path="res://assets/textures/ui/tree_spacing.png" id="4_jx4pv"]
+[ext_resource type="Texture2D" uid="uid://csdeslovqhxeu" path="res://assets/textures/ui/tree_empty.png" id="6_jlopa"]
+[ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="7_hkshw"]
+[ext_resource type="Shader" uid="uid://dqrmxqkx80mvp" path="res://assets/shaders/spatials/hologram_shader.gdshader" id="8_a6787"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ao384"]
+viewport_path = NodePath("MenuCanvasLayer/TextureRect/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tp3fe"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.01773239, 0.017732395, 0.017732374, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2vf0g"]
+bg_color = Color(0.05490196, 0.05490196, 0.05490196, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 0, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jx4pv"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_a6787"]
+resource_name = "hologram_rotate"
+script/source = "@tool
+extends Node3D
+
+
+func _physics_process(delta: float) -> void:
+	rotate_y(1.0 * delta)
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ao384"]
+render_priority = 0
+shader = ExtResource("8_a6787")
+shader_parameter/line_color = Color(0, 18.892157, 0, 1)
+shader_parameter/line_width = 0.005
+shader_parameter/line_blur = 0.2
+shader_parameter/line_speed = 0.01500004821249989
+shader_parameter/straight_lines = true
+shader_parameter/interrupt_width = 0.5
+shader_parameter/interrupt_blur = 0.25
+shader_parameter/interrupt_speed = 0.2
+shader_parameter/glow_color = Color(0, 18.892157, 0, 1)
+shader_parameter/glow_itensity = 19.866000943635
+shader_parameter/glow_amount = 20.0
+shader_parameter/flickering = 0.55
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a6787"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ao384"]
+graph_offset = Vector2(-271, 77)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_a6787")
+nodes/Animation/position = Vector2(60, 140)
+node_connections = [&"output", 0, &"Animation"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jlopa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vf0g"]
+shader = ExtResource("1_tlyhk")
+shader_parameter/resolution = Vector2(630, 360)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.2000000095
+shader_parameter/noise_amount = 0.03
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 1.0000000475
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
+
+[sub_resource type="Animation" id="Animation_he3k6"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:anchor_left")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect:anchor_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextureRect:anchor_right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TextureRect:anchor_bottom")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TextureRect:modulate:r")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TextureRect:modulate:g")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TextureRect:modulate:b")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TextureRect:modulate:a")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ao384"]
+resource_name = "tv_shutdown"
+length = 0.5
+step = 0.0333333
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:anchor_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.066021964, 0, 0, 0, 0.48, -0.02597462, -0.08, 0, 0),
+"times": PackedFloat32Array(0.16666667, 0.32251438)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:anchor_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.48, -0.066021964, -0.08, 0, 0, 0.5, -0.033333335, 0.08, 0, 0),
+"times": PackedFloat32Array(0, 0.2, 0.4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect:anchor_right")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.066021964, 0, 0, 0, 0.52, -0.02597462, 0.080000006, 0, 0),
+"times": PackedFloat32Array(0.16666667, 0.32251438)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextureRect:anchor_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.52, -0.066021964, 0.08, 0, 0, 0.5, -0.033333335, 0.086666666, 0, 0),
+"times": PackedFloat32Array(0, 0.2, 0.4)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TextureRect:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.04849401, 0, 0, 0),
+"times": PackedFloat32Array(0.094650954, 0.4)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TextureRect:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.04849401, 0, 0, 0),
+"times": PackedFloat32Array(0.094650954, 0.4)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TextureRect:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.04849401, 0, 0, 0),
+"times": PackedFloat32Array(0.094650954, 0.4)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TextureRect:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.04849401, 0.16666667, 0, 0),
+"times": PackedFloat32Array(0.094650954, 0.4)
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.46666667, 0.48666668),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8c6gv"]
+_data = {
+&"RESET": SubResource("Animation_he3k6"),
+&"tv_shutdown": SubResource("Animation_ao384")
+}
+
+[node name="GameMenu" type="Node"]
+script = ExtResource("1_ao384")
+
+[node name="MenuCanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -0.0008544922
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_ao384")
+expand_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="MenuCanvasLayer/TextureRect"]
+size = Vector2i(1920, 1080)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MenuCanvasLayer/TextureRect/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="BlackBackground" type="PanelContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_2vf0g")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tp3fe")
+
+[node name="GreenBorders" type="PanelContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2vf0g")
+
+[node name="PanelContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="TaskPanel" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VboxContainer" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TaskPanelTitle" type="Label" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer"]
+layout_mode = 2
+text = "TACHES"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 6
+
+[node name="TaskList" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TestTask" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_jx4pv")
+text = "Réparer vaisseau"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer7/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="TestTask2" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_jx4pv")
+text = "Réparer vaisseau"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer7/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="TestTask3" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_jx4pv")
+text = "Réparer vaisseau"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_7v4g4")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_h1gtg")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer7/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_jlopa")
+
+[node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jx4pv")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_vaq2k")
+
+[node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Item"
+fit_content = true
+
+[node name="GreenSeparator" type="ColorRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+
+[node name="CenterPanel" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VboxContainer2" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/CenterPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/CenterPanel/VboxContainer2"]
+layout_mode = 2
+text = "Onglet 2"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/CenterPanel/VboxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+
+[node name="GreenSeparator2" type="ColorRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+
+[node name="StatePanel" type="VBoxContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer"]
+custom_minimum_size = Vector2(104.94, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/MarginContainer"]
+layout_mode = 2
+text = "Etat"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Hologram" type="ColorRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+color = Color(0, 0.11207495, 0, 0)
+
+[node name="MarginContainer" type="SubViewportContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 200.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(104, 200)
+render_target_update_mode = 4
+
+[node name="player" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport" instance=ExtResource("7_hkshw")]
+transform = Transform3D(0.98749095, 0, -0.21032566, 0, 1, 0, 0.21032566, 0, 0.98749095, 0, 0, 0)
+script = SubResource("GDScript_a6787")
+
+[node name="Skeleton3D" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport/player/Armature" index="0"]
+bones/1/position = Vector3(8.272209e-10, 0.64670247, -0.058869004)
+bones/1/rotation = Quaternion(0.08076728, -1.18819834e-07, -9.6282085e-09, 0.99673307)
+bones/2/rotation = Quaternion(0.94992113, -8.574493e-09, -2.2161021e-07, 0.31248984)
+bones/3/rotation = Quaternion(0.826302, -1.3259312e-08, -2.0685147e-07, 0.56322736)
+bones/4/rotation = Quaternion(-0.827418, -1.1523511e-09, 1.9652236e-07, 0.5615865)
+bones/5/rotation = Quaternion(0.08727812, 2.5747116e-11, -2.1132493e-08, 0.99618405)
+bones/7/rotation = Quaternion(0.06858494, -1.0561205e-14, -1.6351926e-08, 0.9976453)
+bones/9/rotation = Quaternion(0.31835717, 0.26606247, -0.5752422, 0.704951)
+bones/10/rotation = Quaternion(0.49634612, -0.010832311, -0.45733744, 0.73781145)
+bones/11/rotation = Quaternion(0.40487465, 0.6367497, -0.4718102, -0.45609376)
+bones/12/rotation = Quaternion(0.31835726, -0.2660624, 0.5752423, 0.704951)
+bones/13/rotation = Quaternion(0.4963461, 0.010832315, 0.45733738, 0.73781145)
+bones/14/position = Vector3(0.22031204, 0.018322408, -0.014179621)
+bones/14/rotation = Quaternion(0.36120412, 0.37675843, 0.8193304, 0.23723903)
+bones/18/position = Vector3(-0.22031207, 0.018322399, -0.014179469)
+bones/18/rotation = Quaternion(-0.36120406, 0.3767584, 0.8193305, -0.23723921)
+bones/22/rotation = Quaternion(0.94992113, 6.5928916e-08, 4.868656e-09, 0.31248984)
+bones/23/rotation = Quaternion(0.826302, -1.325944e-08, 1.8716027e-07, 0.56322736)
+bones/24/rotation = Quaternion(-0.827418, -1.1522445e-09, -1.9802144e-07, 0.5615865)
+bones/25/rotation = Quaternion(0.08727812, 2.579054e-11, 2.0484991e-08, 0.99618405)
+bones/26/position = Vector3(0.1721499, 0.017648824, 0.02262358)
+bones/26/rotation = Quaternion(0.7148864, 0.00425217, 0.0021585198, 0.69922435)
+bones/27/position = Vector3(-0.1721499, 0.017648824, 0.02262358)
+bones/27/rotation = Quaternion(0.7148864, -0.004252014, -0.0021583606, 0.69922435)
+
+[node name="FusionedPlayer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport/player/Armature/Skeleton3D" index="0"]
+material_override = SubResource("ShaderMaterial_ao384")
+
+[node name="AnimationTree" type="AnimationTree" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport/player"]
+tree_root = SubResource("AnimationNodeBlendTree_ao384")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Camera3D" type="Camera3D" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72618055, 1.5)
+projection = 1
+size = 1.6
+
+[node name="ColorRect2" type="ColorRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="QuestName" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/MarginContainer2"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_jx4pv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jlopa")
+text = "Réparer vaisseau"
+fit_content = true
+
+[node name="CRTShader" type="ColorRect" parent="MenuCanvasLayer/TextureRect/SubViewport"]
+material = SubResource("ShaderMaterial_2vf0g")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuCanvasLayer"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_8c6gv")
+}
+
+[editable path="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport/player"]

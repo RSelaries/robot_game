@@ -1,0 +1,49 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bsgssytopcb0"]
+
+[ext_resource type="FontFile" uid="uid://dai0sgmbblqol" path="res://assets/fonts/PublicPixel.ttf" id="1_q0dsu"]
+[ext_resource type="Texture2D" uid="uid://de7uyorbmhxpy" path="res://assets/textures/ui/green_diher.png" id="2_2dyrc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q0dsu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dyrc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2dyrc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qktm"]
+bg_color = Color(0, 0.94509804, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6qktm"]
+content_margin_left = 6.0
+texture = ExtResource("2_2dyrc")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w8kgl"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_q0dsu"]
+color = Color(0, 1, 0, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 100
+
+[resource]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 8
+Label/fonts/font = ExtResource("1_q0dsu")
+Label/styles/focus = SubResource("StyleBoxEmpty_q0dsu")
+Label/styles/normal = SubResource("StyleBoxFlat_2dyrc")
+RichTextLabel/colors/default_color = Color(0, 1, 0, 1)
+RichTextLabel/font_sizes/normal_font_size = 8
+RichTextLabel/fonts/normal_font = ExtResource("1_q0dsu")
+ScrollContainer/styles/focus = SubResource("StyleBoxEmpty_2dyrc")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_6qktm")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_6qktm")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_6qktm")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_6qktm")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_w8kgl")
+VSeparator/styles/separator = SubResource("StyleBoxLine_q0dsu")

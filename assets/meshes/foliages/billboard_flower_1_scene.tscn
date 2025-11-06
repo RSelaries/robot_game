@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpl4k3hoi1e0o"]
+
+[ext_resource type="QuadMesh" uid="uid://d17xe6ffca2av" path="res://assets/meshes/foliages/billboard_flower_1.tres" id="1_w2ui6"]
+
+[node name="BillboardFlower1" type="MeshInstance3D"]
+mesh = ExtResource("1_w2ui6")

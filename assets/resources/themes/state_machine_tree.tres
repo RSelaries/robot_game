@@ -1,0 +1,32 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cir2tavsj3675"]
+
+[ext_resource type="FontFile" uid="uid://rfmiixthsa1y" path="res://assets/fonts/Pixeled.ttf" id="1_11pcl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11pcl"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.25490198)
+
+[resource]
+Tree/colors/children_hl_line_color = Color(0, 0, 0, 1)
+Tree/colors/custom_button_font_highlight = Color(0.95, 0.95, 0.95, 1)
+Tree/colors/drop_position_color = Color(1, 1, 1, 1)
+Tree/colors/font_color = Color(1, 1, 1, 1)
+Tree/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Tree/colors/font_hovered_color = Color(0.95, 0.95, 0.95, 1)
+Tree/colors/font_hovered_dimmed_color = Color(0.875, 0.875, 0.875, 1)
+Tree/colors/font_hovered_selected_color = Color(1, 1, 1, 1)
+Tree/colors/font_outline_color = Color(0, 0, 0, 1)
+Tree/colors/font_selected_color = Color(1, 1, 1, 1)
+Tree/colors/guide_color = Color(1, 0.4392157, 1, 0.50980395)
+Tree/colors/parent_hl_line_color = Color(1, 0, 0, 1)
+Tree/colors/relationship_line_color = Color(1, 0, 0, 1)
+Tree/colors/title_button_color = Color(1, 0, 0, 1)
+Tree/constants/h_separation = 0
+Tree/constants/item_margin = 8
+Tree/constants/v_separation = 1
+Tree/font_sizes/font_size = 5
+Tree/fonts/font = ExtResource("1_11pcl")
+Tree/styles/panel = SubResource("StyleBoxFlat_11pcl")
