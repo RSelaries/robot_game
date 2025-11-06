@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 QuestManager="*res://addons/quest_manager/quest_manager.gd"
-PixelateManager="*res://scripts/globals/pixelate_manager.gd"
 GameMenu="*res://scenes/gui_scenes/game_menu/game_menu.tscn"
+Settings="*res://scripts/globals/settings.gd"
 
 [dialogic]
 

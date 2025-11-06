@@ -1,4 +1,4 @@
-# PixelateManager
+# Settings
 @tool
 extends Node
 

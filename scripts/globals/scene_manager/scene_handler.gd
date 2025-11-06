@@ -14,7 +14,7 @@ var inital_scene_instance: Node
 
 
 func _ready() -> void:
-	PixelateManager.pixelisation_amount_changed.connect(_on_pxl_amnt_changed)
+	Settings.pixelisation_amount_changed.connect(_on_pxl_amnt_changed)
 	
 	var initial_scene_pcked: PackedScene = load(initial_scene)
 	inital_scene_instance = initial_scene_pcked.instantiate()
