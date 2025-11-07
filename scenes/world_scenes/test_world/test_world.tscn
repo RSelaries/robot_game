@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b74sqgr6t3p8y" path="res://scenes/world_scenes/world_scene_base.gd" id="1_idnf6"]
 [ext_resource type="PackedScene" uid="uid://bqxq8g2clwngp" path="res://scenes/player/player.tscn" id="2_4dr8e"]
+[ext_resource type="Material" uid="uid://dqhomnpgmc1nf" path="res://assets/resources/materials/foliage/grass_underlay.tres" id="2_ohy5h"]
 [ext_resource type="Shader" uid="uid://b5n026j7i03rb" path="res://assets/shaders/spatials/prototype_grid.gdshader" id="2_sgfbr"]
-[ext_resource type="Material" uid="uid://be8nb05r05k0d" path="res://assets/resources/materials/misc/grass_green.tres" id="2_yk5tk"]
 [ext_resource type="Material" uid="uid://cxiqpcsbri12w" path="res://assets/resources/materials/misc/chrome_color.tres" id="5_ohy5h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_idnf6"]
@@ -43,38 +43,41 @@ shader_parameter/use_inside_uv = false
 shader_parameter/use_albedo_color = false
 shader_parameter/albedo_alpha = 0.5
 
-[node name="TestWorld" type="Node3D"]
+[node name="TestWorld" type="Node3D" unique_id=941300603]
 script = ExtResource("1_idnf6")
 metadata/_custom_type_script = "uid://b74sqgr6t3p8y"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1702645474]
 transform = Transform3D(0.480897, -0.7593113, 0.43838847, 2.7805946e-08, 0.49999994, 0.86602545, -0.8767771, -0.41646904, 0.24044845, 0, 0, 0)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=920961208]
 environment = SubResource("Environment_sgfbr")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=315204120]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-material_override = ExtResource("2_yk5tk")
+material_override = ExtResource("2_ohy5h")
 use_collision = true
 size = Vector3(32, 0.5, 32)
 material = SubResource("ShaderMaterial_yk5tk")
 
-[node name="Player" parent="." instance=ExtResource("2_4dr8e")]
+[node name="Player" parent="." unique_id=1040078440 instance=ExtResource("2_4dr8e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.665, 0)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=2057682821]
 transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -2.5, 0.5, -0.5)
 material_override = ExtResource("5_ohy5h")
+use_collision = true
 size = Vector3(1, 2, 1)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1794642568]
 transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 4, 0, -2.25)
 material_override = ExtResource("5_ohy5h")
+use_collision = true
 size = Vector3(3, 1, 2.5)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=2109703591]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -4.25, 1, -4.6830125)
 material_override = ExtResource("5_ohy5h")
+use_collision = true
 size = Vector3(3, 3, 1.5)

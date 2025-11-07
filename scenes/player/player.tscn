@@ -1,27 +1,35 @@
-[gd_scene load_steps=27 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=55 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
+[ext_resource type="Script" uid="uid://cxw3k38ixgrb5" path="res://scripts/custom_nodes/components/follow_two_components.gd" id="2_lgqa7"]
 [ext_resource type="Shader" uid="uid://dihrx78lkr8a1" path="res://assets/shaders/spatials/pixelart_edge_detect.gdshader" id="3_0owmy"]
+[ext_resource type="Script" uid="uid://co1h5yj8mqdm0" path="res://scripts/custom_nodes/interaction_shapecast.gd" id="4_8ydkj"]
 [ext_resource type="Script" uid="uid://bvghbptl0smqe" path="res://scenes/player/edge_detect_shader.gd" id="4_qek5x"]
 [ext_resource type="Script" uid="uid://cm4a4yywol8hm" path="res://scripts/custom_nodes/state_machine_overrides/player_state_machine.gd" id="5_je7p5"]
-[ext_resource type="Script" uid="uid://lx7i1q6bwxye" path="res://addons/interaction_system_3d/components/interaction_component.gd" id="6_75vfm"]
 [ext_resource type="Script" uid="uid://bq223ht2poita" path="res://scripts/custom_nodes/state_machine_overrides/player_compound_state.gd" id="6_gx1jg"]
 [ext_resource type="Script" uid="uid://4ghmh77xi4xu" path="res://scenes/player/states/grounded.gd" id="6_ugbui"]
 [ext_resource type="Script" uid="uid://cmnrkomo3al5" path="res://scenes/player/states/idle.gd" id="7_je7p5"]
 [ext_resource type="Script" uid="uid://dero042hjjbjp" path="res://scripts/custom_nodes/state_machine_overrides/player_atomic_state.gd" id="7_ugbui"]
 [ext_resource type="Script" uid="uid://benv32v0t8kpn" path="res://scenes/player/states/moving.gd" id="8_fm80t"]
 [ext_resource type="Script" uid="uid://dnoq8ordnxqvj" path="res://addons/simple_state_machine/node_classes/state_machine_tree.gd" id="9_5gtgg"]
-[ext_resource type="Theme" uid="uid://cir2tavsj3675" path="res://assets/resources/themes/state_machine_tree.tres" id="9_kvlxm"]
+[ext_resource type="Theme" uid="uid://cir2tavsj3675" path="res://assets/resources/themes/player_debug_gui.tres" id="9_kvlxm"]
+[ext_resource type="Script" uid="uid://5tyfdtkc6po6" path="res://scenes/player/states/walking.gd" id="9_myrg7"]
+[ext_resource type="Script" uid="uid://ckdemtj5gcev8" path="res://scenes/player/states/sprinting.gd" id="10_kvlxm"]
 [ext_resource type="Script" uid="uid://bvqp284nyeb44" path="res://scenes/player/states/airborne.gd" id="10_ugbui"]
 [ext_resource type="Script" uid="uid://duymi0wq38b31" path="res://scenes/player/jumping.gd" id="11_fcs02"]
+[ext_resource type="Script" uid="uid://cuuk0gmh2bta2" path="res://scenes/player/states/sprint_jumping.gd" id="15_8ydkj"]
+[ext_resource type="Script" uid="uid://ct1nqkvr8f82q" path="res://scenes/player/prop_watcher.gd" id="17_uf5tr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
 radius = 0.25830078
 height = 1.3320313
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_75vfm"]
-radius = 0.2
+[sub_resource type="BoxShape3D" id="BoxShape3D_uf5tr"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ydkj"]
+radius = 0.1
 height = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qek5x"]
@@ -38,61 +46,197 @@ material = SubResource("ShaderMaterial_qek5x")
 flip_faces = true
 size = Vector2(2, 2)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_75vfm"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uf5tr"]
+animation = &"Fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lgqa7"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6cv16"]
+advance_mode = 2
+advance_expression = "velocity.y < 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uniwh"]
+advance_mode = 2
+advance_expression = "velocity.y > 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j4nxn"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "velocity.y > 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_28m0y"]
+xfade_time = 0.4
+advance_mode = 2
+advance_expression = "velocity.y < 0.0"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fcs02"]
+states/Fall/node = SubResource("AnimationNodeAnimation_uf5tr")
+states/Fall/position = Vector2(480, 25)
+states/Jump/node = SubResource("AnimationNodeAnimation_lgqa7")
+states/Jump/position = Vector2(480, 154)
+transitions = ["Start", "Fall", SubResource("AnimationNodeStateMachineTransition_6cv16"), "Start", "Jump", SubResource("AnimationNodeStateMachineTransition_uniwh"), "Fall", "Jump", SubResource("AnimationNodeStateMachineTransition_j4nxn"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_28m0y")]
+graph_offset = Vector2(-125, -29)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ydkj"]
+animation = &"Grounded"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fcs02"]
 animation = &"Idle"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0owmy"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3j4b4"]
 animation = &"Walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qek5x"]
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_yj68g"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ioxgp"]
+graph_offset = Vector2(-611.667, -6.339752)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_3j4b4")
+nodes/Animation/position = Vector2(-100, 140)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_yj68g")
+nodes/TimeScale/position = Vector2(120, 140)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_myrg7"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kvlxm"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ioxgp"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5gtgg"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cnsyf"]
+xfade_time = 0.2
+switch_mode = 1
+advance_mode = 2
+advance_expression = "sprint_speed_modifier != 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_007i1"]
+xfade_time = 0.2
+switch_mode = 1
+advance_mode = 2
+advance_expression = "sprint_speed_modifier == 0.0"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_kvlxm"]
+states/Run/node = SubResource("AnimationNodeAnimation_myrg7")
+states/Run/position = Vector2(471, 159)
+"states/Run 2/node" = SubResource("AnimationNodeBlendTree_ioxgp")
+"states/Run 2/position" = Vector2(593, 152)
+states/Walk/node = SubResource("AnimationNodeAnimation_kvlxm")
+states/Walk/position = Vector2(559, -7)
+transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_ioxgp"), "Walk", "Run 2", SubResource("AnimationNodeStateMachineTransition_cnsyf"), "Run 2", "Walk", SubResource("AnimationNodeStateMachineTransition_007i1")]
+graph_offset = Vector2(-29, -38)
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3j4b4"]
 xfade_time = 0.2
 advance_mode = 2
-advance_expression = "Vector2(velocity.x, velocity.z).length() > 0.0"
+advance_expression = "input_dir.length() != 0.0"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_75vfm"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yj68g"]
 xfade_time = 0.2
 advance_mode = 2
-advance_expression = "Vector2(velocity.x, velocity.z).length() <= 0.0"
+advance_expression = "input_dir.length() == 0.0"
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_h17s1"]
-states/Idle/node = SubResource("AnimationNodeAnimation_75vfm")
-states/Idle/position = Vector2(325, 100)
-states/Start/position = Vector2(83, 100)
-states/Walk/node = SubResource("AnimationNodeAnimation_0owmy")
-states/Walk/position = Vector2(566, 100)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_qek5x"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_5gtgg"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_75vfm")]
-graph_offset = Vector2(-163, -6)
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iqsei"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "input_dir.length() != 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tffgl"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8ydkj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_myrg7"]
+states/Grounded/node = SubResource("AnimationNodeAnimation_8ydkj")
+states/Grounded/position = Vector2(217, 148)
+states/Idle/node = SubResource("AnimationNodeAnimation_fcs02")
+states/Idle/position = Vector2(491, 29)
+states/Moving/node = SubResource("AnimationNodeStateMachine_kvlxm")
+states/Moving/position = Vector2(491, 143)
+states/Start/position = Vector2(50, 94)
+transitions = ["Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_3j4b4"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_yj68g"), "Grounded", "Moving", SubResource("AnimationNodeStateMachineTransition_iqsei"), "Grounded", "Idle", SubResource("AnimationNodeStateMachineTransition_tffgl"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8ydkj")]
+graph_offset = Vector2(-70, 5)
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kvlxm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uf5tr"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "not is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lgqa7"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8ydkj"]
+states/Airborne/node = SubResource("AnimationNodeStateMachine_fcs02")
+states/Airborne/position = Vector2(472, 204)
+states/Grounded/node = SubResource("AnimationNodeStateMachine_myrg7")
+states/Grounded/position = Vector2(472, 110)
+states/Start/position = Vector2(121, 118)
+transitions = ["Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_kvlxm"), "Grounded", "Airborne", SubResource("AnimationNodeStateMachineTransition_uf5tr"), "Airborne", "Grounded", SubResource("AnimationNodeStateMachineTransition_lgqa7")]
+graph_offset = Vector2(-123, 49)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_g6k8r"]
-graph_offset = Vector2(-428, 173)
-nodes/MovementASM/node = SubResource("AnimationNodeStateMachine_h17s1")
-nodes/MovementASM/position = Vector2(-180, 160)
+nodes/MovementASM/node = SubResource("AnimationNodeStateMachine_8ydkj")
+nodes/MovementASM/position = Vector2(-140, 160)
 node_connections = [&"output", 0, &"MovementASM"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh")]
+[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision")]
 script = ExtResource("1_qjkh3")
+base_speed = 2.0
 player_mesh = NodePath("PlayerMesh")
+property_watcher = NodePath("HUD/PropertyWatcher")
+held_box_collision = NodePath("HeldBoxCollision")
 
 [node name="BodyPhysicsCollision" type="CollisionShape3D" parent="." unique_id=448778154]
 shape = SubResource("CapsuleShape3D_yw30f")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="PlayerMesh" parent="." unique_id=430254631 instance=ExtResource("1_yw30f")]
+[node name="HeldBoxCollision" type="CollisionShape3D" parent="." unique_id=959410043]
+transform = Transform3D(0.9999939, 0, -1.7881155e-07, 0, 0.99998605, 0, 1.7881285e-07, 0, 0.99998665, 0, 0.1785183, -0.015029911)
+shape = SubResource("BoxShape3D_uf5tr")
+disabled = true
+debug_fill = false
+
+[node name="FollowTwoComponents" type="Node" parent="HeldBoxCollision" unique_id=226288049 node_paths=PackedStringArray("secondary_follow_target", "follow_target")]
+script = ExtResource("2_lgqa7")
+secondary_follow_target = NodePath("../../PlayerMesh/Armature/Skeleton3D/LeftHandFollow")
+follow_target = NodePath("../../PlayerMesh/Armature/Skeleton3D/RightHandFollow")
+lock_rot_x = true
+lock_rot_z = true
+metadata/_custom_type_script = "uid://cxw3k38ixgrb5"
+
+[node name="PlayerMesh" parent="." unique_id=1031286276 instance=ExtResource("1_yw30f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.66282046, 0.025740147)
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(430254631, 145868477) index="1" unique_id=1694849618]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1031286276, 379554955) index="1" unique_id=1694849618]
 transform = Transform3D(1, 7.1054274e-15, -2.3841864e-07, -3.2626865e-08, 0.9905921, -0.13684694, 2.3617564e-07, 0.1368469, 0.9905922, 5.3245905e-16, 1.0776696, 0.117723964)
 bone_name = "Head"
 bone_idx = 7
 
-[node name="ShapeCast3D" type="ShapeCast3D" parent="PlayerMesh/Armature/Skeleton3D/BoneAttachment3D" unique_id=679591425]
-transform = Transform3D(1, 0, 0, 0, 0.9909832, 0.13398618, 0, -0.13398619, 0.99098307, 1.3518063e-08, -0.34110838, 0.047122933)
-shape = SubResource("CapsuleShape3D_75vfm")
+[node name="InteractionShapeCast3D" type="ShapeCast3D" parent="PlayerMesh/Armature/Skeleton3D/BoneAttachment3D" unique_id=835055237]
+transform = Transform3D(1, -3.264569e-08, -2.2455424e-09, 3.2645687e-08, 0.9905814, 0.13692594, -2.2455993e-09, -0.13692592, 0.99058133, 1.34325155e-08, -0.40782794, 0.05634003)
+shape = SubResource("CapsuleShape3D_8ydkj")
 target_position = Vector3(0, 0, 0.8)
-debug_shape_custom_color = Color(0.9764706, 0, 0, 0.6509804)
+script = ExtResource("4_8ydkj")
+metadata/_custom_type_script = "uid://co1h5yj8mqdm0"
+
+[node name="LeftHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1031286276, 379554955) index="2" unique_id=1893219202]
+transform = Transform3D(-0.62649864, -0.116581224, 0.7706545, 0.6609278, -0.6035417, 0.4459958, 0.41312727, 0.7887628, 0.45516962, 0.22031204, 0.84133875, -0.040770058)
+bone_name = "Hand.L"
+bone_idx = 14
+
+[node name="RightHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1031286276, 379554955) index="3" unique_id=1807193486]
+transform = Transform3D(-0.62649816, 0.11658106, -0.7706546, -0.66092783, -0.6035413, 0.44599563, -0.41312733, 0.78876257, 0.45516932, -0.22031204, 0.84133875, -0.040770058)
+bone_name = "Hand.R"
+bone_idx = 18
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1411627232]
 transform = Transform3D(1, 0, 0, 0, 0.7592713, 0.65077424, 0, -0.65077424, 0.7592713, 0, 6, 6.5)
@@ -112,6 +256,7 @@ root_node = NodePath("../PlayerMesh")
 tree_root = SubResource("AnimationNodeBlendTree_g6k8r")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../PlayerMesh/AnimationPlayer")
+"parameters/MovementASM/Grounded/Moving/Run 2/TimeScale/scale" = 2.0
 
 [node name="MovementFSM" type="Node" parent="." unique_id=891251310 node_paths=PackedStringArray("player", "initial_state")]
 script = ExtResource("5_je7p5")
@@ -134,11 +279,11 @@ default_state = NodePath("Walking")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
 [node name="Walking" type="Node" parent="MovementFSM/Grounded/Moving" unique_id=975640140]
-script = ExtResource("7_ugbui")
+script = ExtResource("9_myrg7")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="Sprinting" type="Node" parent="MovementFSM/Grounded/Moving" unique_id=1569140541]
-script = ExtResource("7_ugbui")
+script = ExtResource("10_kvlxm")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="Airborne" type="Node" parent="MovementFSM" unique_id=844173479 node_paths=PackedStringArray("default_state")]
@@ -160,11 +305,12 @@ script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="SprintJumping" type="Node" parent="MovementFSM/Airborne/Jumping" unique_id=308123714]
-script = ExtResource("7_ugbui")
+script = ExtResource("15_8ydkj")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
-[node name="ActionsFSM" type="Node" parent="." unique_id=1674374405 node_paths=PackedStringArray("initial_state")]
+[node name="ActionsFSM" type="Node" parent="." unique_id=1674374405 node_paths=PackedStringArray("player", "initial_state")]
 script = ExtResource("5_je7p5")
+player = NodePath("..")
 initial_state = NodePath("NoAction")
 metadata/_custom_type_script = "uid://cm4a4yywol8hm"
 
@@ -197,35 +343,31 @@ metadata/_custom_type_script = "uid://dero042hjjbjp"
 script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
-[node name="Components" type="Node" parent="." unique_id=149056905]
-
-[node name="InteractionComponent" type="Node" parent="Components" unique_id=1116458508 node_paths=PackedStringArray("interaction_shapecast")]
-script = ExtResource("6_75vfm")
-interaction_shapecast = NodePath("../../PlayerMesh/Armature/Skeleton3D/BoneAttachment3D/ShapeCast3D")
-metadata/_custom_type_script = "uid://lx7i1q6bwxye"
-
 [node name="HUD" type="CanvasLayer" parent="." unique_id=28864392]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD" unique_id=638392441]
-offset_right = 100.0
-offset_bottom = 52.0
+[node name="PropertyWatcher" type="VBoxContainer" parent="HUD" unique_id=627723326]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+theme = ExtResource("9_kvlxm")
+theme_override_constants/separation = 0
+script = ExtResource("17_uf5tr")
+metadata/_custom_type_script = "uid://ct1nqkvr8f82q"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HUD" unique_id=623425502]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -115.0
+offset_top = 1.0
+offset_right = -1.0
+grow_horizontal = 0
+theme = ExtResource("9_kvlxm")
 theme_override_constants/separation = 1
 
-[node name="MovementFSMTree" type="Tree" parent="HUD/VBoxContainer" unique_id=651319678 node_paths=PackedStringArray("fsm_to_watch")]
+[node name="ActionsFSMTree" type="Tree" parent="HUD/VBoxContainer2" unique_id=1872175985 node_paths=PackedStringArray("fsm_to_watch")]
 layout_mode = 2
-theme = ExtResource("9_kvlxm")
-allow_search = false
-hide_folding = true
-scroll_horizontal_enabled = false
-scroll_vertical_enabled = false
-auto_tooltip = false
-script = ExtResource("9_5gtgg")
-fsm_to_watch = NodePath("../../../MovementFSM")
-metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
-
-[node name="ActionsFSMTree" type="Tree" parent="HUD/VBoxContainer" unique_id=1872175985 node_paths=PackedStringArray("fsm_to_watch")]
-layout_mode = 2
-theme = ExtResource("9_kvlxm")
 allow_search = false
 hide_folding = true
 scroll_horizontal_enabled = false
@@ -233,6 +375,17 @@ scroll_vertical_enabled = false
 auto_tooltip = false
 script = ExtResource("9_5gtgg")
 fsm_to_watch = NodePath("../../../ActionsFSM")
+metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
+
+[node name="MovementFSMTree" type="Tree" parent="HUD/VBoxContainer2" unique_id=651319678 node_paths=PackedStringArray("fsm_to_watch")]
+layout_mode = 2
+allow_search = false
+hide_folding = true
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
+auto_tooltip = false
+script = ExtResource("9_5gtgg")
+fsm_to_watch = NodePath("../../../MovementFSM")
 metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
 
 [editable path="PlayerMesh"]

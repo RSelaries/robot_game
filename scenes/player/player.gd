@@ -6,17 +6,28 @@ extends CharacterBody3D
 @export var disable_movements: bool = false
 @export var base_speed: float = 5.0
 @export var sprint_speed_add: float = 3.0
-@export var jump_velocity: float = 4.5
 @export var acceleration_speed: float = 0.6
 @export var deceleration_speed: float = 0.6
+@export_subgroup("Jump Settings")
+@export var disable_jump: bool = false
+@export var jump_velocity: float = 4.5
 
 @export_group("References")
 @export var player_mesh: Node3D
+@export var property_watcher: PropertyWatcher
+@export var held_box_collision: CollisionShape3D
 
 
 var input_dir: Vector2
 var movement_dir: Vector2
-var sprint_speed_modifier: float
+var sprint_speed_modifier: float = 0.0
+
+var velocity_length:
+	get(): return velocity.length()
+
+
+func _ready() -> void:
+	_properties_to_watch()
 
 
 func _physics_process(delta: float) -> void:
@@ -26,7 +37,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Calculate the total speed base on the speed modifiers
 	# (sprint, crouch, jump etc ...)
-	var total_speed: float = base_speed + sprint_speed_add
+	var total_speed: float = base_speed + sprint_speed_modifier
 	
 	# Calculate input direction
 	var direction := _get_input_dir()
@@ -55,7 +66,8 @@ func _rotate_mesh() -> void:
 		movement_dir = input_dir
 	
 	var angle := -movement_dir.angle() + (PI / 2.0)
-	player_mesh.rotation.y = angle
+	var rot_y := player_mesh.rotation.y
+	player_mesh.rotation.y = lerp_angle(rot_y, angle, acceleration_speed)
 
 
 func _apply_direction_to_velocity(direction: Vector3, total_speed: float) -> void:
@@ -67,4 +79,10 @@ func _apply_direction_to_velocity(direction: Vector3, total_speed: float) -> voi
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration_speed)
 		velocity.z = move_toward(velocity.z, 0, deceleration_speed)
+
+
+func _properties_to_watch() -> void:
+	if not property_watcher: return
 	
+	property_watcher.watch_property(self, "velocity_length")
+	property_watcher.watch_property(self, "position")

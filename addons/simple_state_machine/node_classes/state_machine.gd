@@ -113,7 +113,9 @@ func get_state_ancestors_name(state: StateBase) -> Array[String]:
 ## version of it.[br]For exemple, to enter [CrouchWalking] state you can call:
 ## [codeblock]change_state("CrouchWalking")[/codeblock] or [codeblock]
 ## change_state("crouch_walking)[/codeblock]
-func change_state(state: Variant) -> void:
+func change_state(state: Variant, called_by: Node = null) -> void:
+	if called_by: print(called_by)
+	
 	var state_ref: StateBase
 	if state is String: state_ref = _get_state_from_name(state)
 	elif state is StateBase: state_ref = state

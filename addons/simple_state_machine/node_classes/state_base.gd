@@ -10,7 +10,6 @@ var state_name: String
 var state_machine: StateMachine:
 	set(value):
 		state_machine = value
-		print(state_name, "'s state_machine prop has been set to: ", value)
 var _state_active: bool = false
 
 
