@@ -51,7 +51,7 @@ func _enter_initial_state() -> void:
 
 func _get_state_from_name(state_name: String) -> StateBase:
 	for _state in _states:
-		if _state.state_name == state_name:
+		if _state.state_name == state_name or _state.name == state_name:
 			return _state
 	push_error("[", name, "] ", "Could not find State based on '", state_name, "'.")
 	return null
@@ -108,13 +108,20 @@ func get_state_ancestors_name(state: StateBase) -> Array[String]:
 
 
 ## [param state] must either be a [String] name of the state or a direct
-## reference to the [StateBase]
+## reference to the [StateBase]. If a [String] name is passed, it must either
+## be the exact [param name] of the node (case sensitive) or a 'snake_case'
+## version of it.[br]For exemple, to enter [CrouchWalking] state you can call:
+## [codeblock]change_state("CrouchWalking")[/codeblock] or [codeblock]
+## change_state("crouch_walking)[/codeblock]
 func change_state(state: Variant) -> void:
 	var state_ref: StateBase
 	if state is String: state_ref = _get_state_from_name(state)
 	elif state is StateBase: state_ref = state
 	else: push_error("[", name, "] ", "Couldn't find the target state: ", state, ". [param state should be \
 	either a [String] name of a state or a direct reference.")
+	
+	while state_ref is CompoundState:
+		state_ref = state_ref.get_child_state()
 	
 	# Don't change if already in this state
 	if state_ref == active_state: return

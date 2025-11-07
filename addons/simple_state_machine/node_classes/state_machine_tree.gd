@@ -3,7 +3,7 @@ class_name StateMachineTree
 extends Tree
 
 
-@export var fsm_to_watch: StateMachine
+@export var fsm_to_watch: StateMachine: set = _set_fsm_to_watch
 
 
 func _ready() -> void:
@@ -24,3 +24,9 @@ func _update_tree(_st = null) -> void:
 	for ancestor in state_ancestors:
 		current_item = create_item(current_item)
 		current_item.set_text(0, ancestor)
+
+
+func _set_fsm_to_watch(value: StateMachine) -> void:
+	fsm_to_watch = value
+	if value: _update_tree()
+	

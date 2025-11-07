@@ -7,7 +7,10 @@ extends StateMachineBase
 var state_name: String
 
 
-var state_machine: StateMachine
+var state_machine: StateMachine:
+	set(value):
+		state_machine = value
+		print(state_name, "'s state_machine prop has been set to: ", value)
 var _state_active: bool = false
 
 
@@ -95,3 +98,13 @@ func state_exited() -> void: pass # TODO: Call
 # ==============================================================================
 func is_active() -> bool:
 	return _state_active
+
+
+## [param state] must either be a [String] name of the state or a direct
+## reference to the [StateBase]. If a [String] name is passed, it must either
+## be the exact [param name] of the node (case sensitive) or a 'snake_case'
+## version of it.[br]For exemple, to enter [CrouchWalking] state you can call:
+## [codeblock]change_state("CrouchWalking")[/codeblock] or [codeblock]
+## change_state("crouch_walking)[/codeblock]
+func change_state(state: Variant) -> void:
+	state_machine.change_state(state)

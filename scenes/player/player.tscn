@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=27 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
@@ -7,9 +7,14 @@
 [ext_resource type="Script" uid="uid://cm4a4yywol8hm" path="res://scripts/custom_nodes/state_machine_overrides/player_state_machine.gd" id="5_je7p5"]
 [ext_resource type="Script" uid="uid://lx7i1q6bwxye" path="res://addons/interaction_system_3d/components/interaction_component.gd" id="6_75vfm"]
 [ext_resource type="Script" uid="uid://bq223ht2poita" path="res://scripts/custom_nodes/state_machine_overrides/player_compound_state.gd" id="6_gx1jg"]
+[ext_resource type="Script" uid="uid://4ghmh77xi4xu" path="res://scenes/player/states/grounded.gd" id="6_ugbui"]
+[ext_resource type="Script" uid="uid://cmnrkomo3al5" path="res://scenes/player/states/idle.gd" id="7_je7p5"]
 [ext_resource type="Script" uid="uid://dero042hjjbjp" path="res://scripts/custom_nodes/state_machine_overrides/player_atomic_state.gd" id="7_ugbui"]
+[ext_resource type="Script" uid="uid://benv32v0t8kpn" path="res://scenes/player/states/moving.gd" id="8_fm80t"]
 [ext_resource type="Script" uid="uid://dnoq8ordnxqvj" path="res://addons/simple_state_machine/node_classes/state_machine_tree.gd" id="9_5gtgg"]
 [ext_resource type="Theme" uid="uid://cir2tavsj3675" path="res://assets/resources/themes/state_machine_tree.tres" id="9_kvlxm"]
+[ext_resource type="Script" uid="uid://bvqp284nyeb44" path="res://scenes/player/states/airborne.gd" id="10_ugbui"]
+[ext_resource type="Script" uid="uid://duymi0wq38b31" path="res://scenes/player/jumping.gd" id="11_fcs02"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
 radius = 0.25830078
@@ -43,12 +48,12 @@ animation = &"Walk"
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5gtgg"]
-xfade_time = 0.1
+xfade_time = 0.2
 advance_mode = 2
 advance_expression = "Vector2(velocity.x, velocity.z).length() > 0.0"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_75vfm"]
-xfade_time = 0.1
+xfade_time = 0.2
 advance_mode = 2
 advance_expression = "Vector2(velocity.x, velocity.z).length() <= 0.0"
 
@@ -62,12 +67,14 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-163, -6)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_g6k8r"]
+graph_offset = Vector2(-428, 173)
 nodes/MovementASM/node = SubResource("AnimationNodeStateMachine_h17s1")
 nodes/MovementASM/position = Vector2(-180, 160)
 node_connections = [&"output", 0, &"MovementASM"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1881103756]
+[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh")]
 script = ExtResource("1_qjkh3")
+player_mesh = NodePath("PlayerMesh")
 
 [node name="BodyPhysicsCollision" type="CollisionShape3D" parent="." unique_id=448778154]
 shape = SubResource("CapsuleShape3D_yw30f")
@@ -113,16 +120,16 @@ initial_state = NodePath("Grounded/Idle")
 metadata/_custom_type_script = "uid://cm4a4yywol8hm"
 
 [node name="Grounded" type="Node" parent="MovementFSM" unique_id=962563885 node_paths=PackedStringArray("default_state")]
-script = ExtResource("6_gx1jg")
+script = ExtResource("6_ugbui")
 default_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
 [node name="Idle" type="Node" parent="MovementFSM/Grounded" unique_id=427860547]
-script = ExtResource("7_ugbui")
+script = ExtResource("7_je7p5")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="Moving" type="Node" parent="MovementFSM/Grounded" unique_id=1351389041 node_paths=PackedStringArray("default_state")]
-script = ExtResource("6_gx1jg")
+script = ExtResource("8_fm80t")
 default_state = NodePath("Walking")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
@@ -135,7 +142,7 @@ script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="Airborne" type="Node" parent="MovementFSM" unique_id=844173479 node_paths=PackedStringArray("default_state")]
-script = ExtResource("6_gx1jg")
+script = ExtResource("10_ugbui")
 default_state = NodePath("Falling")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
@@ -144,7 +151,7 @@ script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="Jumping" type="Node" parent="MovementFSM/Airborne" unique_id=7968546 node_paths=PackedStringArray("default_state")]
-script = ExtResource("6_gx1jg")
+script = ExtResource("11_fcs02")
 default_state = NodePath("WalkJumping")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
@@ -199,9 +206,13 @@ metadata/_custom_type_script = "uid://lx7i1q6bwxye"
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=28864392]
 
-[node name="MovementFSMTree" type="Tree" parent="HUD" unique_id=651319678]
-offset_right = 99.0
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD" unique_id=638392441]
+offset_right = 100.0
 offset_bottom = 52.0
+theme_override_constants/separation = 1
+
+[node name="MovementFSMTree" type="Tree" parent="HUD/VBoxContainer" unique_id=651319678 node_paths=PackedStringArray("fsm_to_watch")]
+layout_mode = 2
 theme = ExtResource("9_kvlxm")
 allow_search = false
 hide_folding = true
@@ -209,6 +220,19 @@ scroll_horizontal_enabled = false
 scroll_vertical_enabled = false
 auto_tooltip = false
 script = ExtResource("9_5gtgg")
+fsm_to_watch = NodePath("../../../MovementFSM")
+metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
+
+[node name="ActionsFSMTree" type="Tree" parent="HUD/VBoxContainer" unique_id=1872175985 node_paths=PackedStringArray("fsm_to_watch")]
+layout_mode = 2
+theme = ExtResource("9_kvlxm")
+allow_search = false
+hide_folding = true
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
+auto_tooltip = false
+script = ExtResource("9_5gtgg")
+fsm_to_watch = NodePath("../../../ActionsFSM")
 metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
 
 [editable path="PlayerMesh"]
