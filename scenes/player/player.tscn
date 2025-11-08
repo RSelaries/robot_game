@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=59 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
@@ -19,7 +19,11 @@
 [ext_resource type="Script" uid="uid://bvqp284nyeb44" path="res://scenes/player/states/airborne.gd" id="10_ugbui"]
 [ext_resource type="Script" uid="uid://duymi0wq38b31" path="res://scenes/player/jumping.gd" id="11_fcs02"]
 [ext_resource type="Script" uid="uid://cuuk0gmh2bta2" path="res://scenes/player/states/sprint_jumping.gd" id="15_8ydkj"]
+[ext_resource type="Script" uid="uid://c36j1y7hacaex" path="res://scenes/player/states/no_action.gd" id="17_3j4b4"]
 [ext_resource type="Script" uid="uid://ct1nqkvr8f82q" path="res://scenes/player/prop_watcher.gd" id="17_uf5tr"]
+[ext_resource type="Script" uid="uid://btj2r5mbga8vp" path="res://scenes/player/states/action_key_1.gd" id="18_yj68g"]
+[ext_resource type="Script" uid="uid://1o1fe5huic8p" path="res://scenes/player/states/generic_action_1.gd" id="19_ioxgp"]
+[ext_resource type="Script" uid="uid://ckixyr2ap8g58" path="res://scenes/player/states/generic_action_2.gd" id="21_cnsyf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
 radius = 0.25830078
@@ -188,19 +192,20 @@ nodes/MovementASM/node = SubResource("AnimationNodeStateMachine_8ydkj")
 nodes/MovementASM/position = Vector2(-140, 160)
 node_connections = [&"output", 0, &"MovementASM"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision")]
+[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision", "interaction_shapecast")]
 script = ExtResource("1_qjkh3")
 base_speed = 2.0
 player_mesh = NodePath("PlayerMesh")
 property_watcher = NodePath("HUD/PropertyWatcher")
 held_box_collision = NodePath("HeldBoxCollision")
+interaction_shapecast = NodePath("PlayerMesh/Armature/Skeleton3D/BoneAttachment3D/InteractionShapeCast3D")
 
 [node name="BodyPhysicsCollision" type="CollisionShape3D" parent="." unique_id=448778154]
 shape = SubResource("CapsuleShape3D_yw30f")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
 [node name="HeldBoxCollision" type="CollisionShape3D" parent="." unique_id=959410043]
-transform = Transform3D(0.9999939, 0, -1.7881155e-07, 0, 0.99998605, 0, 1.7881285e-07, 0, 0.99998665, 0, 0.1785183, -0.015029911)
+transform = Transform3D(0.9999939, 0, -1.7881146e-07, 0, 0.99998605, 0, 1.7881285e-07, 0, 0.9999862, 0, 0.1785183, -0.015029911)
 shape = SubResource("BoxShape3D_uf5tr")
 disabled = true
 debug_fill = false
@@ -216,7 +221,11 @@ metadata/_custom_type_script = "uid://cxw3k38ixgrb5"
 [node name="PlayerMesh" parent="." unique_id=1031286276 instance=ExtResource("1_yw30f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.66282046, 0.025740147)
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1031286276, 379554955) index="1" unique_id=1694849618]
+[node name="Skeleton3D" parent="PlayerMesh/Armature" parent_id_path=PackedInt32Array(1031286276, 278895212) index="0" unique_id=379554955]
+bones/2/scale = Vector3(0.99999994, 1.0000001, 1.0000007)
+bones/4/scale = Vector3(1, 0.9999994, 1.0000008)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" index="1" unique_id=1694849618]
 transform = Transform3D(1, 7.1054274e-15, -2.3841864e-07, -3.2626865e-08, 0.9905921, -0.13684694, 2.3617564e-07, 0.1368469, 0.9905922, 5.3245905e-16, 1.0776696, 0.117723964)
 bone_name = "Head"
 bone_idx = 7
@@ -225,15 +234,16 @@ bone_idx = 7
 transform = Transform3D(1, -3.264569e-08, -2.2455424e-09, 3.2645687e-08, 0.9905814, 0.13692594, -2.2455993e-09, -0.13692592, 0.99058133, 1.34325155e-08, -0.40782794, 0.05634003)
 shape = SubResource("CapsuleShape3D_8ydkj")
 target_position = Vector3(0, 0, 0.8)
+collision_mask = 2
 script = ExtResource("4_8ydkj")
 metadata/_custom_type_script = "uid://co1h5yj8mqdm0"
 
-[node name="LeftHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1031286276, 379554955) index="2" unique_id=1893219202]
+[node name="LeftHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" index="2" unique_id=1893219202]
 transform = Transform3D(-0.62649864, -0.116581224, 0.7706545, 0.6609278, -0.6035417, 0.4459958, 0.41312727, 0.7887628, 0.45516962, 0.22031204, 0.84133875, -0.040770058)
 bone_name = "Hand.L"
 bone_idx = 14
 
-[node name="RightHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1031286276, 379554955) index="3" unique_id=1807193486]
+[node name="RightHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" index="3" unique_id=1807193486]
 transform = Transform3D(-0.62649816, 0.11658106, -0.7706546, -0.66092783, -0.6035413, 0.44599563, -0.41312733, 0.78876257, 0.45516932, -0.22031204, 0.84133875, -0.040770058)
 bone_name = "Hand.R"
 bone_idx = 18
@@ -315,32 +325,45 @@ initial_state = NodePath("NoAction")
 metadata/_custom_type_script = "uid://cm4a4yywol8hm"
 
 [node name="NoAction" type="Node" parent="ActionsFSM" unique_id=1373437551]
-script = ExtResource("7_ugbui")
+script = ExtResource("17_3j4b4")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
-[node name="Talking" type="Node" parent="ActionsFSM" unique_id=1658899141]
-script = ExtResource("7_ugbui")
-metadata/_custom_type_script = "uid://dero042hjjbjp"
-
-[node name="BoxActions" type="Node" parent="ActionsFSM" unique_id=2045358627 node_paths=PackedStringArray("default_state")]
-script = ExtResource("6_gx1jg")
-default_state = NodePath("LiftBoxUp")
+[node name="ActionKey1" type="Node" parent="ActionsFSM" unique_id=1344430372 node_paths=PackedStringArray("default_state")]
+script = ExtResource("18_yj68g")
+default_state = NodePath("GenericAction1")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
-[node name="LiftBoxUp" type="Node" parent="ActionsFSM/BoxActions" unique_id=702326395]
+[node name="Talking" type="Node" parent="ActionsFSM/ActionKey1" unique_id=1658899141]
 script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
-[node name="PutBoxDown" type="Node" parent="ActionsFSM/BoxActions" unique_id=287466887]
+[node name="LiftBoxUp" type="Node" parent="ActionsFSM/ActionKey1" unique_id=702326395]
 script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
-[node name="StoreBox" type="Node" parent="ActionsFSM/BoxActions" unique_id=467370479]
+[node name="PutBoxDown" type="Node" parent="ActionsFSM/ActionKey1" unique_id=287466887]
 script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
-[node name="GetStoredBox" type="Node" parent="ActionsFSM/BoxActions" unique_id=1959208565]
+[node name="GenericAction1" type="Node" parent="ActionsFSM/ActionKey1" unique_id=600468271]
+script = ExtResource("19_ioxgp")
+metadata/_custom_type_script = "uid://dero042hjjbjp"
+
+[node name="ActionKey2" type="Node" parent="ActionsFSM" unique_id=1401014901 node_paths=PackedStringArray("default_state")]
+script = ExtResource("6_gx1jg")
+default_state = NodePath("GenericAction2")
+metadata/_custom_type_script = "uid://bq223ht2poita"
+
+[node name="StoreBox" type="Node" parent="ActionsFSM/ActionKey2" unique_id=467370479]
 script = ExtResource("7_ugbui")
+metadata/_custom_type_script = "uid://dero042hjjbjp"
+
+[node name="GetStoredBox" type="Node" parent="ActionsFSM/ActionKey2" unique_id=1959208565]
+script = ExtResource("7_ugbui")
+metadata/_custom_type_script = "uid://dero042hjjbjp"
+
+[node name="GenericAction2" type="Node" parent="ActionsFSM/ActionKey2" unique_id=1468085357]
+script = ExtResource("21_cnsyf")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=28864392]

@@ -11,6 +11,8 @@ signal state_changed(to: StateBase)
 	set(value):
 		initial_state = value
 		update_configuration_warnings()
+@export_group("Debug")
+@export var disabled: bool = false
 
 
 var active_state: StateBase = null:
@@ -28,6 +30,7 @@ var _states: Array[StateBase]
 # Private Functions
 # ==============================================================================
 func _ready() -> void:
+	if disabled: return
 	child_order_changed.connect(_on_child_order_changed)
 	
 	if Engine.is_editor_hint(): return # The rest only run in game
@@ -107,6 +110,10 @@ func get_state_ancestors_name(state: StateBase) -> Array[String]:
 	return ancestors
 
 
+func get_state(state_name: String) -> StateBase:
+	return _get_state_from_name(state_name)
+
+
 ## [param state] must either be a [String] name of the state or a direct
 ## reference to the [StateBase]. If a [String] name is passed, it must either
 ## be the exact [param name] of the node (case sensitive) or a 'snake_case'
@@ -114,6 +121,7 @@ func get_state_ancestors_name(state: StateBase) -> Array[String]:
 ## [codeblock]change_state("CrouchWalking")[/codeblock] or [codeblock]
 ## change_state("crouch_walking)[/codeblock]
 func change_state(state: Variant, called_by: Node = null) -> void:
+	if disabled: return
 	if called_by: print(called_by)
 	
 	var state_ref: StateBase

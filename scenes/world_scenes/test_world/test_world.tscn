@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bv7lknf1s8r0r"]
+[gd_scene load_steps=12 format=3 uid="uid://bv7lknf1s8r0r"]
 
 [ext_resource type="Script" uid="uid://b74sqgr6t3p8y" path="res://scenes/world_scenes/world_scene_base.gd" id="1_idnf6"]
 [ext_resource type="PackedScene" uid="uid://bqxq8g2clwngp" path="res://scenes/player/player.tscn" id="2_4dr8e"]
 [ext_resource type="Material" uid="uid://dqhomnpgmc1nf" path="res://assets/resources/materials/foliage/grass_underlay.tres" id="2_ohy5h"]
 [ext_resource type="Shader" uid="uid://b5n026j7i03rb" path="res://assets/shaders/spatials/prototype_grid.gdshader" id="2_sgfbr"]
 [ext_resource type="Material" uid="uid://cxiqpcsbri12w" path="res://assets/resources/materials/misc/chrome_color.tres" id="5_ohy5h"]
+[ext_resource type="Script" uid="uid://da5sjm5iatkub" path="res://scenes/world_scenes/test_world/test_interact_1.gd" id="6_7mfj5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_idnf6"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -42,6 +43,9 @@ shader_parameter/checkered_blend_color = 0.1
 shader_parameter/use_inside_uv = false
 shader_parameter/use_albedo_color = false
 shader_parameter/albedo_alpha = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l6al4"]
+size = Vector3(1, 2.204834, 1)
 
 [node name="TestWorld" type="Node3D" unique_id=941300603]
 script = ExtResource("1_idnf6")
@@ -81,3 +85,15 @@ transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -4.25, 1
 material_override = ExtResource("5_ohy5h")
 use_collision = true
 size = Vector3(3, 3, 1.5)
+
+[node name="InteractableArea3D" type="Area3D" parent="." unique_id=32213581]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1760309, 1.0000002, -1.3366959)
+script = ExtResource("6_7mfj5")
+metadata/_custom_type_script = "uid://dfxhuepuiqmxm"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableArea3D" unique_id=188811327]
+shape = SubResource("BoxShape3D_l6al4")
+debug_color = Color(0, 0.60038817, 0.70000815, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="InteractableArea3D" unique_id=131013133]
+size = Vector3(1, 2.1896973, 1)

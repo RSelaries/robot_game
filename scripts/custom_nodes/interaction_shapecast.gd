@@ -1,3 +1,4 @@
+@tool
 class_name InteractionShapeCast3D
 extends ShapeCast3D
 
@@ -5,21 +6,24 @@ extends ShapeCast3D
 @export var multiple_interaction: bool = false
 
 
-var interactable_components: Array[Node3D] = []
+var interactable_component: InteractableArea3D: set = _set_interactable_component
+
+
+func _ready() -> void:
+	collision_mask = 2
 
 
 func _physics_process(_delta: float) -> void:
-	interactable_components.clear()
-	
+	if Engine.is_editor_hint(): return
 	if not is_colliding(): return
 	
-	# If multiple interactions
-	if multiple_interaction:
-		for i in get_collision_count():
-			var interactable := get_collider(i)
-			interactable_components.append(interactable)
-	
-	# If single Interaction
-	else:
-		var interactable := get_collider(0)
-		interactable_components.append(interactable)
+	var interactable := get_collider(0)
+	if interactable is InteractableArea3D:
+		interactable_component = interactable
+
+
+func _set_interactable_component(value) -> void:
+	if interactable_component:
+		interactable_component.focused = false
+	interactable_component = value
+	interactable_component.focused = true

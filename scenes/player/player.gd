@@ -16,12 +16,14 @@ extends CharacterBody3D
 @export var player_mesh: Node3D
 @export var property_watcher: PropertyWatcher
 @export var held_box_collision: CollisionShape3D
+@export var interaction_shapecast: InteractionShapeCast3D
 
 
 var input_dir: Vector2
 var movement_dir: Vector2
 var sprint_speed_modifier: float = 0.0
-
+var held_object: PickableArea3D = null
+var stored_object: PickableArea3D = null
 var velocity_length:
 	get(): return velocity.length()
 
