@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bv7lknf1s8r0r"]
+[gd_scene load_steps=13 format=3 uid="uid://bv7lknf1s8r0r"]
 
 [ext_resource type="Script" uid="uid://b74sqgr6t3p8y" path="res://scenes/world_scenes/world_scene_base.gd" id="1_idnf6"]
 [ext_resource type="PackedScene" uid="uid://bqxq8g2clwngp" path="res://scenes/player/player.tscn" id="2_4dr8e"]
@@ -47,6 +47,9 @@ shader_parameter/albedo_alpha = 0.5
 [sub_resource type="BoxShape3D" id="BoxShape3D_l6al4"]
 size = Vector3(1, 2.204834, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mfj5"]
+albedo_color = Color(0.756537, 0.15499401, 0.3531549, 1)
+
 [node name="TestWorld" type="Node3D" unique_id=941300603]
 script = ExtResource("1_idnf6")
 metadata/_custom_type_script = "uid://b74sqgr6t3p8y"
@@ -88,6 +91,8 @@ size = Vector3(3, 3, 1.5)
 
 [node name="InteractableArea3D" type="Area3D" parent="." unique_id=32213581]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1760309, 1.0000002, -1.3366959)
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("6_7mfj5")
 metadata/_custom_type_script = "uid://dfxhuepuiqmxm"
 
@@ -96,4 +101,6 @@ shape = SubResource("BoxShape3D_l6al4")
 debug_color = Color(0, 0.60038817, 0.70000815, 1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="InteractableArea3D" unique_id=131013133]
+use_collision = true
 size = Vector3(1, 2.1896973, 1)
+material = SubResource("StandardMaterial3D_7mfj5")

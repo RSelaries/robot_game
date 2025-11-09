@@ -15,16 +15,18 @@ class WatchedProperty:
 func _physics_process(_delta: float) -> void:
 	for prop in watched_properties:
 		var prop_value = prop.object.get_indexed(prop.watched_property)
-		var prop_text: String = ""
+		var prop_text: String = " "
 		
 		if prop_value is float:
-			prop_text += " " + str(snapped(prop_value, 0.1))
+			prop_text += str(snapped(prop_value, 0.1))
 		elif prop_value is Vector3:
-			prop_text += " x: " + str(snapped(prop_value.x, 0.1))
+			prop_text += "x: " + str(snapped(prop_value.x, 0.1))
 			prop_text += " y: " + str(snapped(prop_value.y, 0.1))
 			prop_text += " z: " + str(snapped(prop_value.z, 0.1))
+		elif prop_value == null:
+			prop_text += "null"
 		else:
-			prop_text = str(prop_value)
+			prop_text += str(prop_value)
 		
 		prop.prop_value_label.text = prop_text
 

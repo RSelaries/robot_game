@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=61 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://btj2r5mbga8vp" path="res://scenes/player/states/action_key_1.gd" id="18_yj68g"]
 [ext_resource type="Script" uid="uid://1o1fe5huic8p" path="res://scenes/player/states/generic_action_1.gd" id="19_ioxgp"]
 [ext_resource type="Script" uid="uid://ckixyr2ap8g58" path="res://scenes/player/states/generic_action_2.gd" id="21_cnsyf"]
+[ext_resource type="Texture2D" uid="uid://d1mi4fl4ma6xl" path="res://assets/textures/shadow.png" id="25_007i1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
 radius = 0.25830078
@@ -192,6 +193,9 @@ nodes/MovementASM/node = SubResource("AnimationNodeStateMachine_8ydkj")
 nodes/MovementASM/position = Vector2(-140, 160)
 node_connections = [&"output", 0, &"MovementASM"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_cnsyf"]
+size = Vector3(0.1, 0.1, 0.1)
+
 [node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision", "interaction_shapecast")]
 script = ExtResource("1_qjkh3")
 base_speed = 2.0
@@ -230,12 +234,14 @@ transform = Transform3D(1, 7.1054274e-15, -2.3841864e-07, -3.2626865e-08, 0.9905
 bone_name = "Head"
 bone_idx = 7
 
-[node name="InteractionShapeCast3D" type="ShapeCast3D" parent="PlayerMesh/Armature/Skeleton3D/BoneAttachment3D" unique_id=835055237]
+[node name="InteractionShapeCast3D" type="ShapeCast3D" parent="PlayerMesh/Armature/Skeleton3D/BoneAttachment3D" unique_id=835055237 node_paths=PackedStringArray("player")]
 transform = Transform3D(1, -3.264569e-08, -2.2455424e-09, 3.2645687e-08, 0.9905814, 0.13692594, -2.2455993e-09, -0.13692592, 0.99058133, 1.34325155e-08, -0.40782794, 0.05634003)
 shape = SubResource("CapsuleShape3D_8ydkj")
 target_position = Vector3(0, 0, 0.8)
 collision_mask = 2
+collide_with_areas = true
 script = ExtResource("4_8ydkj")
+player = NodePath("../../../../..")
 metadata/_custom_type_script = "uid://co1h5yj8mqdm0"
 
 [node name="LeftHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" index="2" unique_id=1893219202]
@@ -410,5 +416,17 @@ auto_tooltip = false
 script = ExtResource("9_5gtgg")
 fsm_to_watch = NodePath("../../../MovementFSM")
 metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
+
+[node name="Shadow" type="SpringArm3D" parent="." unique_id=1468902414]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.619429, 0)
+shape = SubResource("BoxShape3D_cnsyf")
+spring_length = 1000.0
+
+[node name="Node3D" type="Node3D" parent="Shadow" unique_id=185719537]
+
+[node name="Decal" type="Decal" parent="Shadow/Node3D" unique_id=1786731206]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 4.240034e-08, 0.47472155)
+size = Vector3(0.8, 1.3639703, 0.8)
+texture_albedo = ExtResource("25_007i1")
 
 [editable path="PlayerMesh"]

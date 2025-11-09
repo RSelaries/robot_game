@@ -1,2 +1,3 @@
+@tool
 class_name PickableArea3D
 extends InteractableArea3D
