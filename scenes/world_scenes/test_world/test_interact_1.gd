@@ -13,3 +13,7 @@ func _gained_focus() -> void:
 func _lost_focus() -> void:
 	var stdr_mat: StandardMaterial3D = csg_box_3d.material
 	stdr_mat.albedo_color = Color("c1285a")
+
+
+func _interacted_with() -> void:
+	print("Interacted with monolith")

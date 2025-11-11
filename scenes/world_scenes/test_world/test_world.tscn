@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bv7lknf1s8r0r"]
+[gd_scene load_steps=29 format=3 uid="uid://bv7lknf1s8r0r"]
 
 [ext_resource type="Script" uid="uid://b74sqgr6t3p8y" path="res://scenes/world_scenes/world_scene_base.gd" id="1_idnf6"]
 [ext_resource type="PackedScene" uid="uid://bqxq8g2clwngp" path="res://scenes/player/player.tscn" id="2_4dr8e"]
@@ -6,6 +6,14 @@
 [ext_resource type="Shader" uid="uid://b5n026j7i03rb" path="res://assets/shaders/spatials/prototype_grid.gdshader" id="2_sgfbr"]
 [ext_resource type="Material" uid="uid://cxiqpcsbri12w" path="res://assets/resources/materials/misc/chrome_color.tres" id="5_ohy5h"]
 [ext_resource type="Script" uid="uid://da5sjm5iatkub" path="res://scenes/world_scenes/test_world/test_interact_1.gd" id="6_7mfj5"]
+[ext_resource type="Script" uid="uid://bh57idn6g8no8" path="res://scripts/custom_nodes/components/interactable_areas/pickable_area_3d.gd" id="7_l6al4"]
+[ext_resource type="Script" uid="uid://bbpjkqyrxjvk1" path="res://scripts/custom_nodes/unproject_marker.gd" id="7_pnl33"]
+[ext_resource type="FontFile" uid="uid://rfmiixthsa1y" path="res://assets/fonts/Pixeled.ttf" id="8_3ivs2"]
+[ext_resource type="Texture2D" uid="uid://cafjpnelbk43u" path="res://assets/textures/down_arrow.png" id="9_j8krb"]
+[ext_resource type="Script" uid="uid://tk60p5r0nqcf" path="res://scripts/custom_nodes/components/interactable_areas/talk_area_3d.gd" id="11_ksd71"]
+[ext_resource type="Script" uid="uid://d2o7lmmeecvp2" path="res://addons/quest_manager/components/quest_component.gd" id="12_hbl5r"]
+[ext_resource type="Script" uid="uid://b1phaoxe8da4o" path="res://addons/quest_manager/resources/quest_resource.gd" id="13_btrep"]
+[ext_resource type="Script" uid="uid://ckx3kbgkvl2pb" path="res://addons/quest_manager/resources/quest_item.gd" id="13_hml7c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_idnf6"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -45,14 +53,47 @@ shader_parameter/use_albedo_color = false
 shader_parameter/albedo_alpha = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l6al4"]
-size = Vector3(1, 2.204834, 1)
+size = Vector3(0.9885254, 2.204834, 0.98535156)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mfj5"]
 albedo_color = Color(0.756537, 0.15499401, 0.3531549, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_j8krb"]
+font = ExtResource("8_3ivs2")
+font_size = 5
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pnl33"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l6al4"]
+albedo_color = Color(1, 0.38039216, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbl5r"]
+albedo_color = Color(0.9786077, 0.6069559, 3.85046e-07, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ksd71"]
+size = Vector3(0.4, 1, 0.4)
+
+[sub_resource type="Resource" id="Resource_j0njx"]
+script = ExtResource("13_hml7c")
+metadata/_custom_type_script = "uid://ckx3kbgkvl2pb"
+
+[sub_resource type="Resource" id="Resource_trlpp"]
+script = ExtResource("13_hml7c")
+metadata/_custom_type_script = "uid://ckx3kbgkvl2pb"
+
+[sub_resource type="Resource" id="Resource_hml7c"]
+script = ExtResource("13_btrep")
+quest_item_stack = Array[ExtResource("13_hml7c")]([SubResource("Resource_j0njx"), SubResource("Resource_trlpp")])
+metadata/_custom_type_script = "uid://b1phaoxe8da4o"
+
 [node name="TestWorld" type="Node3D" unique_id=941300603]
 script = ExtResource("1_idnf6")
 metadata/_custom_type_script = "uid://b74sqgr6t3p8y"
+
+[node name="- Environment -------" type="Node" parent="." unique_id=1974084139]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1702645474]
 transform = Transform3D(0.480897, -0.7593113, 0.43838847, 2.7805946e-08, 0.49999994, 0.86602545, -0.8767771, -0.41646904, 0.24044845, 0, 0, 0)
@@ -61,15 +102,14 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=920961208]
 environment = SubResource("Environment_sgfbr")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=315204120]
+[node name="- World Elements -----" type="Node" parent="." unique_id=768278146]
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=315204120]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 material_override = ExtResource("2_ohy5h")
 use_collision = true
 size = Vector3(32, 0.5, 32)
 material = SubResource("ShaderMaterial_yk5tk")
-
-[node name="Player" parent="." unique_id=1040078440 instance=ExtResource("2_4dr8e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.665, 0)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=2057682821]
 transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -2.5, 0.5, -0.5)
@@ -89,12 +129,14 @@ material_override = ExtResource("5_ohy5h")
 use_collision = true
 size = Vector3(3, 3, 1.5)
 
-[node name="InteractableArea3D" type="Area3D" parent="." unique_id=32213581]
+[node name="InteractableArea3D" type="Area3D" parent="." unique_id=32213581 node_paths=PackedStringArray("show_on_focus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1760309, 1.0000002, -1.3366959)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("6_7mfj5")
+show_on_focus = [NodePath("UnprojectMarker")]
 metadata/_custom_type_script = "uid://dfxhuepuiqmxm"
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableArea3D" unique_id=188811327]
 shape = SubResource("BoxShape3D_l6al4")
@@ -104,3 +146,209 @@ debug_color = Color(0, 0.60038817, 0.70000815, 1)
 use_collision = true
 size = Vector3(1, 2.1896973, 1)
 material = SubResource("StandardMaterial3D_7mfj5")
+
+[node name="UnprojectMarker" type="Marker3D" parent="InteractableArea3D" unique_id=2075128699 node_paths=PackedStringArray("node_to_project")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1013532, 0)
+visible = false
+script = ExtResource("7_pnl33")
+node_to_project = NodePath("Control2")
+metadata/_custom_type_script = "uid://bbpjkqyrxjvk1"
+
+[node name="Control2" type="Control" parent="InteractableArea3D/UnprojectMarker" unique_id=1380808156]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Control" type="VBoxContainer" parent="InteractableArea3D/UnprojectMarker/Control2" unique_id=792626284]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -29.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -1
+
+[node name="Label" type="Label" parent="InteractableArea3D/UnprojectMarker/Control2/Control" unique_id=1839773266]
+layout_mode = 2
+text = "INTERACT"
+label_settings = SubResource("LabelSettings_j8krb")
+
+[node name="TextureRect" type="TextureRect" parent="InteractableArea3D/UnprojectMarker/Control2/Control" unique_id=240101632]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_j8krb")
+stretch_mode = 5
+
+[node name="PickableArea3D" type="Area3D" parent="." unique_id=315371973 node_paths=PackedStringArray("show_on_focus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8288794, 0.2, 1.8709099)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_l6al4")
+show_on_focus = [NodePath("UnprojectMarker")]
+metadata/_custom_type_script = "uid://bh57idn6g8no8"
+metadata/_edit_group_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="PickableArea3D" unique_id=1114621410]
+size = Vector3(0.4, 0.4, 0.4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickableArea3D" unique_id=273713509]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="UnprojectMarker" type="Marker3D" parent="PickableArea3D" unique_id=2086531308 node_paths=PackedStringArray("node_to_project")]
+visible = false
+script = ExtResource("7_pnl33")
+node_to_project = NodePath("Control2")
+metadata/_custom_type_script = "uid://bbpjkqyrxjvk1"
+
+[node name="Control2" type="Control" parent="PickableArea3D/UnprojectMarker" unique_id=1352384648]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Control" type="VBoxContainer" parent="PickableArea3D/UnprojectMarker/Control2" unique_id=788329804]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -14.5
+offset_top = -35.0
+offset_right = 14.5
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -1
+
+[node name="Label" type="Label" parent="PickableArea3D/UnprojectMarker/Control2/Control" unique_id=1369746416]
+layout_mode = 2
+text = "PICK UP"
+label_settings = SubResource("LabelSettings_j8krb")
+
+[node name="TextureRect" type="TextureRect" parent="PickableArea3D/UnprojectMarker/Control2/Control" unique_id=1644762458]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_j8krb")
+stretch_mode = 5
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=2081596780]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.839, 0.2, 1.861)
+metadata/_edit_group_ = true
+
+[node name="PickableArea3D" type="Area3D" parent="RigidBody3D" unique_id=1316950423 node_paths=PackedStringArray("show_on_focus")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_l6al4")
+pickable_type = 2
+show_on_focus = [NodePath("../UnprojectMarker")]
+metadata/_custom_type_script = "uid://bh57idn6g8no8"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/PickableArea3D" unique_id=1211444319]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="RigidBody3D" unique_id=964288412]
+size = Vector3(0.4, 0.4, 0.4)
+material = SubResource("StandardMaterial3D_l6al4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1560158998]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="UnprojectMarker" type="Marker3D" parent="RigidBody3D" unique_id=2127582498 node_paths=PackedStringArray("node_to_project")]
+visible = false
+script = ExtResource("7_pnl33")
+node_to_project = NodePath("Control2")
+metadata/_custom_type_script = "uid://bbpjkqyrxjvk1"
+
+[node name="Control2" type="Control" parent="RigidBody3D/UnprojectMarker" unique_id=729161813]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Control" type="VBoxContainer" parent="RigidBody3D/UnprojectMarker/Control2" unique_id=1189525989]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -1
+
+[node name="Label" type="Label" parent="RigidBody3D/UnprojectMarker/Control2/Control" unique_id=616711959]
+layout_mode = 2
+text = "PICK UP PHYSICS"
+label_settings = SubResource("LabelSettings_j8krb")
+
+[node name="TextureRect" type="TextureRect" parent="RigidBody3D/UnprojectMarker/Control2/Control" unique_id=1953034605]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_j8krb")
+stretch_mode = 5
+
+[node name="- Entities ----------" type="Node" parent="." unique_id=2037658388]
+
+[node name="Player" parent="." unique_id=1040078440 instance=ExtResource("2_4dr8e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.665, 0)
+
+[node name="TestNPCQuest" type="Area3D" parent="." unique_id=1639967743 node_paths=PackedStringArray("show_on_focus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6247787, 0.49391174, 0.5850792)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("11_ksd71")
+show_on_focus = [NodePath("UnprojectMarker")]
+metadata/_custom_type_script = "uid://tk60p5r0nqcf"
+metadata/_edit_group_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TestNPCQuest" unique_id=92676422]
+use_collision = true
+size = Vector3(0.4, 1, 0.4)
+material = SubResource("StandardMaterial3D_hbl5r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestNPCQuest" unique_id=913688225]
+shape = SubResource("BoxShape3D_ksd71")
+
+[node name="UnprojectMarker" type="Marker3D" parent="TestNPCQuest" unique_id=1828914900 node_paths=PackedStringArray("node_to_project")]
+visible = false
+script = ExtResource("7_pnl33")
+node_to_project = NodePath("Control2")
+metadata/_custom_type_script = "uid://bbpjkqyrxjvk1"
+
+[node name="Control2" type="Control" parent="TestNPCQuest/UnprojectMarker" unique_id=1367993000]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Control" type="VBoxContainer" parent="TestNPCQuest/UnprojectMarker/Control2" unique_id=4291965]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -1
+
+[node name="Label" type="Label" parent="TestNPCQuest/UnprojectMarker/Control2/Control" unique_id=1038195134]
+layout_mode = 2
+text = "TALK"
+label_settings = SubResource("LabelSettings_j8krb")
+
+[node name="TextureRect" type="TextureRect" parent="TestNPCQuest/UnprojectMarker/Control2/Control" unique_id=1743928454]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_j8krb")
+stretch_mode = 5
+
+[node name="QuestComponent" type="Node" parent="TestNPCQuest" unique_id=1951605542]
+script = ExtResource("12_hbl5r")
+quest = SubResource("Resource_hml7c")
+metadata/_custom_type_script = "uid://d2o7lmmeecvp2"

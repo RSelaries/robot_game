@@ -1,13 +1,12 @@
-[gd_scene load_steps=61 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=86 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
-[ext_resource type="Script" uid="uid://cxw3k38ixgrb5" path="res://scripts/custom_nodes/components/follow_two_components.gd" id="2_lgqa7"]
+[ext_resource type="Script" uid="uid://cxw3k38ixgrb5" path="res://scripts/custom_nodes/components/follow_components/follow_two_components.gd" id="2_lgqa7"]
 [ext_resource type="Shader" uid="uid://dihrx78lkr8a1" path="res://assets/shaders/spatials/pixelart_edge_detect.gdshader" id="3_0owmy"]
 [ext_resource type="Script" uid="uid://co1h5yj8mqdm0" path="res://scripts/custom_nodes/interaction_shapecast.gd" id="4_8ydkj"]
 [ext_resource type="Script" uid="uid://bvghbptl0smqe" path="res://scenes/player/edge_detect_shader.gd" id="4_qek5x"]
 [ext_resource type="Script" uid="uid://cm4a4yywol8hm" path="res://scripts/custom_nodes/state_machine_overrides/player_state_machine.gd" id="5_je7p5"]
-[ext_resource type="Script" uid="uid://bq223ht2poita" path="res://scripts/custom_nodes/state_machine_overrides/player_compound_state.gd" id="6_gx1jg"]
 [ext_resource type="Script" uid="uid://4ghmh77xi4xu" path="res://scenes/player/states/grounded.gd" id="6_ugbui"]
 [ext_resource type="Script" uid="uid://cmnrkomo3al5" path="res://scenes/player/states/idle.gd" id="7_je7p5"]
 [ext_resource type="Script" uid="uid://dero042hjjbjp" path="res://scripts/custom_nodes/state_machine_overrides/player_atomic_state.gd" id="7_ugbui"]
@@ -17,25 +16,29 @@
 [ext_resource type="Script" uid="uid://5tyfdtkc6po6" path="res://scenes/player/states/walking.gd" id="9_myrg7"]
 [ext_resource type="Script" uid="uid://ckdemtj5gcev8" path="res://scenes/player/states/sprinting.gd" id="10_kvlxm"]
 [ext_resource type="Script" uid="uid://bvqp284nyeb44" path="res://scenes/player/states/airborne.gd" id="10_ugbui"]
-[ext_resource type="Script" uid="uid://duymi0wq38b31" path="res://scenes/player/jumping.gd" id="11_fcs02"]
+[ext_resource type="Script" uid="uid://duymi0wq38b31" path="res://scenes/player/states/jumping.gd" id="11_fcs02"]
 [ext_resource type="Script" uid="uid://cuuk0gmh2bta2" path="res://scenes/player/states/sprint_jumping.gd" id="15_8ydkj"]
 [ext_resource type="Script" uid="uid://c36j1y7hacaex" path="res://scenes/player/states/no_action.gd" id="17_3j4b4"]
-[ext_resource type="Script" uid="uid://ct1nqkvr8f82q" path="res://scenes/player/prop_watcher.gd" id="17_uf5tr"]
+[ext_resource type="Script" uid="uid://ct1nqkvr8f82q" path="res://scripts/custom_nodes/prop_watcher.gd" id="17_uf5tr"]
 [ext_resource type="Script" uid="uid://btj2r5mbga8vp" path="res://scenes/player/states/action_key_1.gd" id="18_yj68g"]
+[ext_resource type="Script" uid="uid://daspn6ole5cg1" path="res://scenes/player/states/lift_box_up.gd" id="19_6cv16"]
 [ext_resource type="Script" uid="uid://1o1fe5huic8p" path="res://scenes/player/states/generic_action_1.gd" id="19_ioxgp"]
+[ext_resource type="Script" uid="uid://c31ssgjfxfob6" path="res://scenes/player/states/put_box_down.gd" id="20_j4nxn"]
 [ext_resource type="Script" uid="uid://ckixyr2ap8g58" path="res://scenes/player/states/generic_action_2.gd" id="21_cnsyf"]
+[ext_resource type="Script" uid="uid://mr747imet3lw" path="res://scenes/player/states/action_key_2.gd" id="22_j4nxn"]
+[ext_resource type="Script" uid="uid://cgp3m6n0ob8bo" path="res://scenes/player/states/store_box.gd" id="23_28m0y"]
 [ext_resource type="Texture2D" uid="uid://d1mi4fl4ma6xl" path="res://assets/textures/shadow.png" id="25_007i1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
-radius = 0.25830078
+radius = 0.2265625
 height = 1.3320313
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uf5tr"]
 size = Vector3(0.4, 0.4, 0.4)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ydkj"]
-radius = 0.1
-height = 1.0
+radius = 0.2
+height = 1.3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qek5x"]
 render_priority = 0
@@ -50,6 +53,105 @@ shader_parameter/lineShadow = 0.55
 material = SubResource("ShaderMaterial_qek5x")
 flip_faces = true
 size = Vector2(2, 2)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iqsei"]
+animation = &"PutBoxDown2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j4nxn"]
+animation = &"HoldBox"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uniwh"]
+animation = &"LiftBox1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tffgl"]
+animation = &"LiftBox2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pk8ii"]
+animation = &"StoreBox1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5mf0n"]
+animation = &"StoreBox2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4hvnv"]
+animation = &"GetStoredBox1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bbmj2"]
+animation = &"GetStoredBox2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kxw46"]
+animation = &"PutBoxDown1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_28m0y"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_uniwh"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_pk8ii"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_j4nxn"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_j4nxn"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_iqsei"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_5mf0n"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_4hvnv"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_tffgl"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_28m0y"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_j4nxn"]
+graph_offset = Vector2(-2198.9756, -180.82721)
+nodes/output/position = Vector2(680, 60)
+nodes/lift_box_1/node = SubResource("AnimationNodeOneShot_j4nxn")
+nodes/lift_box_1/position = Vector2(-1700, 60)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_28m0y")
+nodes/Animation/position = Vector2(-2080, -80)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_j4nxn")
+"nodes/Animation 2/position" = Vector2(-2080, 100)
+nodes/holding_box/node = SubResource("AnimationNodeBlend2_j4nxn")
+nodes/holding_box/position = Vector2(-1900, -40)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_uniwh")
+"nodes/Animation 3/position" = Vector2(-1900, 220)
+nodes/lift_box_2/node = SubResource("AnimationNodeOneShot_iqsei")
+nodes/lift_box_2/position = Vector2(-1420, 60)
+nodes/store_box_1/node = SubResource("AnimationNodeOneShot_tffgl")
+nodes/store_box_1/position = Vector2(-1140, 60)
+nodes/store_box_2/node = SubResource("AnimationNodeOneShot_28m0y")
+nodes/store_box_2/position = Vector2(-860, 60)
+nodes/get_stored_box_1/node = SubResource("AnimationNodeOneShot_uniwh")
+nodes/get_stored_box_1/position = Vector2(-540, 60)
+nodes/get_stored_box_2/node = SubResource("AnimationNodeOneShot_pk8ii")
+nodes/get_stored_box_2/position = Vector2(-200, 60)
+nodes/put_box_down_1/node = SubResource("AnimationNodeOneShot_5mf0n")
+nodes/put_box_down_1/position = Vector2(140, 60)
+nodes/put_box_down_2/node = SubResource("AnimationNodeOneShot_4hvnv")
+nodes/put_box_down_2/position = Vector2(480, 60)
+"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_tffgl")
+"nodes/Animation 4/position" = Vector2(-1560, 220)
+"nodes/Animation 5/node" = SubResource("AnimationNodeAnimation_pk8ii")
+"nodes/Animation 5/position" = Vector2(-1280, 220)
+"nodes/Animation 6/node" = SubResource("AnimationNodeAnimation_5mf0n")
+"nodes/Animation 6/position" = Vector2(-1000, 220)
+"nodes/Animation 7/node" = SubResource("AnimationNodeAnimation_4hvnv")
+"nodes/Animation 7/position" = Vector2(-720, 220)
+"nodes/Animation 8/node" = SubResource("AnimationNodeAnimation_bbmj2")
+"nodes/Animation 8/position" = Vector2(-380, 220)
+"nodes/Animation 9/node" = SubResource("AnimationNodeAnimation_kxw46")
+"nodes/Animation 9/position" = Vector2(-40, 220)
+"nodes/Animation 10/node" = SubResource("AnimationNodeAnimation_iqsei")
+"nodes/Animation 10/position" = Vector2(300, 220)
+node_connections = [&"output", 0, &"put_box_down_2", &"lift_box_1", 0, &"holding_box", &"lift_box_1", 1, &"Animation 3", &"holding_box", 0, &"Animation", &"holding_box", 1, &"Animation 2", &"lift_box_2", 0, &"lift_box_1", &"lift_box_2", 1, &"Animation 4", &"store_box_1", 0, &"lift_box_2", &"store_box_1", 1, &"Animation 5", &"store_box_2", 0, &"store_box_1", &"store_box_2", 1, &"Animation 6", &"get_stored_box_1", 0, &"store_box_2", &"get_stored_box_1", 1, &"Animation 7", &"get_stored_box_2", 0, &"get_stored_box_1", &"get_stored_box_2", 1, &"Animation 8", &"put_box_down_1", 0, &"get_stored_box_2", &"put_box_down_1", 1, &"Animation 9", &"put_box_down_2", 0, &"put_box_down_1", &"put_box_down_2", 1, &"Animation 10"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_28m0y"]
+graph_offset = Vector2(-537.0444, -12.992325)
+nodes/BoxActions/node = SubResource("AnimationNodeBlendTree_j4nxn")
+nodes/BoxActions/position = Vector2(-80, 140)
+node_connections = [&"output", 0, &"BoxActions"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_j4nxn"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uf5tr"]
 animation = &"Fall"
@@ -189,29 +291,37 @@ transitions = ["Start", "Grounded", SubResource("AnimationNodeStateMachineTransi
 graph_offset = Vector2(-123, 49)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_g6k8r"]
+graph_offset = Vector2(-667.9442, -128.16006)
+nodes/output/position = Vector2(400, 140)
 nodes/MovementASM/node = SubResource("AnimationNodeStateMachine_8ydkj")
-nodes/MovementASM/position = Vector2(-140, 160)
-node_connections = [&"output", 0, &"MovementASM"]
+nodes/MovementASM/position = Vector2(-360, -40)
+nodes/ActionsActive/node = SubResource("AnimationNodeAdd2_j4nxn")
+nodes/ActionsActive/position = Vector2(40, 140)
+nodes/Actions/node = SubResource("AnimationNodeBlendTree_28m0y")
+nodes/Actions/position = Vector2(-280, 360)
+node_connections = [&"output", 0, &"ActionsActive", &"ActionsActive", 0, &"MovementASM", &"ActionsActive", 1, &"Actions"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cnsyf"]
-size = Vector3(0.1, 0.1, 0.1)
+[sub_resource type="SphereShape3D" id="SphereShape3D_007i1"]
+radius = 0.05
 
-[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision", "interaction_shapecast")]
+[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision", "interaction_shapecast", "animation_tree")]
 script = ExtResource("1_qjkh3")
 base_speed = 2.0
 player_mesh = NodePath("PlayerMesh")
 property_watcher = NodePath("HUD/PropertyWatcher")
 held_box_collision = NodePath("HeldBoxCollision")
 interaction_shapecast = NodePath("PlayerMesh/Armature/Skeleton3D/BoneAttachment3D/InteractionShapeCast3D")
+animation_tree = NodePath("AnimationTree")
 
 [node name="BodyPhysicsCollision" type="CollisionShape3D" parent="." unique_id=448778154]
 shape = SubResource("CapsuleShape3D_yw30f")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
 [node name="HeldBoxCollision" type="CollisionShape3D" parent="." unique_id=959410043]
-transform = Transform3D(0.9999939, 0, -1.7881146e-07, 0, 0.99998605, 0, 1.7881285e-07, 0, 0.9999862, 0, 0.1785183, -0.015029911)
+transform = Transform3D(0.9999884, 0, -1.7881054e-07, 0, 0.99998605, 0, 1.7881186e-07, 0, 0.999981, 0, 0.1785183, -0.015029911)
 shape = SubResource("BoxShape3D_uf5tr")
 disabled = true
+debug_color = Color(0.9843137, 0, 0.34117648, 1)
 debug_fill = false
 
 [node name="FollowTwoComponents" type="Node" parent="HeldBoxCollision" unique_id=226288049 node_paths=PackedStringArray("secondary_follow_target", "follow_target")]
@@ -222,20 +332,16 @@ lock_rot_x = true
 lock_rot_z = true
 metadata/_custom_type_script = "uid://cxw3k38ixgrb5"
 
-[node name="PlayerMesh" parent="." unique_id=1031286276 instance=ExtResource("1_yw30f")]
+[node name="PlayerMesh" parent="." unique_id=622812468 instance=ExtResource("1_yw30f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.66282046, 0.025740147)
 
-[node name="Skeleton3D" parent="PlayerMesh/Armature" parent_id_path=PackedInt32Array(1031286276, 278895212) index="0" unique_id=379554955]
-bones/2/scale = Vector3(0.99999994, 1.0000001, 1.0000007)
-bones/4/scale = Vector3(1, 0.9999994, 1.0000008)
-
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" index="1" unique_id=1694849618]
-transform = Transform3D(1, 7.1054274e-15, -2.3841864e-07, -3.2626865e-08, 0.9905921, -0.13684694, 2.3617564e-07, 0.1368469, 0.9905922, 5.3245905e-16, 1.0776696, 0.117723964)
-bone_name = "Head"
-bone_idx = 7
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(622812468, 2017219212) index="1" unique_id=1694849618]
+transform = Transform3D(1, 1.0658141e-14, -2.384186e-07, -1.6042723e-14, 1, -2.9802322e-08, 2.384186e-07, 0, 1, 5.3245905e-16, 0.82301635, -0.026590534)
+bone_name = "Torso"
+bone_idx = 6
 
 [node name="InteractionShapeCast3D" type="ShapeCast3D" parent="PlayerMesh/Armature/Skeleton3D/BoneAttachment3D" unique_id=835055237 node_paths=PackedStringArray("player")]
-transform = Transform3D(1, -3.264569e-08, -2.2455424e-09, 3.2645687e-08, 0.9905814, 0.13692594, -2.2455993e-09, -0.13692592, 0.99058133, 1.34325155e-08, -0.40782794, 0.05634003)
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 5.7740823e-10, -0.18835229, -2.7939677e-09)
 shape = SubResource("CapsuleShape3D_8ydkj")
 target_position = Vector3(0, 0, 0.8)
 collision_mask = 2
@@ -244,12 +350,12 @@ script = ExtResource("4_8ydkj")
 player = NodePath("../../../../..")
 metadata/_custom_type_script = "uid://co1h5yj8mqdm0"
 
-[node name="LeftHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" index="2" unique_id=1893219202]
+[node name="LeftHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(622812468, 2017219212) index="2" unique_id=1893219202]
 transform = Transform3D(-0.62649864, -0.116581224, 0.7706545, 0.6609278, -0.6035417, 0.4459958, 0.41312727, 0.7887628, 0.45516962, 0.22031204, 0.84133875, -0.040770058)
 bone_name = "Hand.L"
 bone_idx = 14
 
-[node name="RightHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" index="3" unique_id=1807193486]
+[node name="RightHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(622812468, 2017219212) index="3" unique_id=1807193486]
 transform = Transform3D(-0.62649816, 0.11658106, -0.7706546, -0.66092783, -0.6035413, 0.44599563, -0.41312733, 0.78876257, 0.45516932, -0.22031204, 0.84133875, -0.040770058)
 bone_name = "Hand.R"
 bone_idx = 18
@@ -273,6 +379,32 @@ tree_root = SubResource("AnimationNodeBlendTree_g6k8r")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../PlayerMesh/AnimationPlayer")
 "parameters/MovementASM/Grounded/Moving/Run 2/TimeScale/scale" = 2.0
+parameters/ActionsActive/add_amount = 1.0
+parameters/Actions/BoxActions/lift_box_1/active = false
+parameters/Actions/BoxActions/lift_box_1/internal_active = false
+parameters/Actions/BoxActions/lift_box_1/request = 0
+parameters/Actions/BoxActions/holding_box/blend_amount = 0.0
+parameters/Actions/BoxActions/lift_box_2/active = false
+parameters/Actions/BoxActions/lift_box_2/internal_active = false
+parameters/Actions/BoxActions/lift_box_2/request = 0
+parameters/Actions/BoxActions/store_box_1/active = false
+parameters/Actions/BoxActions/store_box_1/internal_active = false
+parameters/Actions/BoxActions/store_box_1/request = 0
+parameters/Actions/BoxActions/store_box_2/active = false
+parameters/Actions/BoxActions/store_box_2/internal_active = false
+parameters/Actions/BoxActions/store_box_2/request = 0
+parameters/Actions/BoxActions/get_stored_box_1/active = false
+parameters/Actions/BoxActions/get_stored_box_1/internal_active = false
+parameters/Actions/BoxActions/get_stored_box_1/request = 0
+parameters/Actions/BoxActions/get_stored_box_2/active = false
+parameters/Actions/BoxActions/get_stored_box_2/internal_active = false
+parameters/Actions/BoxActions/get_stored_box_2/request = 0
+parameters/Actions/BoxActions/put_box_down_1/active = false
+parameters/Actions/BoxActions/put_box_down_1/internal_active = false
+parameters/Actions/BoxActions/put_box_down_1/request = 0
+parameters/Actions/BoxActions/put_box_down_2/active = false
+parameters/Actions/BoxActions/put_box_down_2/internal_active = false
+parameters/Actions/BoxActions/put_box_down_2/request = 0
 
 [node name="MovementFSM" type="Node" parent="." unique_id=891251310 node_paths=PackedStringArray("player", "initial_state")]
 script = ExtResource("5_je7p5")
@@ -344,11 +476,11 @@ script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="LiftBoxUp" type="Node" parent="ActionsFSM/ActionKey1" unique_id=702326395]
-script = ExtResource("7_ugbui")
+script = ExtResource("19_6cv16")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="PutBoxDown" type="Node" parent="ActionsFSM/ActionKey1" unique_id=287466887]
-script = ExtResource("7_ugbui")
+script = ExtResource("20_j4nxn")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="GenericAction1" type="Node" parent="ActionsFSM/ActionKey1" unique_id=600468271]
@@ -356,12 +488,12 @@ script = ExtResource("19_ioxgp")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="ActionKey2" type="Node" parent="ActionsFSM" unique_id=1401014901 node_paths=PackedStringArray("default_state")]
-script = ExtResource("6_gx1jg")
+script = ExtResource("22_j4nxn")
 default_state = NodePath("GenericAction2")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
 [node name="StoreBox" type="Node" parent="ActionsFSM/ActionKey2" unique_id=467370479]
-script = ExtResource("7_ugbui")
+script = ExtResource("23_28m0y")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="GetStoredBox" type="Node" parent="ActionsFSM/ActionKey2" unique_id=1959208565]
@@ -419,7 +551,7 @@ metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
 
 [node name="Shadow" type="SpringArm3D" parent="." unique_id=1468902414]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.619429, 0)
-shape = SubResource("BoxShape3D_cnsyf")
+shape = SubResource("SphereShape3D_007i1")
 spring_length = 1000.0
 
 [node name="Node3D" type="Node3D" parent="Shadow" unique_id=185719537]
@@ -428,5 +560,7 @@ spring_length = 1000.0
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 4.240034e-08, 0.47472155)
 size = Vector3(0.8, 1.3639703, 0.8)
 texture_albedo = ExtResource("25_007i1")
+upper_fade = 0.001056152
+lower_fade = 0.006629124
 
 [editable path="PlayerMesh"]

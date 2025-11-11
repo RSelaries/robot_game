@@ -7,15 +7,13 @@ extends StateMachineBase
 var state_name: String
 
 
-var state_machine: StateMachine:
-	set(value):
-		state_machine = value
+var state_machine: StateMachine
 var _state_active: bool = false
 
 
 func _ready() -> void:
 	_state_active = false
-	state_name = _pascal_to_snake(name)
+	state_name = name.to_snake_case()
 
 
 func _state_init(ste_mch_ref: StateMachine) -> void:
@@ -51,30 +49,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray
 	
 	return warnings
-
-
-func _pascal_to_snake(string: String) -> String:
-	# Ajoute un underscore avant chaque majuscule sauf la première
-	var regex1 := RegEx.new()
-	regex1.compile("(?<!^)([A-Z])")
-	string = regex1.sub(string, "_$1")
-
-	# Ajoute un underscore avant les chiffres sauf s'il y en a déjà un
-	var regex2 := RegEx.new()
-	regex2.compile("(?<!_)([0-9])")
-	string = regex2.sub(string, "_$1")
-
-	# Gère le cas des lettres majuscules après un chiffre (ex: 1Node -> 1_Node)
-	var regex3 := RegEx.new()
-	regex3.compile("([0-9])([A-Z])")
-	string = regex3.sub(string, "$1_$2")
-
-	# Supprime l'underscore entre un 2 ou 3 et la lettre D (pour garder 2D / 3D collé)
-	var regex4 := RegEx.new()
-	regex4.compile("([23])_D")
-	string = regex4.sub(string, "$1D")
-
-	return string.to_lower()
 
 
 # ==============================================================================

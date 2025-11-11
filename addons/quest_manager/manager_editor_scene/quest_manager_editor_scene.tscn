@@ -1,8 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://dipg3cleip0jn"]
+[gd_scene load_steps=3 format=3 uid="uid://dipg3cleip0jn"]
 
 [ext_resource type="Script" uid="uid://dhdfxqiwqsx82" path="res://addons/quest_manager/manager_editor_scene/quest_manager_editor_scene.gd" id="1_qb5ew"]
 
-[node name="QuestManagerEditorScene" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qb5ew"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="QuestManagerEditorScene" type="Control" unique_id=687845338]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,44 +25,45 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_qb5ew")
 
-[node name="HSplitContainer" type="HSplitContainer" parent="."]
+[node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=96978561]
 layout_mode = 0
-offset_right = 1147.0
-offset_bottom = 643.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
 split_offset = 225
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer" unique_id=1573689096]
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="HSplitContainer"]
+[node name="TabContainer" type="TabContainer" parent="HSplitContainer" unique_id=967663482]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_qb5ew")
 current_tab = 0
 
-[node name="TestTab1" type="VBoxContainer" parent="HSplitContainer/TabContainer"]
+[node name="TestTab1" type="VBoxContainer" parent="HSplitContainer/TabContainer" unique_id=1744663291]
 layout_mode = 2
 alignment = 1
 metadata/_tab_index = 0
 
-[node name="Label" type="Label" parent="HSplitContainer/TabContainer/TestTab1"]
+[node name="Label" type="Label" parent="HSplitContainer/TabContainer/TestTab1" unique_id=1315245369]
 layout_mode = 2
 text = "Caca du cul !"
 horizontal_alignment = 1
 
-[node name="TestButton" type="Button" parent="HSplitContainer/TabContainer/TestTab1"]
+[node name="TestButton" type="Button" parent="HSplitContainer/TabContainer/TestTab1" unique_id=525858724]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Test button !"
 
-[node name="TestButton2" type="Button" parent="HSplitContainer/TabContainer/TestTab1"]
+[node name="TestButton2" type="Button" parent="HSplitContainer/TabContainer/TestTab1" unique_id=2071830860]
 layout_mode = 2
 text = "Test button 2 !"
 
-[node name="TestTab2" type="Control" parent="HSplitContainer/TabContainer"]
+[node name="TestTab2" type="Control" parent="HSplitContainer/TabContainer" unique_id=1185436918]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1

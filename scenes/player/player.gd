@@ -17,6 +17,7 @@ extends CharacterBody3D
 @export var property_watcher: PropertyWatcher
 @export var held_box_collision: CollisionShape3D
 @export var interaction_shapecast: InteractionShapeCast3D
+@export var animation_tree: AnimationTree
 
 
 var input_dir: Vector2
@@ -26,6 +27,10 @@ var held_object: PickableArea3D = null
 var stored_object: PickableArea3D = null
 var velocity_length:
 	get(): return velocity.length()
+
+
+func _enter_tree() -> void:
+	PlayerGlobal.player_ref = self
 
 
 func _ready() -> void:
@@ -55,6 +60,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _get_input_dir() -> Vector3:
+	if disable_movements:
+		input_dir = Vector2.ZERO
+		return Vector3.ZERO
+
 	input_dir = Input.get_vector(
 		"player_movement_left", "player_movement_right",
 		"player_movement_up", "player_movement_down"
@@ -88,3 +97,5 @@ func _properties_to_watch() -> void:
 	
 	property_watcher.watch_property(self, "velocity_length")
 	property_watcher.watch_property(self, "position")
+	property_watcher.watch_property(self, "held_object")
+	property_watcher.watch_property(self, "stored_object")
