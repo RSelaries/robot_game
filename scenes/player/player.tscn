@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=87 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://ckixyr2ap8g58" path="res://scenes/player/states/generic_action_2.gd" id="21_cnsyf"]
 [ext_resource type="Script" uid="uid://mr747imet3lw" path="res://scenes/player/states/action_key_2.gd" id="22_j4nxn"]
 [ext_resource type="Script" uid="uid://cgp3m6n0ob8bo" path="res://scenes/player/states/store_box.gd" id="23_28m0y"]
+[ext_resource type="Script" uid="uid://b8q67hl0x6ggc" path="res://scenes/player/states/get_stored_box.gd" id="24_uniwh"]
 [ext_resource type="Texture2D" uid="uid://d1mi4fl4ma6xl" path="res://assets/textures/shadow.png" id="25_007i1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
@@ -103,18 +104,18 @@ animation = &"RESET"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_28m0y"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_j4nxn"]
-graph_offset = Vector2(-2198.9756, -180.82721)
+graph_offset = Vector2(-813.5233, -80.458755)
 nodes/output/position = Vector2(680, 60)
 nodes/lift_box_1/node = SubResource("AnimationNodeOneShot_j4nxn")
 nodes/lift_box_1/position = Vector2(-1700, 60)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_28m0y")
-nodes/Animation/position = Vector2(-2080, -80)
+nodes/Animation/position = Vector2(-2080, 0)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_j4nxn")
-"nodes/Animation 2/position" = Vector2(-2080, 100)
+"nodes/Animation 2/position" = Vector2(-2080, 180)
 nodes/holding_box/node = SubResource("AnimationNodeBlend2_j4nxn")
-nodes/holding_box/position = Vector2(-1900, -40)
+nodes/holding_box/position = Vector2(-1900, 40)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_uniwh")
-"nodes/Animation 3/position" = Vector2(-1900, 220)
+"nodes/Animation 3/position" = Vector2(-1900, 300)
 nodes/lift_box_2/node = SubResource("AnimationNodeOneShot_iqsei")
 nodes/lift_box_2/position = Vector2(-1420, 60)
 nodes/store_box_1/node = SubResource("AnimationNodeOneShot_tffgl")
@@ -291,7 +292,7 @@ transitions = ["Start", "Grounded", SubResource("AnimationNodeStateMachineTransi
 graph_offset = Vector2(-123, 49)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_g6k8r"]
-graph_offset = Vector2(-667.9442, -128.16006)
+graph_offset = Vector2(-527.609, -8.432251)
 nodes/output/position = Vector2(400, 140)
 nodes/MovementASM/node = SubResource("AnimationNodeStateMachine_8ydkj")
 nodes/MovementASM/position = Vector2(-360, -40)
@@ -304,14 +305,14 @@ node_connections = [&"output", 0, &"ActionsActive", &"ActionsActive", 0, &"Movem
 [sub_resource type="SphereShape3D" id="SphereShape3D_007i1"]
 radius = 0.05
 
-[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision", "interaction_shapecast", "animation_tree")]
+[node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision", "interaction_shapecast", "animation_tree", "stored_box_pos")]
 script = ExtResource("1_qjkh3")
-base_speed = 2.0
 player_mesh = NodePath("PlayerMesh")
 property_watcher = NodePath("HUD/PropertyWatcher")
 held_box_collision = NodePath("HeldBoxCollision")
 interaction_shapecast = NodePath("PlayerMesh/Armature/Skeleton3D/BoneAttachment3D/InteractionShapeCast3D")
 animation_tree = NodePath("AnimationTree")
+stored_box_pos = NodePath("PlayerMesh/Armature/Skeleton3D/BoneAttachment3D/StoredBoxPos")
 
 [node name="BodyPhysicsCollision" type="CollisionShape3D" parent="." unique_id=448778154]
 shape = SubResource("CapsuleShape3D_yw30f")
@@ -349,6 +350,10 @@ collide_with_areas = true
 script = ExtResource("4_8ydkj")
 player = NodePath("../../../../..")
 metadata/_custom_type_script = "uid://co1h5yj8mqdm0"
+
+[node name="StoredBoxPos" type="Marker3D" parent="PlayerMesh/Armature/Skeleton3D/BoneAttachment3D" unique_id=1363384198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.480383e-08, 0.53215444, -0.22986388)
+gizmo_extents = 0.1
 
 [node name="LeftHandFollow" type="BoneAttachment3D" parent="PlayerMesh/Armature/Skeleton3D" parent_id_path=PackedInt32Array(622812468, 2017219212) index="2" unique_id=1893219202]
 transform = Transform3D(-0.62649864, -0.116581224, 0.7706545, 0.6609278, -0.6035417, 0.4459958, 0.41312727, 0.7887628, 0.45516962, 0.22031204, 0.84133875, -0.040770058)
@@ -497,7 +502,7 @@ script = ExtResource("23_28m0y")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="GetStoredBox" type="Node" parent="ActionsFSM/ActionKey2" unique_id=1959208565]
-script = ExtResource("7_ugbui")
+script = ExtResource("24_uniwh")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="GenericAction2" type="Node" parent="ActionsFSM/ActionKey2" unique_id=1468085357]

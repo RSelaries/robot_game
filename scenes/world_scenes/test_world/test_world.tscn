@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://bv7lknf1s8r0r"]
+[gd_scene load_steps=28 format=3 uid="uid://bv7lknf1s8r0r"]
 
 [ext_resource type="Script" uid="uid://b74sqgr6t3p8y" path="res://scenes/world_scenes/world_scene_base.gd" id="1_idnf6"]
 [ext_resource type="PackedScene" uid="uid://bqxq8g2clwngp" path="res://scenes/player/player.tscn" id="2_4dr8e"]
+[ext_resource type="Script" uid="uid://tg2nqyfd0vap" path="res://scripts/custom_nodes/separator.gd" id="2_j0njx"]
 [ext_resource type="Material" uid="uid://dqhomnpgmc1nf" path="res://assets/resources/materials/foliage/grass_underlay.tres" id="2_ohy5h"]
 [ext_resource type="Shader" uid="uid://b5n026j7i03rb" path="res://assets/shaders/spatials/prototype_grid.gdshader" id="2_sgfbr"]
 [ext_resource type="Material" uid="uid://cxiqpcsbri12w" path="res://assets/resources/materials/misc/chrome_color.tres" id="5_ohy5h"]
@@ -10,7 +11,7 @@
 [ext_resource type="Script" uid="uid://bbpjkqyrxjvk1" path="res://scripts/custom_nodes/unproject_marker.gd" id="7_pnl33"]
 [ext_resource type="FontFile" uid="uid://rfmiixthsa1y" path="res://assets/fonts/Pixeled.ttf" id="8_3ivs2"]
 [ext_resource type="Texture2D" uid="uid://cafjpnelbk43u" path="res://assets/textures/down_arrow.png" id="9_j8krb"]
-[ext_resource type="Script" uid="uid://tk60p5r0nqcf" path="res://scripts/custom_nodes/components/interactable_areas/talk_area_3d.gd" id="11_ksd71"]
+[ext_resource type="Script" uid="uid://cbg1snjl8xg87" path="res://scenes/world_scenes/test_world/test_npc_quest.gd" id="11_hml7c"]
 [ext_resource type="Script" uid="uid://d2o7lmmeecvp2" path="res://addons/quest_manager/components/quest_component.gd" id="12_hbl5r"]
 [ext_resource type="Script" uid="uid://b1phaoxe8da4o" path="res://addons/quest_manager/resources/quest_resource.gd" id="13_btrep"]
 [ext_resource type="Script" uid="uid://ckx3kbgkvl2pb" path="res://addons/quest_manager/resources/quest_item.gd" id="13_hml7c"]
@@ -76,24 +77,19 @@ albedo_color = Color(0.9786077, 0.6069559, 3.85046e-07, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ksd71"]
 size = Vector3(0.4, 1, 0.4)
 
-[sub_resource type="Resource" id="Resource_j0njx"]
-script = ExtResource("13_hml7c")
-metadata/_custom_type_script = "uid://ckx3kbgkvl2pb"
-
-[sub_resource type="Resource" id="Resource_trlpp"]
-script = ExtResource("13_hml7c")
-metadata/_custom_type_script = "uid://ckx3kbgkvl2pb"
-
 [sub_resource type="Resource" id="Resource_hml7c"]
 script = ExtResource("13_btrep")
-quest_item_stack = Array[ExtResource("13_hml7c")]([SubResource("Resource_j0njx"), SubResource("Resource_trlpp")])
+quest_name = "drop_cubes"
+quest_item_stack = Array[ExtResource("13_hml7c")]([null])
 metadata/_custom_type_script = "uid://b1phaoxe8da4o"
 
 [node name="TestWorld" type="Node3D" unique_id=941300603]
 script = ExtResource("1_idnf6")
 metadata/_custom_type_script = "uid://b74sqgr6t3p8y"
 
-[node name="- Environment -------" type="Node" parent="." unique_id=1974084139]
+[node name="---- Environment --------------------" type="Node" parent="." unique_id=113300225]
+script = ExtResource("2_j0njx")
+metadata/_custom_type_script = "uid://tg2nqyfd0vap"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1702645474]
 transform = Transform3D(0.480897, -0.7593113, 0.43838847, 2.7805946e-08, 0.49999994, 0.86602545, -0.8767771, -0.41646904, 0.24044845, 0, 0, 0)
@@ -102,7 +98,9 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=920961208]
 environment = SubResource("Environment_sgfbr")
 
-[node name="- World Elements -----" type="Node" parent="." unique_id=768278146]
+[node name="---- World Elements -----------------------" type="Node" parent="." unique_id=1772032508]
+script = ExtResource("2_j0njx")
+metadata/_custom_type_script = "uid://tg2nqyfd0vap"
 
 [node name="Floor" type="CSGBox3D" parent="." unique_id=315204120]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
@@ -290,17 +288,18 @@ size_flags_horizontal = 4
 texture = ExtResource("9_j8krb")
 stretch_mode = 5
 
-[node name="- Entities ----------" type="Node" parent="." unique_id=2037658388]
+[node name="---- Entities -------------------------" type="Node" parent="." unique_id=1816264641]
+script = ExtResource("2_j0njx")
+metadata/_custom_type_script = "uid://tg2nqyfd0vap"
 
 [node name="Player" parent="." unique_id=1040078440 instance=ExtResource("2_4dr8e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.665, 0)
 
-[node name="TestNPCQuest" type="Area3D" parent="." unique_id=1639967743 node_paths=PackedStringArray("show_on_focus")]
+[node name="TestNPCQuest" type="Area3D" parent="." unique_id=1639967743]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6247787, 0.49391174, 0.5850792)
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("11_ksd71")
-show_on_focus = [NodePath("UnprojectMarker")]
+script = ExtResource("11_hml7c")
 metadata/_custom_type_script = "uid://tk60p5r0nqcf"
 metadata/_edit_group_ = true
 
@@ -348,7 +347,7 @@ size_flags_horizontal = 4
 texture = ExtResource("9_j8krb")
 stretch_mode = 5
 
-[node name="QuestComponent" type="Node" parent="TestNPCQuest" unique_id=1951605542]
+[node name="DropCubesQuest" type="Node" parent="TestNPCQuest" unique_id=1951605542]
 script = ExtResource("12_hbl5r")
 quest = SubResource("Resource_hml7c")
 metadata/_custom_type_script = "uid://d2o7lmmeecvp2"

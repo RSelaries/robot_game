@@ -4,8 +4,8 @@ extends Resource
 
 
 enum OrderType {
-	UNORDERED,
-	ORDERED,
+	UNORDERED, ## The quest items can be completed in any order.
+	ORDERED, ## The quest items have to be completed in order.
 }
 
 
@@ -14,8 +14,8 @@ enum OrderType {
 @export var quest_item_stack: Array[QuestItem]
 
 
-func _init() -> void:
-	QuestManager._quest_refs[quest_name] = self
+#func _init() -> void:
+	#QuestManager._quest_refs[quest_name] = self
 
 
 func set_quest_name(value: String) -> void:

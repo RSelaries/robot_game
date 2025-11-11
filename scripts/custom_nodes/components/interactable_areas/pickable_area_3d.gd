@@ -20,7 +20,9 @@ const WITH_TARGET := [PickableTypes.CHILD, PickableTypes.CHILD_OF_RIGID_BODY]
 
 
 var held: bool = false
-var player_target_node: Node3D
+var stored: bool = false
+var player_target_held: Node3D
+var player_target_stored: Node3D
 var transform_target: RigidBody3D
 var rot_offset: Vector3
 
@@ -29,8 +31,10 @@ func _ready() -> void:
 	super()
 	if Engine.is_editor_hint(): return
 	
-	var player: Player = PlayerGlobal.player_ref
-	player_target_node = player.held_box_collision
+	var player: Player = Global.player_ref
+	player_target_held = player.held_box_collision
+	player_target_stored = player.stored_box_pos
+	
 	
 	if pickable_type in WITH_TARGET:
 		var parent := get_parent_node_3d()
@@ -40,20 +44,41 @@ func _ready() -> void:
 
 func hold() -> void:
 	held = true
-	rot_offset = global_rotation -  player_target_node.global_rotation
+	stored = false
+	rot_offset = global_rotation -  player_target_held.global_rotation
 	collision_layer = 0
-
 
 func release() -> void:
 	held = false
+	stored = false
 	collision_layer = 2
 
 
+func store() -> void:
+	held = false
+	stored = true
+
+
+func get_stored() -> void:
+	held = true
+	stored = false
+	rot_offset = Vector3.ZERO
+	collision_layer = 0
+
+
 func _process(_delta: float) -> void:
+	var target_position: Vector3
+	var target_rotation: Vector3
+	
 	if held:
-		var target_position := player_target_node.global_position
-		var target_rotation := player_target_node.global_rotation + rot_offset
-		
+		target_position = player_target_held.global_position
+		target_rotation = player_target_held.global_rotation + rot_offset
+	
+	elif stored:
+		target_position = player_target_stored.global_position
+		target_rotation = player_target_stored.global_rotation
+	
+	if held or stored:
 		if pickable_type == PickableTypes.PARENT:
 			_update_self_transform(target_position, target_rotation)
 		else:
@@ -73,13 +98,13 @@ func _update_target_transform(pos: Vector3, rot: Vector3) -> void:
 func disable_target_physics() -> void:
 	if pickable_type == PickableTypes.CHILD_OF_RIGID_BODY:
 		transform_target.freeze = true
-		transform_target.add_collision_exception_with(PlayerGlobal.player_ref)
+		transform_target.add_collision_exception_with(Global.player_ref)
 
 
 func enable_target_physics() -> void:
 	if pickable_type == PickableTypes.CHILD_OF_RIGID_BODY:
 		transform_target.freeze = false
-		transform_target.remove_collision_exception_with(PlayerGlobal.player_ref)
+		transform_target.remove_collision_exception_with(Global.player_ref)
 
 
 func _get_configuration_warnings() -> PackedStringArray:

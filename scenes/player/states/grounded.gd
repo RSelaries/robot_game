@@ -8,5 +8,8 @@ func physics_update(_delta: float) -> void:
 
 
 func state_input(event: InputEvent) -> void:
-	if event.is_action_pressed("player_movement_jump") and !player.disable_jump:
+	if player.disable_movements: return
+	if player.disable_jump: return
+	
+	if event.is_action_pressed("player_movement_jump"):
 		change_state("jumping")

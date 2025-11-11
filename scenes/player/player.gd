@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 @export_group("Movement Settings")
 @export var disable_movements: bool = false
-@export var base_speed: float = 5.0
+@export var base_speed: float = 2.0
 @export var sprint_speed_add: float = 3.0
 @export var acceleration_speed: float = 0.6
 @export var deceleration_speed: float = 0.6
@@ -18,6 +18,7 @@ extends CharacterBody3D
 @export var held_box_collision: CollisionShape3D
 @export var interaction_shapecast: InteractionShapeCast3D
 @export var animation_tree: AnimationTree
+@export var stored_box_pos: Marker3D
 
 
 var input_dir: Vector2
@@ -30,7 +31,7 @@ var velocity_length:
 
 
 func _enter_tree() -> void:
-	PlayerGlobal.player_ref = self
+	Global.player_ref = self
 
 
 func _ready() -> void:

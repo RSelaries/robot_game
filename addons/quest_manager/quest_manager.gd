@@ -2,10 +2,18 @@
 extends Node
 
 
-var _quest_refs: Dictionary[String, QuestResource]
 var available_quest_pool: Array[QuestResource]
 var current_quest_stack: Array[QuestResource]
 var completed_quest_stack: Array[QuestResource]
+
+
+# private properties
+var _quest_refs: Dictionary[String, QuestResource]
+
+
+func _ready() -> void:
+	await  get_tree().create_timer(0).timeout
+	print(_quest_refs)
 
 
 func start_quest(quest: Variant) -> void:
