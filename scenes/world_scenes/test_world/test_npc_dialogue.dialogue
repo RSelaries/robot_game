@@ -1,0 +1,19 @@
+~ start
+if QuestManager.quest_available("drop_cubes")
+	Test NPC: Tu n'as pas encore accepté la quête.
+	=> propose_quest
+else
+	Test NPC: Tu as accepté la quête!
+	=> END!
+
+
+~ propose_quest
+Test NPC: J'ai une quête pour toi : dépose trois cubes dans cette zone là.
+Test NPC: Veux to accepter ma quête ?
+- *Accpeter*
+	Test NPC: Super!
+	do QuestManager.start_quest("drop_cubes")
+	=> END!
+- *Refuser*
+	Test NPC: Oki, peut être plus tard...
+	=> END!

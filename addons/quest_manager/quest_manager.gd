@@ -13,15 +13,40 @@ var _quest_refs: Dictionary[String, QuestResource]
 
 func _ready() -> void:
 	await get_tree().create_timer(0).timeout
+	
 	print(_quest_refs)
 
 
 func start_quest(quest: Variant) -> void:
-	pass
+	if quest_available(quest):
+		var quest_ref = get_quest(quest)
+		var quest_index := available_quest_pool.find(quest_ref)
+		if quest_index == -1:
+			push_error("Cound not find: ", quest_ref, " in available_quest_pool.")
+			return
+		available_quest_pool.remove_at(quest_index)
+		current_quest_stack.append(quest_ref)
+	else:
+		push_error("Can't start quest: ", quest, " because it was not in available_quest_pool.")
 
 
 func update_quest(quest: Variant) -> void:
 	pass
+
+
+func quest_available(quest: Variant) -> bool:
+	var quest_res := get_quest(quest)
+	return quest_res in available_quest_pool
+
+
+func quest_in_current_stack(quest: Variant) -> bool:
+	var quest_res := get_quest(quest)
+	return quest_res in current_quest_stack
+
+
+func quest_completed(quest: Variant) -> bool:
+	var quest_res := get_quest(quest)
+	return quest_res in completed_quest_stack
 
 
 func get_quest(quest: Variant) -> QuestResource:

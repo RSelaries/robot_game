@@ -3,7 +3,18 @@ class_name QuestItemArea3D
 extends Area3D
 
 
+
+@export var area_id: String = "area_id"
+
 @export_group("Objects")
 @export var objects_enabled: bool = true
 @export var object_id: String
 @export var object_needed_count: int = 1
+
+
+func _ready() -> void:
+	body_entered.connect(_body_entered)
+
+
+func _body_entered(body: Node3D) -> void:
+	pass

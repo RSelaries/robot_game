@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=88 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://btj2r5mbga8vp" path="res://scenes/player/states/action_key_1.gd" id="18_yj68g"]
 [ext_resource type="Script" uid="uid://daspn6ole5cg1" path="res://scenes/player/states/lift_box_up.gd" id="19_6cv16"]
 [ext_resource type="Script" uid="uid://1o1fe5huic8p" path="res://scenes/player/states/generic_action_1.gd" id="19_ioxgp"]
+[ext_resource type="Script" uid="uid://beyjs28cmuwrn" path="res://scenes/player/states/talking.gd" id="19_iqsei"]
 [ext_resource type="Script" uid="uid://c31ssgjfxfob6" path="res://scenes/player/states/put_box_down.gd" id="20_j4nxn"]
 [ext_resource type="Script" uid="uid://ckixyr2ap8g58" path="res://scenes/player/states/generic_action_2.gd" id="21_cnsyf"]
 [ext_resource type="Script" uid="uid://mr747imet3lw" path="res://scenes/player/states/action_key_2.gd" id="22_j4nxn"]
@@ -477,7 +478,7 @@ default_state = NodePath("GenericAction1")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
 [node name="Talking" type="Node" parent="ActionsFSM/ActionKey1" unique_id=1658899141]
-script = ExtResource("7_ugbui")
+script = ExtResource("19_iqsei")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="LiftBoxUp" type="Node" parent="ActionsFSM/ActionKey1" unique_id=702326395]
