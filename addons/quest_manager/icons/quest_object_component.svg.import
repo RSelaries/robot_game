@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu7aqb1b06pev"
-path="res://.godot/imported/quest_manager.svg-d67986202e63932fe15c81c10001a571.ctex"
+uid="uid://f4eqtxpms17u"
+path="res://.godot/imported/quest_object_component.svg-9225ea70f936a10a6d7d9f6e7dab8b48.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/quest_manager/quest_manager.svg"
-dest_files=["res://.godot/imported/quest_manager.svg-d67986202e63932fe15c81c10001a571.ctex"]
+source_file="res://addons/quest_manager/icons/quest_object_component.svg"
+dest_files=["res://.godot/imported/quest_object_component.svg-9225ea70f936a10a6d7d9f6e7dab8b48.ctex"]
 
 [params]
 

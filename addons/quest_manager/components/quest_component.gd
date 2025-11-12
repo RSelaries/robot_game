@@ -1,4 +1,4 @@
-@icon("res://addons/quest_manager/quest_component.svg")
+@icon("res://addons/quest_manager/icons/quest_component.svg")
 class_name QuestComponent
 extends Node
 
