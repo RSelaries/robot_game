@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/icons/interactable_area_3d.svg")
 class_name InteractableArea3D
 extends Area3D
 

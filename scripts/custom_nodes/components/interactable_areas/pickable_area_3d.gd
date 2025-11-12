@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/icons/pickable_area_3d.svg")
 class_name PickableArea3D
 extends InteractableArea3D
 
