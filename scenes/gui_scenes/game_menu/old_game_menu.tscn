@@ -1,15 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://cvf6svlqs7sxm"]
+[gd_scene load_steps=23 format=3 uid="uid://cvf6svlqs7sxm"]
 
-[ext_resource type="Theme" uid="uid://bsgssytopcb0" path="res://assets/resources/themes/quest_hud_theme.tres" id="1_2vf0g"]
-[ext_resource type="Script" uid="uid://lvsfg10f0leq" path="res://scenes/gui_scenes/game_menu/game_menu.gd" id="1_ao384"]
-[ext_resource type="Shader" uid="uid://c86j7o251i4y5" path="res://assets/shaders/canvas_item/crt_effect.gdshader" id="1_tlyhk"]
-[ext_resource type="Texture2D" uid="uid://8lo2befdp0jh" path="res://assets/textures/ui/tree_t.png" id="2_7v4g4"]
-[ext_resource type="Texture2D" uid="uid://bbjasgh0j6jdd" path="res://assets/textures/ui/tree_i.png" id="3_h1gtg"]
-[ext_resource type="Texture2D" uid="uid://pjjwbkjfax48" path="res://assets/textures/ui/tree_l.png" id="3_vaq2k"]
-[ext_resource type="Texture2D" uid="uid://da48sl7vtbdw3" path="res://assets/textures/ui/tree_spacing.png" id="4_jx4pv"]
-[ext_resource type="Texture2D" uid="uid://csdeslovqhxeu" path="res://assets/textures/ui/tree_empty.png" id="6_jlopa"]
-[ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="7_hkshw"]
-[ext_resource type="Shader" uid="uid://dqrmxqkx80mvp" path="res://assets/shaders/spatials/hologram_shader.gdshader" id="8_a6787"]
+[ext_resource type="Theme" uid="uid://bsgssytopcb0" path="res://assets/resources/themes/old_menu_theme.tres" id="1_1ultd"]
+[ext_resource type="Texture2D" uid="uid://8lo2befdp0jh" path="res://assets/textures/ui/tree_t.png" id="2_36lll"]
+[ext_resource type="Texture2D" uid="uid://bbjasgh0j6jdd" path="res://assets/textures/ui/tree_i.png" id="3_qghbe"]
+[ext_resource type="Texture2D" uid="uid://da48sl7vtbdw3" path="res://assets/textures/ui/tree_spacing.png" id="4_dp6ot"]
+[ext_resource type="Texture2D" uid="uid://pjjwbkjfax48" path="res://assets/textures/ui/tree_l.png" id="5_g87v7"]
+[ext_resource type="Texture2D" uid="uid://csdeslovqhxeu" path="res://assets/textures/ui/tree_empty.png" id="6_h85y5"]
+[ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="7_7uup6"]
+[ext_resource type="Shader" uid="uid://dqrmxqkx80mvp" path="res://assets/shaders/spatials/hologram_shader.gdshader" id="8_6tx7c"]
+[ext_resource type="Shader" uid="uid://c86j7o251i4y5" path="res://assets/shaders/canvas_item/crt_effect.gdshader" id="9_k52dh"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ao384"]
 viewport_path = NodePath("MenuCanvasLayer/TextureRect/SubViewport")
@@ -54,7 +53,7 @@ func _physics_process(delta: float) -> void:
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ao384"]
 render_priority = 0
-shader = ExtResource("8_a6787")
+shader = ExtResource("8_6tx7c")
 shader_parameter/line_color = Color(0, 18.892157, 0, 1)
 shader_parameter/line_width = 0.005
 shader_parameter/line_blur = 0.2
@@ -80,7 +79,7 @@ node_connections = [&"output", 0, &"Animation"]
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jlopa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2vf0g"]
-shader = ExtResource("1_tlyhk")
+shader = ExtResource("9_k52dh")
 shader_parameter/resolution = Vector2(630, 360)
 shader_parameter/scan_line_amount = 1.0
 shader_parameter/warp_amount = 0.2000000095
@@ -322,10 +321,8 @@ _data = {
 }
 
 [node name="GameMenu" type="Node" unique_id=337069473]
-script = ExtResource("1_ao384")
 
 [node name="MenuCanvasLayer" type="CanvasLayer" parent="." unique_id=75366341]
-unique_name_in_owner = true
 visible = false
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer" unique_id=813033529]
@@ -362,7 +359,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_2vf0g")
+theme = ExtResource("1_1ultd")
 theme_override_styles/panel = SubResource("StyleBoxFlat_tp3fe")
 
 [node name="GreenBorders" type="PanelContainer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground" unique_id=1228542514]
@@ -431,7 +428,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1977444916]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer" unique_id=31655894]
 layout_mode = 2
@@ -449,7 +446,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=388934147]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1313113187]
 layout_mode = 2
@@ -467,15 +464,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=1206165202]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=1749361394]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=110347317]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer4" unique_id=2042810345]
 layout_mode = 2
@@ -493,7 +490,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer" unique_id=1746671223]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=817675983]
 layout_mode = 2
@@ -511,15 +508,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=428472117]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=1436500475]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=122043930]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer5" unique_id=1938814326]
 layout_mode = 2
@@ -537,23 +534,23 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=1565495901]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=1573338897]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=1131721358]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=1184573932]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=1241133219]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer6" unique_id=1294282951]
 layout_mode = 2
@@ -571,7 +568,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer7/HBoxContainer" unique_id=877808661]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer7" unique_id=2086689550]
 layout_mode = 2
@@ -589,15 +586,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=172366269]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=921217631]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=1386083739]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer8" unique_id=1846188443]
 layout_mode = 2
@@ -615,23 +612,23 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=1397568237]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=807849669]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=125319247]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=265699147]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=1541838959]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask/MarginContainer/VBoxContainer/HBoxContainer9" unique_id=1741065907]
 layout_mode = 2
@@ -666,7 +663,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=78174405]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1502201655]
 layout_mode = 2
@@ -684,7 +681,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1920590772]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=753764587]
 layout_mode = 2
@@ -702,15 +699,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=1705634018]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=584919758]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=1763880963]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1173665438]
 layout_mode = 2
@@ -728,7 +725,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer" unique_id=944911060]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1071990786]
 layout_mode = 2
@@ -746,15 +743,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=895017373]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=488791471]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=410537303]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer5" unique_id=630136076]
 layout_mode = 2
@@ -772,23 +769,23 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=195806156]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=1177121752]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=437413695]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=47079964]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=759696433]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer6" unique_id=639431397]
 layout_mode = 2
@@ -806,7 +803,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer7/HBoxContainer" unique_id=293052618]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer7" unique_id=1711106340]
 layout_mode = 2
@@ -824,15 +821,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=8402034]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=1721061413]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=1742063774]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer8" unique_id=1899295818]
 layout_mode = 2
@@ -850,23 +847,23 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=1673657732]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=288998984]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=611077795]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=307975162]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=2097663345]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask2/MarginContainer/VBoxContainer/HBoxContainer9" unique_id=137860311]
 layout_mode = 2
@@ -901,7 +898,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=139875290]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer" unique_id=332443798]
 layout_mode = 2
@@ -919,7 +916,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1528073910]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=514063243]
 layout_mode = 2
@@ -937,15 +934,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=291220588]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=1909363620]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer" unique_id=1132668134]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer4" unique_id=157038637]
 layout_mode = 2
@@ -963,7 +960,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer" unique_id=365164186]
 layout_mode = 2
-texture = ExtResource("2_7v4g4")
+texture = ExtResource("2_36lll")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1686927761]
 layout_mode = 2
@@ -981,15 +978,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=1404469127]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=1430101472]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer" unique_id=1217075147]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer5" unique_id=1378849008]
 layout_mode = 2
@@ -1007,23 +1004,23 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=429939568]
 layout_mode = 2
-texture = ExtResource("3_h1gtg")
+texture = ExtResource("3_qghbe")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=307562777]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=1650766424]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=2082199636]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6/HBoxContainer" unique_id=1895407660]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer6" unique_id=2135544004]
 layout_mode = 2
@@ -1041,7 +1038,7 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer7/HBoxContainer" unique_id=964264364]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer7" unique_id=1745151216]
 layout_mode = 2
@@ -1059,15 +1056,15 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=978102535]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=500539486]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8/HBoxContainer" unique_id=771118831]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer8" unique_id=1397125329]
 layout_mode = 2
@@ -1085,23 +1082,23 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=125333619]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect3" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=97720733]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect4" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=1904308306]
 layout_mode = 2
-texture = ExtResource("6_jlopa")
+texture = ExtResource("6_h85y5")
 
 [node name="TextureRect5" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=1417924088]
 layout_mode = 2
-texture = ExtResource("4_jx4pv")
+texture = ExtResource("4_dp6ot")
 
 [node name="TextureRect2" type="TextureRect" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9/HBoxContainer" unique_id=1232533953]
 layout_mode = 2
-texture = ExtResource("3_vaq2k")
+texture = ExtResource("5_g87v7")
 
 [node name="QuestItems" type="RichTextLabel" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/TaskPanel/VboxContainer/ScrollContainer/MarginContainer/TaskList/TestTask3/MarginContainer/VBoxContainer/HBoxContainer9" unique_id=621345803]
 layout_mode = 2
@@ -1178,11 +1175,11 @@ handle_input_locally = false
 size = Vector2i(104, 200)
 render_target_update_mode = 4
 
-[node name="player" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport" unique_id=1031286276 instance=ExtResource("7_hkshw")]
-transform = Transform3D(0.98749095, 0, -0.21032566, 0, 1, 0, 0.21032566, 0, 0.98749095, 0, 0, 0)
+[node name="player" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport" unique_id=1031286276 instance=ExtResource("7_7uup6")]
+transform = Transform3D(0.6971081, 0, -0.73081654, 0, 1, 0, 0.73081654, 0, 0.6971081, 0, 0, 0)
 script = SubResource("GDScript_a6787")
 
-[node name="FusionedPlayer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport/player/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1031286276, 379554955) index="0" unique_id=653935466]
+[node name="FusionedPlayer" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport/player/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1031286276, 2017219212) index="0" unique_id=1228078990]
 material_override = SubResource("ShaderMaterial_ao384")
 
 [node name="AnimationTree" type="AnimationTree" parent="MenuCanvasLayer/TextureRect/SubViewport/SubViewportContainer/SubViewport/BlackBackground/GreenBorders/PanelContainer/StatePanel/Hologram/MarginContainer/SubViewport/player" unique_id=437325884]

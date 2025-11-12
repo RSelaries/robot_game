@@ -5,3 +5,8 @@ extends Resource
 
 @export var quest_name: String
 @export var quest_steps: Array[QuestStep]
+
+
+func ready() -> void:
+	for step in quest_steps:
+		step.ready()

@@ -2,3 +2,6 @@
 @abstract
 class_name QuestStep
 extends Resource
+
+
+@abstract func ready() -> void

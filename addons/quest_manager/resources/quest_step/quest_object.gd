@@ -8,19 +8,29 @@ extends QuestStep
 @export var quest_area_id: String = "area_id"
 
 
-var _items_in_area: int = 0
+var _items_in_area: int: set = _set_items_in_area
 var done: bool = false
 
 
-func _init() -> void:
+func ready() -> void:
 	QuestManager.object_entered_area.connect(_on_object_entered_area)
 
 
-func _on_object_entered_area(area_id: String, object_type: String) -> void:
-	if area_id == quest_area_id and object_type == object_type:
-		pass
+func _set_items_in_area(value: int) -> void:
+	_items_in_area = value
+	if _items_in_area >= item_count:
+		done = true
+	else:
+		done = false
+
+
+func _on_object_entered_area(area_id: String, obj_type: String) -> void:
+	if area_id == quest_area_id and obj_type == object_type:
+		_items_in_area += 1
 
 
 func _on_object_exited_area(area_id: String, object_type: String) -> void:
 	if area_id == quest_area_id and object_type == object_type:
-		pass
+		item_count -= 1
+		if _items_in_area < 0:
+			_items_in_area = 0

@@ -1,0 +1,189 @@
+[gd_scene load_steps=23 format=3 uid="uid://br868vd8qe15o"]
+
+[ext_resource type="FontFile" uid="uid://bvvuhheqfwq0c" path="res://assets/fonts/Pixelmax-Regular.otf" id="1_3fkfq"]
+[ext_resource type="FontFile" uid="uid://bwxvib8er6qv" path="res://assets/fonts/JacquardaBastarda9-Regular.ttf" id="2_wej6n"]
+[ext_resource type="FontFile" uid="uid://b4cdmnc6ogryn" path="res://assets/fonts/Micro5-Regular.ttf" id="3_48kvh"]
+[ext_resource type="FontFile" uid="uid://bondoqealt5p4" path="res://assets/fonts/PIXELADE.TTF" id="4_ckaqv"]
+[ext_resource type="FontFile" uid="uid://rfmiixthsa1y" path="res://assets/fonts/Pixeled.ttf" id="5_hxy26"]
+[ext_resource type="FontFile" uid="uid://cjapcbab1uovc" path="res://assets/fonts/Pixellari.ttf" id="6_0g1p7"]
+[ext_resource type="FontFile" uid="uid://b7onyuf3q7q8x" path="res://assets/fonts/Retro Gaming.ttf" id="7_0f7uc"]
+[ext_resource type="FontFile" uid="uid://c0d3ifk3idc6h" path="res://assets/fonts/BlockBlueprint.ttf" id="8_psb0w"]
+[ext_resource type="FontFile" uid="uid://ikonkp41h06t" path="res://assets/fonts/ByteBounce.ttf" id="9_ksunt"]
+[ext_resource type="FontFile" uid="uid://cgcv6uwtxyljx" path="res://assets/fonts/GothicByte.ttf" id="10_umidh"]
+[ext_resource type="FontFile" uid="uid://dai0sgmbblqol" path="res://assets/fonts/PublicPixel.ttf" id="11_fnwn5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gx1jg"]
+font = ExtResource("1_3fkfq")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_ugbui"]
+font = ExtResource("2_wej6n")
+font_size = 13
+
+[sub_resource type="LabelSettings" id="LabelSettings_myrg7"]
+font = ExtResource("3_48kvh")
+font_size = 11
+
+[sub_resource type="LabelSettings" id="LabelSettings_kvlxm"]
+font = ExtResource("4_ckaqv")
+font_size = 13
+
+[sub_resource type="LabelSettings" id="LabelSettings_lgqa7"]
+font = ExtResource("5_hxy26")
+font_size = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_uf5tr"]
+font = ExtResource("6_0g1p7")
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ydkj"]
+font = ExtResource("7_0f7uc")
+font_size = 11
+
+[sub_resource type="LabelSettings" id="LabelSettings_uhifm"]
+font = ExtResource("8_psb0w")
+
+[sub_resource type="LabelSettings" id="LabelSettings_k7oub"]
+font = ExtResource("9_ksunt")
+
+[sub_resource type="LabelSettings" id="LabelSettings_jo3cy"]
+font = ExtResource("10_umidh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_hbsgo"]
+font = ExtResource("11_fnwn5")
+font_size = 8
+
+[node name="FontTest" type="HBoxContainer" unique_id=59212928]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1385966455]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="PixelMax" type="Label" parent="VBoxContainer" unique_id=891818363]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_gx1jg")
+
+[node name="Jacquarda" type="Label" parent="VBoxContainer" unique_id=2110799857]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_ugbui")
+
+[node name="Micro5" type="Label" parent="VBoxContainer" unique_id=1475357343]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_myrg7")
+
+[node name="Pixelade" type="Label" parent="VBoxContainer" unique_id=1280557370]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_kvlxm")
+
+[node name="Pixeled" type="Label" parent="VBoxContainer" unique_id=866957444]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_lgqa7")
+
+[node name="Pixellari" type="Label" parent="VBoxContainer" unique_id=547347823]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_uf5tr")
+
+[node name="RetroGaming" type="Label" parent="VBoxContainer" unique_id=223656838]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_8ydkj")
+
+[node name="BlueBlock" type="Label" parent="VBoxContainer" unique_id=1718268903]
+layout_mode = 2
+text = "Texti"
+label_settings = SubResource("LabelSettings_uhifm")
+
+[node name="ByteBounce" type="Label" parent="VBoxContainer" unique_id=2033821100]
+layout_mode = 2
+text = "Texte"
+label_settings = SubResource("LabelSettings_k7oub")
+
+[node name="GothicByte" type="Label" parent="VBoxContainer" unique_id=1525182799]
+layout_mode = 2
+text = "Texte"
+label_settings = SubResource("LabelSettings_jo3cy")
+
+[node name="PublicPixel" type="Label" parent="VBoxContainer" unique_id=261731229]
+layout_mode = 2
+text = "Texte"
+label_settings = SubResource("LabelSettings_hbsgo")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1885407193]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="PixelMax" type="Label" parent="VBoxContainer2" unique_id=1866180851]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_gx1jg")
+uppercase = true
+
+[node name="Jacquarda" type="Label" parent="VBoxContainer2" unique_id=1312796666]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_ugbui")
+uppercase = true
+
+[node name="Micro5" type="Label" parent="VBoxContainer2" unique_id=928619440]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_myrg7")
+uppercase = true
+
+[node name="Pixelade" type="Label" parent="VBoxContainer2" unique_id=2125109319]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_kvlxm")
+uppercase = true
+
+[node name="Pixeled" type="Label" parent="VBoxContainer2" unique_id=1509304212]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_lgqa7")
+uppercase = true
+
+[node name="Pixellari" type="Label" parent="VBoxContainer2" unique_id=630843357]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_uf5tr")
+uppercase = true
+
+[node name="RetroGaming" type="Label" parent="VBoxContainer2" unique_id=1980411456]
+layout_mode = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_8ydkj")
+uppercase = true
+
+[node name="BlueBlock" type="Label" parent="VBoxContainer2" unique_id=646556945]
+layout_mode = 2
+text = "Texti"
+label_settings = SubResource("LabelSettings_uhifm")
+uppercase = true
+
+[node name="ByteBounce" type="Label" parent="VBoxContainer2" unique_id=762527929]
+layout_mode = 2
+text = "Texte"
+label_settings = SubResource("LabelSettings_k7oub")
+uppercase = true
+
+[node name="GothicByte" type="Label" parent="VBoxContainer2" unique_id=551515744]
+layout_mode = 2
+text = "Texte"
+label_settings = SubResource("LabelSettings_jo3cy")
+uppercase = true
+
+[node name="PublicPixel" type="Label" parent="VBoxContainer2" unique_id=86122057]
+layout_mode = 2
+text = "Texte"
+label_settings = SubResource("LabelSettings_hbsgo")
+uppercase = true

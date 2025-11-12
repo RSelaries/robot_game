@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=92 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
@@ -32,6 +32,7 @@
 [ext_resource type="Script" uid="uid://b8q67hl0x6ggc" path="res://scenes/player/states/get_stored_box.gd" id="24_uniwh"]
 [ext_resource type="Texture2D" uid="uid://d1mi4fl4ma6xl" path="res://assets/textures/shadow.png" id="25_007i1"]
 [ext_resource type="Script" uid="uid://b22cne1t34icq" path="res://scenes/player/debug_menu.gd" id="27_tffgl"]
+[ext_resource type="PackedScene" uid="uid://dvmdtgnli0k2" path="res://scenes/gui_scenes/game_menu/hud.tscn" id="28_4hvnv"]
 [ext_resource type="Script" uid="uid://c83cmmvxk4k68" path="res://addons/quest_manager/quest_manager_debug.gd" id="30_pk8ii"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
@@ -530,8 +531,18 @@ metadata/_custom_type_script = "uid://tg2nqyfd0vap"
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=28864392]
 
+[node name="HUD" parent="HUD" unique_id=1483513308 instance=ExtResource("28_4hvnv")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="DebugMenu" type="CanvasLayer" parent="." unique_id=571525341]
 layer = 100
+visible = false
 script = ExtResource("27_tffgl")
 
 [node name="MarginContainer" type="MarginContainer" parent="DebugMenu" unique_id=1920073963]

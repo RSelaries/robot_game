@@ -9,3 +9,4 @@ extends Node
 func _ready() -> void:
 	QuestManager.available_quest_pool.append(quest)
 	QuestManager._quest_refs[quest.quest_name] = quest
+	quest.ready()
