@@ -1,7 +1,8 @@
-[gd_scene load_steps=88 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene load_steps=91 format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
+[ext_resource type="Script" uid="uid://tg2nqyfd0vap" path="res://scripts/custom_nodes/separator.gd" id="2_5mf0n"]
 [ext_resource type="Script" uid="uid://cxw3k38ixgrb5" path="res://scripts/custom_nodes/components/follow_components/follow_two_components.gd" id="2_lgqa7"]
 [ext_resource type="Shader" uid="uid://dihrx78lkr8a1" path="res://assets/shaders/spatials/pixelart_edge_detect.gdshader" id="3_0owmy"]
 [ext_resource type="Script" uid="uid://co1h5yj8mqdm0" path="res://scripts/custom_nodes/interaction_shapecast.gd" id="4_8ydkj"]
@@ -30,6 +31,8 @@
 [ext_resource type="Script" uid="uid://cgp3m6n0ob8bo" path="res://scenes/player/states/store_box.gd" id="23_28m0y"]
 [ext_resource type="Script" uid="uid://b8q67hl0x6ggc" path="res://scenes/player/states/get_stored_box.gd" id="24_uniwh"]
 [ext_resource type="Texture2D" uid="uid://d1mi4fl4ma6xl" path="res://assets/textures/shadow.png" id="25_007i1"]
+[ext_resource type="Script" uid="uid://b22cne1t34icq" path="res://scenes/player/debug_menu.gd" id="27_tffgl"]
+[ext_resource type="Script" uid="uid://c83cmmvxk4k68" path="res://addons/quest_manager/quest_manager_debug.gd" id="30_pk8ii"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
 radius = 0.2265625
@@ -309,11 +312,16 @@ radius = 0.05
 [node name="Player" type="CharacterBody3D" unique_id=1881103756 node_paths=PackedStringArray("player_mesh", "property_watcher", "held_box_collision", "interaction_shapecast", "animation_tree", "stored_box_pos")]
 script = ExtResource("1_qjkh3")
 player_mesh = NodePath("PlayerMesh")
-property_watcher = NodePath("HUD/PropertyWatcher")
+property_watcher = NodePath("DebugMenu/MarginContainer/VBoxContainer/PropertyWatcher")
 held_box_collision = NodePath("HeldBoxCollision")
 interaction_shapecast = NodePath("PlayerMesh/Armature/Skeleton3D/BoneAttachment3D/InteractionShapeCast3D")
 animation_tree = NodePath("AnimationTree")
 stored_box_pos = NodePath("PlayerMesh/Armature/Skeleton3D/BoneAttachment3D/StoredBoxPos")
+
+[node name="≡≡≡≡ 3D ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡" type="Node" parent="." unique_id=2026376183]
+script = ExtResource("2_5mf0n")
+shown_name = "3D"
+metadata/_custom_type_script = "uid://tg2nqyfd0vap"
 
 [node name="BodyPhysicsCollision" type="CollisionShape3D" parent="." unique_id=448778154]
 shape = SubResource("CapsuleShape3D_yw30f")
@@ -411,6 +419,11 @@ parameters/Actions/BoxActions/put_box_down_1/request = 0
 parameters/Actions/BoxActions/put_box_down_2/active = false
 parameters/Actions/BoxActions/put_box_down_2/internal_active = false
 parameters/Actions/BoxActions/put_box_down_2/request = 0
+
+[node name="≡≡≡≡ State Machines ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡" type="Node" parent="." unique_id=1326546195]
+script = ExtResource("2_5mf0n")
+shown_name = "State Machines"
+metadata/_custom_type_script = "uid://tg2nqyfd0vap"
 
 [node name="MovementFSM" type="Node" parent="." unique_id=891251310 node_paths=PackedStringArray("player", "initial_state")]
 script = ExtResource("5_je7p5")
@@ -510,30 +523,69 @@ metadata/_custom_type_script = "uid://dero042hjjbjp"
 script = ExtResource("21_cnsyf")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
+[node name="≡≡≡≡ GUI ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡" type="Node" parent="." unique_id=237170885]
+script = ExtResource("2_5mf0n")
+shown_name = "GUI"
+metadata/_custom_type_script = "uid://tg2nqyfd0vap"
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=28864392]
 
-[node name="PropertyWatcher" type="VBoxContainer" parent="HUD" unique_id=627723326]
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 1.0
-offset_bottom = 1.0
+[node name="DebugMenu" type="CanvasLayer" parent="." unique_id=571525341]
+layer = 100
+script = ExtResource("27_tffgl")
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugMenu" unique_id=1920073963]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_kvlxm")
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugMenu/MarginContainer" unique_id=1438694064]
+layout_mode = 2
+
+[node name="PropertyWatcher" type="VBoxContainer" parent="DebugMenu/MarginContainer/VBoxContainer" unique_id=627723326]
+layout_mode = 2
 theme = ExtResource("9_kvlxm")
 theme_override_constants/separation = 0
 script = ExtResource("17_uf5tr")
 metadata/_custom_type_script = "uid://ct1nqkvr8f82q"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HUD" unique_id=623425502]
+[node name="QuestManagerDebug" type="ItemList" parent="DebugMenu/MarginContainer/VBoxContainer" unique_id=1764478723]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+auto_width = true
+auto_height = true
+item_count = 2
+item_0/text = "Current Quests List"
+item_1/text = "___________________"
+script = ExtResource("30_pk8ii")
+metadata/_custom_type_script = "uid://c83cmmvxk4k68"
+
+[node name="MarginContainer2" type="MarginContainer" parent="DebugMenu" unique_id=33157099]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -115.0
-offset_top = 1.0
-offset_right = -1.0
+offset_left = -85.0
+offset_bottom = 81.0
 grow_horizontal = 0
 theme = ExtResource("9_kvlxm")
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="DebugMenu/MarginContainer2" unique_id=623425502]
+layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="ActionsFSMTree" type="Tree" parent="HUD/VBoxContainer2" unique_id=1872175985 node_paths=PackedStringArray("fsm_to_watch")]
+[node name="ActionsFSMTree" type="Tree" parent="DebugMenu/MarginContainer2/VBoxContainer2" unique_id=1872175985 node_paths=PackedStringArray("fsm_to_watch")]
 layout_mode = 2
 allow_search = false
 hide_folding = true
@@ -541,10 +593,10 @@ scroll_horizontal_enabled = false
 scroll_vertical_enabled = false
 auto_tooltip = false
 script = ExtResource("9_5gtgg")
-fsm_to_watch = NodePath("../../../ActionsFSM")
+fsm_to_watch = NodePath("../../../../ActionsFSM")
 metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
 
-[node name="MovementFSMTree" type="Tree" parent="HUD/VBoxContainer2" unique_id=651319678 node_paths=PackedStringArray("fsm_to_watch")]
+[node name="MovementFSMTree" type="Tree" parent="DebugMenu/MarginContainer2/VBoxContainer2" unique_id=651319678 node_paths=PackedStringArray("fsm_to_watch")]
 layout_mode = 2
 allow_search = false
 hide_folding = true
@@ -552,7 +604,7 @@ scroll_horizontal_enabled = false
 scroll_vertical_enabled = false
 auto_tooltip = false
 script = ExtResource("9_5gtgg")
-fsm_to_watch = NodePath("../../../MovementFSM")
+fsm_to_watch = NodePath("../../../../MovementFSM")
 metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
 
 [node name="Shadow" type="SpringArm3D" parent="." unique_id=1468902414]

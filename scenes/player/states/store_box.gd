@@ -18,7 +18,9 @@ func state_entered() -> void:
 
 
 # On box stored
-func _on_store_1_finished(_param) -> void:
+func _on_store_1_finished(anim_name: String) -> void:
+	if anim_name != "StoreBox1": return
+	
 	# Disconnect callable
 	player.animation_tree.animation_finished.disconnect(_on_store_1_finished)
 	
@@ -36,7 +38,9 @@ func _on_store_1_finished(_param) -> void:
 	player.animation_tree.animation_finished.connect(_on_store_2_finished)
 
 
-func _on_store_2_finished(_param) -> void:
+func _on_store_2_finished(anim_name: String) -> void:
+	if anim_name != "StoreBox2": return
+	
 	# Disconnect callable
 	player.animation_tree.animation_finished.disconnect(_on_store_2_finished)
 	change_state("no_action")

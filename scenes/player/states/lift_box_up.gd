@@ -23,7 +23,9 @@ func state_entered() -> void:
 
 
 # On box held
-func _on_lift_1_finished(_param) -> void:
+func _on_lift_1_finished(anim_name: String) -> void:
+	if anim_name != "LiftBox1": return
+	
 	# Disconnect callable
 	player.animation_tree.animation_finished.disconnect(_on_lift_1_finished)
 	
@@ -37,7 +39,9 @@ func _on_lift_1_finished(_param) -> void:
 	player.animation_tree.animation_finished.connect(_on_lift_2_finished)
 
 
-func _on_lift_2_finished(_param) -> void:
+func _on_lift_2_finished(anim_name: String) -> void:
+	if anim_name != "LiftBox2": return
+	
 	# Disconnect callable
 	player.animation_tree.animation_finished.disconnect(_on_lift_2_finished)
 	player.held_box_collision.disabled = false

@@ -82,11 +82,11 @@ func _rotate_mesh() -> void:
 	player_mesh.rotation.y = lerp_angle(rot_y, angle, acceleration_speed)
 
 
-func _apply_direction_to_velocity(direction: Vector3, total_speed: float) -> void:
-	if direction:
-		var target_speed_x := direction.x * total_speed
+func _apply_direction_to_velocity(dir: Vector3, speed: float) -> void:
+	if dir:
+		var target_speed_x := dir.x * speed
 		velocity.x = move_toward(velocity.x, target_speed_x, acceleration_speed)
-		var target_speed_z := direction.z * total_speed
+		var target_speed_z := dir.z * speed
 		velocity.z = move_toward(velocity.z, target_speed_z, acceleration_speed)
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration_speed)
@@ -96,7 +96,7 @@ func _apply_direction_to_velocity(direction: Vector3, total_speed: float) -> voi
 func _properties_to_watch() -> void:
 	if not property_watcher: return
 	
-	property_watcher.watch_property(self, "velocity_length")
-	property_watcher.watch_property(self, "position")
-	property_watcher.watch_property(self, "held_object")
-	property_watcher.watch_property(self, "stored_object")
+	property_watcher.watch_property(self, "velocity_length", Color.LIGHT_CORAL)
+	property_watcher.watch_property(self, "position", Color.LIGHT_CORAL)
+	property_watcher.watch_property(self, "held_object", Color.LIGHT_CORAL)
+	property_watcher.watch_property(self, "stored_object", Color.LIGHT_CORAL)

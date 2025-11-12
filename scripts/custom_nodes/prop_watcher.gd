@@ -31,11 +31,11 @@ func _physics_process(_delta: float) -> void:
 		prop.prop_value_label.text = prop_text
 
 
-func watch_property(from: Object, property: NodePath) -> void:
-	_create_watched_prop_control(from, property)
+func watch_property(from: Object, property: NodePath, color: Color = Color.WHITE) -> void:
+	_create_watched_prop_control(from, property, color)
 
 
-func _create_watched_prop_control(obj: Object, prop: NodePath) -> void:
+func _create_watched_prop_control(obj: Object, prop: NodePath, color: Color) -> void:
 	var prop_panel := PanelContainer.new()
 	prop_panel.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	
@@ -46,10 +46,12 @@ func _create_watched_prop_control(obj: Object, prop: NodePath) -> void:
 	var prop_name_label := Label.new()
 	var prop_name := str(prop)
 	prop_name_label.text = prop_name.replace("_", " ").capitalize() + ":"
+	prop_name_label.add_theme_color_override("font_color", color)
 	hbox.add_child(prop_name_label)
 	
 	var prop_value_label := Label.new()
 	hbox.add_child(prop_value_label)
+	prop_value_label.add_theme_color_override("font_color", color)
 	
 	var new_watched_object := WatchedProperty.new()
 	new_watched_object.object = obj

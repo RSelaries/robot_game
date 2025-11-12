@@ -2,6 +2,10 @@
 extends Node
 
 
+signal object_entered_area(area_id: String, object_type: String)
+signal object_exited_area(area_id: String, object_type: String)
+
+
 var available_quest_pool: Array[QuestResource]
 var current_quest_stack: Array[QuestResource]
 var completed_quest_stack: Array[QuestResource]

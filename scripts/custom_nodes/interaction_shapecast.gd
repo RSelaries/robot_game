@@ -14,7 +14,8 @@ func _ready() -> void:
 	collide_with_areas = true
 	
 	if Engine.is_editor_hint(): return
-	player.property_watcher.watch_property(self, "interactable_component")
+	await  get_tree().create_timer(0).timeout
+	player.property_watcher.watch_property(self, "interactable_component", Color.LIGHT_CORAL)
 
 
 func _physics_process(_delta: float) -> void:

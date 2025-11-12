@@ -17,4 +17,12 @@ func _ready() -> void:
 
 
 func _body_entered(body: Node3D) -> void:
-	pass
+	var object_comp: QuestObjectComponent
+	for child in body.get_children():
+		if child is QuestObjectComponent:
+			object_comp = child
+			break
+	
+	if not object_comp: return
+	
+	print("Quest Object enterd: ", object_comp.type_name)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bv7lknf1s8r0r"]
+[gd_scene load_steps=36 format=3 uid="uid://bv7lknf1s8r0r"]
 
 [ext_resource type="Script" uid="uid://b74sqgr6t3p8y" path="res://scenes/world_scenes/world_scene_base.gd" id="1_idnf6"]
 [ext_resource type="PackedScene" uid="uid://bqxq8g2clwngp" path="res://scenes/player/player.tscn" id="2_4dr8e"]
@@ -17,8 +17,9 @@
 [ext_resource type="Script" uid="uid://b1phaoxe8da4o" path="res://addons/quest_manager/resources/quest_resource.gd" id="13_btrep"]
 [ext_resource type="Script" uid="uid://ckx3kbgkvl2pb" path="res://addons/quest_manager/resources/quest_item.gd" id="13_hml7c"]
 [ext_resource type="Resource" uid="uid://otr6u84lvy34" path="res://scenes/world_scenes/test_world/test_npc_dialogue.dialogue" id="15_p4qwf"]
-[ext_resource type="Script" uid="uid://dpxika85qqbw4" path="res://addons/quest_manager/resources/quest_object.gd" id="15_trlpp"]
+[ext_resource type="Script" uid="uid://dpxika85qqbw4" path="res://addons/quest_manager/resources/quest_step/quest_object.gd" id="15_trlpp"]
 [ext_resource type="Script" uid="uid://dwr14nc60d82m" path="res://addons/quest_manager/components/item_area_3d.gd" id="18_vuohe"]
+[ext_resource type="Script" uid="uid://bgqjsl48fcs2k" path="res://addons/quest_manager/resources/quest_step/quest_talk.gd" id="19_f6c80"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_idnf6"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -84,17 +85,22 @@ albedo_color = Color(0.9786077, 0.6069559, 3.85046e-07, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ksd71"]
 size = Vector3(0.4, 1, 0.4)
 
-[sub_resource type="Resource" id="Resource_vuohe"]
+[sub_resource type="Resource" id="Resource_p4qwf"]
 script = ExtResource("15_trlpp")
 item_count = 3
-item_id = "box"
+object_type = "box"
 quest_area_id = "box_area"
 metadata/_custom_type_script = "uid://dpxika85qqbw4"
+
+[sub_resource type="Resource" id="Resource_v0euc"]
+script = ExtResource("19_f6c80")
+talk_id = "droped_cubes"
+metadata/_custom_type_script = "uid://bgqjsl48fcs2k"
 
 [sub_resource type="Resource" id="Resource_hml7c"]
 script = ExtResource("13_btrep")
 quest_name = "drop_cubes"
-quest_item_stack = Array[ExtResource("13_hml7c")]([SubResource("Resource_vuohe")])
+quest_steps = Array[ExtResource("13_hml7c")]([SubResource("Resource_p4qwf"), SubResource("Resource_v0euc")])
 metadata/_custom_type_script = "uid://b1phaoxe8da4o"
 
 [node name="TestWorld" type="Node3D" unique_id=941300603]
@@ -317,7 +323,196 @@ stretch_mode = 5
 
 [node name="QuestObjectComponent" type="Node" parent="Box" unique_id=301211437]
 script = ExtResource("11_c0lbj")
-id = "box"
+type_name = "box"
+metadata/_custom_type_script = "uid://bac75srj8lqrd"
+
+[node name="Box4" type="RigidBody3D" parent="." unique_id=304482975]
+transform = Transform3D(0.85349625, 0, -0.521099, 0, 1, 0, 0.521099, 0, 0.85349625, -4.607891, 0.2, 0.45540607)
+metadata/_edit_group_ = true
+
+[node name="PickableArea3D" type="Area3D" parent="Box4" unique_id=1751054911 node_paths=PackedStringArray("show_on_focus")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_l6al4")
+pickable_type = 2
+show_on_focus = [NodePath("../UnprojectMarker")]
+metadata/_custom_type_script = "uid://bh57idn6g8no8"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box4/PickableArea3D" unique_id=616845575]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Box4" unique_id=1673560775]
+size = Vector3(0.4, 0.4, 0.4)
+material = SubResource("StandardMaterial3D_l6al4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box4" unique_id=1437318853]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="UnprojectMarker" type="Marker3D" parent="Box4" unique_id=2029472414 node_paths=PackedStringArray("node_to_project")]
+visible = false
+script = ExtResource("7_pnl33")
+node_to_project = NodePath("Control2")
+metadata/_custom_type_script = "uid://bbpjkqyrxjvk1"
+
+[node name="Control2" type="Control" parent="Box4/UnprojectMarker" unique_id=1552876459]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Control" type="VBoxContainer" parent="Box4/UnprojectMarker/Control2" unique_id=256436780]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -1
+
+[node name="Label" type="Label" parent="Box4/UnprojectMarker/Control2/Control" unique_id=478777199]
+layout_mode = 2
+text = "PICK UP PHYSICS"
+label_settings = SubResource("LabelSettings_j8krb")
+
+[node name="TextureRect" type="TextureRect" parent="Box4/UnprojectMarker/Control2/Control" unique_id=350662463]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_j8krb")
+stretch_mode = 5
+
+[node name="QuestObjectComponent" type="Node" parent="Box4" unique_id=2131141725]
+script = ExtResource("11_c0lbj")
+type_name = "box"
+metadata/_custom_type_script = "uid://bac75srj8lqrd"
+
+[node name="Box2" type="RigidBody3D" parent="." unique_id=1970348275]
+transform = Transform3D(0.9367944, 0, -0.3498804, 0, 1, 0, 0.3498804, 0, 0.9367944, 4.0930815, 0.71922773, -2.2567616)
+metadata/_edit_group_ = true
+
+[node name="PickableArea3D" type="Area3D" parent="Box2" unique_id=1768791604 node_paths=PackedStringArray("show_on_focus")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_l6al4")
+pickable_type = 2
+show_on_focus = [NodePath("../UnprojectMarker")]
+metadata/_custom_type_script = "uid://bh57idn6g8no8"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2/PickableArea3D" unique_id=919773875]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Box2" unique_id=152152741]
+size = Vector3(0.4, 0.4, 0.4)
+material = SubResource("StandardMaterial3D_l6al4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2" unique_id=1060562876]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="UnprojectMarker" type="Marker3D" parent="Box2" unique_id=885243805 node_paths=PackedStringArray("node_to_project")]
+visible = false
+script = ExtResource("7_pnl33")
+node_to_project = NodePath("Control2")
+metadata/_custom_type_script = "uid://bbpjkqyrxjvk1"
+
+[node name="Control2" type="Control" parent="Box2/UnprojectMarker" unique_id=326671887]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Control" type="VBoxContainer" parent="Box2/UnprojectMarker/Control2" unique_id=24637708]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -1
+
+[node name="Label" type="Label" parent="Box2/UnprojectMarker/Control2/Control" unique_id=1539810985]
+layout_mode = 2
+text = "PICK UP PHYSICS"
+label_settings = SubResource("LabelSettings_j8krb")
+
+[node name="TextureRect" type="TextureRect" parent="Box2/UnprojectMarker/Control2/Control" unique_id=1740176395]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_j8krb")
+stretch_mode = 5
+
+[node name="QuestObjectComponent" type="Node" parent="Box2" unique_id=778847763]
+script = ExtResource("11_c0lbj")
+type_name = "box"
+metadata/_custom_type_script = "uid://bac75srj8lqrd"
+
+[node name="Box3" type="RigidBody3D" parent="." unique_id=242696045]
+transform = Transform3D(0.5436287, 0, 0.83932585, 0, 1, 0, -0.83932585, 0, 0.5436287, -3.3637328, 0.21804637, 2.2093887)
+metadata/_edit_group_ = true
+
+[node name="PickableArea3D" type="Area3D" parent="Box3" unique_id=197120970 node_paths=PackedStringArray("show_on_focus")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_l6al4")
+pickable_type = 2
+show_on_focus = [NodePath("../UnprojectMarker")]
+metadata/_custom_type_script = "uid://bh57idn6g8no8"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box3/PickableArea3D" unique_id=457128768]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Box3" unique_id=1908916276]
+size = Vector3(0.4, 0.4, 0.4)
+material = SubResource("StandardMaterial3D_l6al4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box3" unique_id=1674999276]
+shape = SubResource("BoxShape3D_pnl33")
+
+[node name="UnprojectMarker" type="Marker3D" parent="Box3" unique_id=63980473 node_paths=PackedStringArray("node_to_project")]
+visible = false
+script = ExtResource("7_pnl33")
+node_to_project = NodePath("Control2")
+metadata/_custom_type_script = "uid://bbpjkqyrxjvk1"
+
+[node name="Control2" type="Control" parent="Box3/UnprojectMarker" unique_id=1939691581]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Control" type="VBoxContainer" parent="Box3/UnprojectMarker/Control2" unique_id=1978142753]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -33.0
+offset_right = 32.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -1
+
+[node name="Label" type="Label" parent="Box3/UnprojectMarker/Control2/Control" unique_id=1916172901]
+layout_mode = 2
+text = "PICK UP PHYSICS"
+label_settings = SubResource("LabelSettings_j8krb")
+
+[node name="TextureRect" type="TextureRect" parent="Box3/UnprojectMarker/Control2/Control" unique_id=1109700316]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_j8krb")
+stretch_mode = 5
+
+[node name="QuestObjectComponent" type="Node" parent="Box3" unique_id=1327855803]
+script = ExtResource("11_c0lbj")
+type_name = "box"
 metadata/_custom_type_script = "uid://bac75srj8lqrd"
 
 [node name="≡≡≡≡ Entities ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡" type="Node" parent="." unique_id=1816264641]
@@ -347,6 +542,7 @@ material = SubResource("StandardMaterial3D_hbl5r")
 shape = SubResource("BoxShape3D_ksd71")
 
 [node name="UnprojectMarker" type="Marker3D" parent="TestNPCQuest" unique_id=1828914900 node_paths=PackedStringArray("node_to_project")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5015074, 0)
 visible = false
 script = ExtResource("7_pnl33")
 node_to_project = NodePath("Control2")
@@ -363,10 +559,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -10.5
-offset_top = -33.0
-offset_right = 10.5
-offset_bottom = -4.0
+offset_top = -29.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = -1

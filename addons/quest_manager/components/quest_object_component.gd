@@ -3,4 +3,5 @@ class_name QuestObjectComponent
 extends Node
 
 
-@export var id: String = "object_ name"
+## The object's type name
+@export var type_name: String
