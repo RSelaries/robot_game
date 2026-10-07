@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bsgssytopcb0"]
+[gd_resource type="Theme" format=3 uid="uid://bsgssytopcb0"]
 
 [ext_resource type="FontFile" uid="uid://dai0sgmbblqol" path="res://assets/fonts/PublicPixel.ttf" id="1_q0dsu"]
 [ext_resource type="Texture2D" uid="uid://de7uyorbmhxpy" path="res://assets/textures/ui/green_diher.png" id="2_2dyrc"]

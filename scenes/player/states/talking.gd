@@ -7,8 +7,10 @@ func state_entered() -> void:
 	if int_comp is TalkArea3D:
 		int_comp.interact()
 	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func _on_dialogue_ended(_res) -> void:
 	DialogueManager.dialogue_ended.disconnect(_on_dialogue_ended)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	change_state("no_action")

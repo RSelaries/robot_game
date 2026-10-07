@@ -9,7 +9,7 @@ func get_child_state() -> StateBase:
 		return state_machine.get_state("talking")
 	
 	if int_comp is PickableArea3D:
-		return _handle_box_action()
+		if int_comp.pickable: return _handle_box_action()
 	
 	if int_comp is InteractableArea3D:
 		return state_machine.get_state("generic_action_1")

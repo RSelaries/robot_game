@@ -187,3 +187,73 @@ layout_mode = 2
 text = "Texte"
 label_settings = SubResource("LabelSettings_hbsgo")
 uppercase = true
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="." unique_id=17616272]
+layout_mode = 2
+theme_override_constants/separation = -1
+
+[node name="PixelMax" type="Label" parent="VBoxContainer3" unique_id=772279641]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_gx1jg")
+uppercase = true
+
+[node name="Jacquarda" type="Label" parent="VBoxContainer3" unique_id=634283033]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_ugbui")
+uppercase = true
+
+[node name="Micro5" type="Label" parent="VBoxContainer3" unique_id=378815072]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_myrg7")
+uppercase = true
+
+[node name="Pixelade" type="Label" parent="VBoxContainer3" unique_id=2075849836]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_kvlxm")
+uppercase = true
+
+[node name="Pixeled" type="Label" parent="VBoxContainer3" unique_id=836154370]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_lgqa7")
+uppercase = true
+
+[node name="Pixellari" type="Label" parent="VBoxContainer3" unique_id=417158556]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_uf5tr")
+uppercase = true
+
+[node name="RetroGaming" type="Label" parent="VBoxContainer3" unique_id=1631476850]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_8ydkj")
+uppercase = true
+
+[node name="BlueBlock" type="Label" parent="VBoxContainer3" unique_id=806151458]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_uhifm")
+uppercase = true
+
+[node name="ByteBounce" type="Label" parent="VBoxContainer3" unique_id=1020151394]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_k7oub")
+uppercase = true
+
+[node name="GothicByte" type="Label" parent="VBoxContainer3" unique_id=1606710436]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_jo3cy")
+uppercase = true
+
+[node name="PublicPixel" type="Label" parent="VBoxContainer3" unique_id=958568614]
+layout_mode = 2
+text = "éàùâê ! . ? \" ' è"
+label_settings = SubResource("LabelSettings_hbsgo")
+uppercase = true

@@ -1,0 +1,66 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://co6sbbi2b8i2c"]
+
+[ext_resource type="FontFile" uid="uid://ikonkp41h06t" path="res://assets/fonts/ByteBounce.ttf" id="1_upum0"]
+[ext_resource type="StyleBox" uid="uid://bnrxefpq36yti" path="res://scenes/gui_scenes/dialogue_balloon/button_norm.stylebox" id="2_evpi7"]
+[ext_resource type="FontFile" uid="uid://dai0sgmbblqol" path="res://assets/fonts/PublicPixel.ttf" id="2_gvk17"]
+[ext_resource type="StyleBox" uid="uid://bipem2ysqnro7" path="res://scenes/gui_scenes/dialogue_balloon/button_pressed.stylebox" id="3_4pvyi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evpi7"]
+content_margin_left = 9.0
+content_margin_top = 1.0
+content_margin_right = 11.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.9019608)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.58431375)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkmqt"]
+bg_color = Color(0, 0, 0, 0.69803923)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.58431375)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[resource]
+default_font_size = 20
+Button/font_sizes/font_size = 8
+Button/fonts/font = ExtResource("2_gvk17")
+Button/styles/disabled = ExtResource("2_evpi7")
+Button/styles/focus = ExtResource("2_evpi7")
+Button/styles/hover = SubResource("StyleBoxFlat_evpi7")
+Button/styles/normal = ExtResource("2_evpi7")
+Button/styles/pressed = ExtResource("3_4pvyi")
+Label/fonts/font = ExtResource("1_upum0")
+MarginContainer/constants/margin_bottom = 15
+MarginContainer/constants/margin_left = 30
+MarginContainer/constants/margin_right = 30
+MarginContainer/constants/margin_top = 15
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_qkmqt")
+RichTextLabel/font_sizes/bold_font_size = 8
+RichTextLabel/font_sizes/bold_italics_font_size = 8
+RichTextLabel/font_sizes/italics_font_size = 8
+RichTextLabel/font_sizes/mono_font_size = 8
+RichTextLabel/font_sizes/normal_font_size = 8
+RichTextLabel/fonts/bold_font = ExtResource("1_upum0")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_upum0")
+RichTextLabel/fonts/italics_font = ExtResource("1_upum0")
+RichTextLabel/fonts/mono_font = ExtResource("1_upum0")
+RichTextLabel/fonts/normal_font = ExtResource("2_gvk17")

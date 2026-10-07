@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cir2tavsj3675"]
+[gd_resource type="Theme" format=3 uid="uid://cir2tavsj3675"]
 
 [ext_resource type="FontFile" uid="uid://rfmiixthsa1y" path="res://assets/fonts/Pixeled.ttf" id="1_3you2"]
 
@@ -27,6 +27,15 @@ content_margin_left = 2.0
 content_margin_right = 2.0
 bg_color = Color(0, 0, 0, 0.3764706)
 corner_detail = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8ksc"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.54901963)
+corner_detail = 1
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11pcl"]
@@ -60,8 +69,23 @@ Label/fonts/font = ExtResource("1_3you2")
 Label/styles/focus = SubResource("StyleBoxEmpty_3you2")
 Label/styles/normal = SubResource("StyleBoxEmpty_3you2")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ut3ij")
+PopupPanel/styles/panel = SubResource("StyleBoxFlat_n8ksc")
+RichTextLabel/font_sizes/bold_font_size = 5
+RichTextLabel/font_sizes/bold_italics_font_size = 5
+RichTextLabel/font_sizes/italics_font_size = 5
+RichTextLabel/font_sizes/mono_font_size = 5
+RichTextLabel/font_sizes/normal_font_size = 5
+RichTextLabel/fonts/bold_font = ExtResource("1_3you2")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_3you2")
+RichTextLabel/fonts/italics_font = ExtResource("1_3you2")
+RichTextLabel/fonts/mono_font = ExtResource("1_3you2")
+RichTextLabel/fonts/normal_font = ExtResource("1_3you2")
 SplitContainer/constants/minimum_grab_thickness = 2
 SplitContainer/constants/separation = 2
+TooltipLabel/constants/shadow_offset_x = 0
+TooltipLabel/constants/shadow_offset_y = 0
+TooltipLabel/font_sizes/font_size = 5
+TooltipLabel/fonts/font = ExtResource("1_3you2")
 Tree/colors/font_color = Color(1, 1, 1, 1)
 Tree/colors/guide_color = Color(0.5442104, 0.7017166, 1, 0.50980395)
 Tree/constants/h_separation = 0

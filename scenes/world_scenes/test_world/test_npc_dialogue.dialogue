@@ -1,19 +1,39 @@
 ~ start
-if QuestManager.quest_available("drop_cubes")
+if QuestManager.is_quest_available("drop_cubes")
 	Test NPC: Tu n'as pas encore accepté la quête.
 	=> propose_quest
 else
-	Test NPC: Tu as accepté la quête!
-	=> END!
+	=> verify_quest
 
 
 ~ propose_quest
 Test NPC: J'ai une quête pour toi : dépose trois cubes dans cette zone là.
 Test NPC: Veux to accepter ma quête ?
-- *Accpeter*
+- *Accepter*
 	Test NPC: Super!
-	do QuestManager.start_quest("drop_cubes")
+	if QuestManager.get_quest("drop_cubes").quest_steps[0].done
+		Test NPC: Oh bah tiens tu l'as déjà fait!
+		do QuestManager.quest_talk("drop_cubes_done")
+	else
+		do QuestManager.start_quest("drop_cubes")
 	=> END!
 - *Refuser*
 	Test NPC: Oki, peut être plus tard...
 	=> END!
+
+
+~ verify_quest
+if QuestManager.get_quest("drop_cubes").quest_steps[0].done
+	=> quest_completed
+elif QuestManager.is_quest_completed("drop_cubes")
+	=> quest_completed
+else:
+	Test NPC: Tu as accepté la quête!
+	Test NPC: Dépose trois cubes dans cette zone pour remplir la quête.
+	=> END!
+
+
+~ quest_completed
+Test NPC: Tu as déposé les trois cubes! Merci!
+do QuestManager.quest_talk("drop_cubes_done")
+=> END!

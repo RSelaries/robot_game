@@ -10,9 +10,6 @@ func state_exited() -> void:
 	player.sprint_speed_modifier = 0
 
 
-func state_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("player_movement_sprint"):
-		change_state("walking")
-	if event.is_action_pressed("player_movement_jump"):
-		get_viewport().set_input_as_handled()
-		change_state("sprint_jumping")
+		change_state("no_modifier")

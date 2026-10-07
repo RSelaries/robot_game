@@ -1,2 +1,0 @@
-# SceneManager Autoload
-extends Node

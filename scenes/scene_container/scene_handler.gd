@@ -16,6 +16,9 @@ var inital_scene_instance: Node
 func _ready() -> void:
 	Settings.pixelisation_amount_changed.connect(_on_pxl_amnt_changed)
 	
+	if not Engine.is_editor_hint():
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 	var initial_scene_pcked: PackedScene = load(initial_scene)
 	inital_scene_instance = initial_scene_pcked.instantiate()
 	scene_container.change_child(inital_scene_instance)

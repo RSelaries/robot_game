@@ -15,7 +15,7 @@ func _ready() -> void:
 	
 	if Engine.is_editor_hint(): return
 	await  get_tree().create_timer(0).timeout
-	player.property_watcher.watch_property(self, "interactable_component", Color.LIGHT_CORAL)
+	player.property_watcher.watch_property(self, "interactable_component", player.debug_color)
 
 
 func _physics_process(_delta: float) -> void:

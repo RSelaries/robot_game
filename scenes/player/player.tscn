@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://bqxq8g2clwngp"]
+[gd_scene format=3 uid="uid://bqxq8g2clwngp"]
 
 [ext_resource type="Script" uid="uid://crou4jxvkhskt" path="res://scenes/player/player.gd" id="1_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://ommuxdvjy63d" path="res://assets/meshes/characters/player.glb" id="1_yw30f"]
@@ -14,12 +14,11 @@
 [ext_resource type="Script" uid="uid://benv32v0t8kpn" path="res://scenes/player/states/moving.gd" id="8_fm80t"]
 [ext_resource type="Script" uid="uid://dnoq8ordnxqvj" path="res://addons/simple_state_machine/node_classes/state_machine_tree.gd" id="9_5gtgg"]
 [ext_resource type="Theme" uid="uid://cir2tavsj3675" path="res://assets/resources/themes/player_debug_gui.tres" id="9_kvlxm"]
-[ext_resource type="Script" uid="uid://5tyfdtkc6po6" path="res://scenes/player/states/walking.gd" id="9_myrg7"]
-[ext_resource type="Script" uid="uid://ckdemtj5gcev8" path="res://scenes/player/states/sprinting.gd" id="10_kvlxm"]
 [ext_resource type="Script" uid="uid://bvqp284nyeb44" path="res://scenes/player/states/airborne.gd" id="10_ugbui"]
 [ext_resource type="Script" uid="uid://duymi0wq38b31" path="res://scenes/player/states/jumping.gd" id="11_fcs02"]
-[ext_resource type="Script" uid="uid://cuuk0gmh2bta2" path="res://scenes/player/states/sprint_jumping.gd" id="15_8ydkj"]
+[ext_resource type="Script" uid="uid://qi5s1k2kvvs0" path="res://scenes/player/states/no_modifiers.gd" id="15_5mf0n"]
 [ext_resource type="Script" uid="uid://c36j1y7hacaex" path="res://scenes/player/states/no_action.gd" id="17_3j4b4"]
+[ext_resource type="Script" uid="uid://blnb2f14l1wjn" path="res://scenes/player/states/sprint_modifier.gd" id="17_4hvnv"]
 [ext_resource type="Script" uid="uid://ct1nqkvr8f82q" path="res://scripts/custom_nodes/prop_watcher.gd" id="17_uf5tr"]
 [ext_resource type="Script" uid="uid://btj2r5mbga8vp" path="res://scenes/player/states/action_key_1.gd" id="18_yj68g"]
 [ext_resource type="Script" uid="uid://daspn6ole5cg1" path="res://scenes/player/states/lift_box_up.gd" id="19_6cv16"]
@@ -272,7 +271,7 @@ states/Moving/node = SubResource("AnimationNodeStateMachine_kvlxm")
 states/Moving/position = Vector2(491, 143)
 states/Start/position = Vector2(50, 94)
 transitions = ["Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_3j4b4"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_yj68g"), "Grounded", "Moving", SubResource("AnimationNodeStateMachineTransition_iqsei"), "Grounded", "Idle", SubResource("AnimationNodeStateMachineTransition_tffgl"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8ydkj")]
-graph_offset = Vector2(-70, 5)
+graph_offset = Vector2(-90, -18)
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kvlxm"]
 advance_mode = 2
@@ -292,12 +291,12 @@ states/Airborne/node = SubResource("AnimationNodeStateMachine_fcs02")
 states/Airborne/position = Vector2(472, 204)
 states/Grounded/node = SubResource("AnimationNodeStateMachine_myrg7")
 states/Grounded/position = Vector2(472, 110)
-states/Start/position = Vector2(121, 118)
+states/Start/position = Vector2(121, 110)
 transitions = ["Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_kvlxm"), "Grounded", "Airborne", SubResource("AnimationNodeStateMachineTransition_uf5tr"), "Airborne", "Grounded", SubResource("AnimationNodeStateMachineTransition_lgqa7")]
-graph_offset = Vector2(-123, 49)
+graph_offset = Vector2(-115, 42)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_g6k8r"]
-graph_offset = Vector2(-527.609, -8.432251)
+graph_offset = Vector2(-646.0071, -69.84318)
 nodes/output/position = Vector2(400, 140)
 nodes/MovementASM/node = SubResource("AnimationNodeStateMachine_8ydkj")
 nodes/MovementASM/position = Vector2(-360, -40)
@@ -352,11 +351,12 @@ bone_name = "Torso"
 bone_idx = 6
 
 [node name="InteractionShapeCast3D" type="ShapeCast3D" parent="PlayerMesh/Armature/Skeleton3D/BoneAttachment3D" unique_id=835055237 node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 5.7740823e-10, -0.18835229, -2.7939677e-09)
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 5.7740757e-10, -0.12296057, -2.7939677e-09)
 shape = SubResource("CapsuleShape3D_8ydkj")
-target_position = Vector3(0, 0, 0.8)
+target_position = Vector3(0, 0, 0.5)
 collision_mask = 2
 collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
 script = ExtResource("4_8ydkj")
 player = NodePath("../../../../..")
 metadata/_custom_type_script = "uid://co1h5yj8mqdm0"
@@ -447,11 +447,11 @@ default_state = NodePath("Walking")
 metadata/_custom_type_script = "uid://bq223ht2poita"
 
 [node name="Walking" type="Node" parent="MovementFSM/Grounded/Moving" unique_id=975640140]
-script = ExtResource("9_myrg7")
+script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="Sprinting" type="Node" parent="MovementFSM/Grounded/Moving" unique_id=1569140541]
-script = ExtResource("10_kvlxm")
+script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="Airborne" type="Node" parent="MovementFSM" unique_id=844173479 node_paths=PackedStringArray("default_state")]
@@ -463,17 +463,22 @@ metadata/_custom_type_script = "uid://bq223ht2poita"
 script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
-[node name="Jumping" type="Node" parent="MovementFSM/Airborne" unique_id=7968546 node_paths=PackedStringArray("default_state")]
+[node name="Jumping" type="Node" parent="MovementFSM/Airborne" unique_id=1865520988]
 script = ExtResource("11_fcs02")
-default_state = NodePath("WalkJumping")
-metadata/_custom_type_script = "uid://bq223ht2poita"
-
-[node name="WalkJumping" type="Node" parent="MovementFSM/Airborne/Jumping" unique_id=1399193020]
-script = ExtResource("7_ugbui")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
-[node name="SprintJumping" type="Node" parent="MovementFSM/Airborne/Jumping" unique_id=308123714]
-script = ExtResource("15_8ydkj")
+[node name="MovementModifiersFSM" type="Node" parent="." unique_id=1116690284 node_paths=PackedStringArray("player", "initial_state")]
+script = ExtResource("5_je7p5")
+player = NodePath("..")
+initial_state = NodePath("NoModifier")
+metadata/_custom_type_script = "uid://cm4a4yywol8hm"
+
+[node name="NoModifier" type="Node" parent="MovementModifiersFSM" unique_id=539480939]
+script = ExtResource("15_5mf0n")
+metadata/_custom_type_script = "uid://dero042hjjbjp"
+
+[node name="SprintModifier" type="Node" parent="MovementModifiersFSM" unique_id=1600799231]
+script = ExtResource("17_4hvnv")
 metadata/_custom_type_script = "uid://dero042hjjbjp"
 
 [node name="ActionsFSM" type="Node" parent="." unique_id=1674374405 node_paths=PackedStringArray("player", "initial_state")]
@@ -530,6 +535,7 @@ shown_name = "GUI"
 metadata/_custom_type_script = "uid://tg2nqyfd0vap"
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=28864392]
+visible = false
 
 [node name="HUD" parent="HUD" unique_id=1483513308 instance=ExtResource("28_4hvnv")]
 anchors_preset = 0
@@ -544,6 +550,56 @@ grow_vertical = 1
 layer = 100
 visible = false
 script = ExtResource("27_tffgl")
+
+[node name="MarginContainer2" type="MarginContainer" parent="DebugMenu" unique_id=33157099]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -85.0
+offset_bottom = 114.0
+grow_horizontal = 0
+theme = ExtResource("9_kvlxm")
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugMenu/MarginContainer2" unique_id=623425502]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="ActionsFSMTree" type="Tree" parent="DebugMenu/MarginContainer2/VBoxContainer" unique_id=1872175985 node_paths=PackedStringArray("fsm_to_watch")]
+layout_mode = 2
+allow_search = false
+hide_folding = true
+auto_tooltip = false
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
+script = ExtResource("9_5gtgg")
+fsm_to_watch = NodePath("../../../../ActionsFSM")
+metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
+
+[node name="MovementModifierFSMTree" type="Tree" parent="DebugMenu/MarginContainer2/VBoxContainer" unique_id=1735357257 node_paths=PackedStringArray("fsm_to_watch")]
+layout_mode = 2
+allow_search = false
+hide_folding = true
+auto_tooltip = false
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
+script = ExtResource("9_5gtgg")
+fsm_to_watch = NodePath("../../../../MovementModifiersFSM")
+metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
+
+[node name="MovementFSMTree" type="Tree" parent="DebugMenu/MarginContainer2/VBoxContainer" unique_id=651319678 node_paths=PackedStringArray("fsm_to_watch")]
+layout_mode = 2
+allow_search = false
+hide_folding = true
+auto_tooltip = false
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
+script = ExtResource("9_5gtgg")
+fsm_to_watch = NodePath("../../../../MovementFSM")
+metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
 
 [node name="MarginContainer" type="MarginContainer" parent="DebugMenu" unique_id=1920073963]
 anchors_preset = 15
@@ -573,50 +629,10 @@ layout_mode = 2
 size_flags_horizontal = 2
 auto_width = true
 auto_height = true
-item_count = 2
+item_count = 1
 item_0/text = "Current Quests List"
-item_1/text = "___________________"
 script = ExtResource("30_pk8ii")
 metadata/_custom_type_script = "uid://c83cmmvxk4k68"
-
-[node name="MarginContainer2" type="MarginContainer" parent="DebugMenu" unique_id=33157099]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -85.0
-offset_bottom = 81.0
-grow_horizontal = 0
-theme = ExtResource("9_kvlxm")
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="DebugMenu/MarginContainer2" unique_id=623425502]
-layout_mode = 2
-theme_override_constants/separation = 1
-
-[node name="ActionsFSMTree" type="Tree" parent="DebugMenu/MarginContainer2/VBoxContainer2" unique_id=1872175985 node_paths=PackedStringArray("fsm_to_watch")]
-layout_mode = 2
-allow_search = false
-hide_folding = true
-scroll_horizontal_enabled = false
-scroll_vertical_enabled = false
-auto_tooltip = false
-script = ExtResource("9_5gtgg")
-fsm_to_watch = NodePath("../../../../ActionsFSM")
-metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
-
-[node name="MovementFSMTree" type="Tree" parent="DebugMenu/MarginContainer2/VBoxContainer2" unique_id=651319678 node_paths=PackedStringArray("fsm_to_watch")]
-layout_mode = 2
-allow_search = false
-hide_folding = true
-scroll_horizontal_enabled = false
-scroll_vertical_enabled = false
-auto_tooltip = false
-script = ExtResource("9_5gtgg")
-fsm_to_watch = NodePath("../../../../MovementFSM")
-metadata/_custom_type_script = "uid://dnoq8ordnxqvj"
 
 [node name="Shadow" type="SpringArm3D" parent="." unique_id=1468902414]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.619429, 0)

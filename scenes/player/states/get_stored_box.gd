@@ -38,7 +38,7 @@ func _on_get_stored_1_finished(anim_name: String) -> void:
 
 
 func _on_get_stored_2_finished(anim_name: String) -> void:
-	if anim_name != "GetStoredBox1": return
+	if anim_name != "GetStoredBox2": return
 	
 	# Disconnect callable
 	player.animation_tree.animation_finished.disconnect(_on_get_stored_2_finished)

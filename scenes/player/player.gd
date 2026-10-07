@@ -12,6 +12,9 @@ extends CharacterBody3D
 @export var disable_jump: bool = false
 @export var jump_velocity: float = 4.5
 
+@export_group("Misc Settings")
+@export var debug_color: Color = Color("ff3300")
+
 @export_group("References")
 @export var player_mesh: Node3D
 @export var property_watcher: PropertyWatcher
@@ -96,7 +99,7 @@ func _apply_direction_to_velocity(dir: Vector3, speed: float) -> void:
 func _properties_to_watch() -> void:
 	if not property_watcher: return
 	
-	property_watcher.watch_property(self, "velocity_length", Color.LIGHT_CORAL)
-	property_watcher.watch_property(self, "position", Color.LIGHT_CORAL)
-	property_watcher.watch_property(self, "held_object", Color.LIGHT_CORAL)
-	property_watcher.watch_property(self, "stored_object", Color.LIGHT_CORAL)
+	property_watcher.watch_property(self, "velocity_length", debug_color)
+	property_watcher.watch_property(self, "position", debug_color)
+	property_watcher.watch_property(self, "held_object", debug_color)
+	property_watcher.watch_property(self, "stored_object", debug_color)

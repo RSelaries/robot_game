@@ -91,9 +91,14 @@ func configure_focus() -> void:
 			item.focus_neighbor_bottom = items[i + 1].get_path()
 			item.focus_neighbor_right = items[i + 1].get_path()
 			item.focus_next = items[i + 1].get_path()
-
-		item.mouse_entered.connect(_on_response_mouse_entered.bind(item))
-		item.gui_input.connect(_on_response_gui_input.bind(item, item.get_meta("response")))
+		
+		if item is not Button:
+			item.mouse_entered.connect(_on_response_mouse_entered.bind(item))
+			item.gui_input.connect(_on_response_gui_input.bind(item, item.get_meta("response")))
+		else:
+			item.pressed.connect(
+				_on_response_pressed.bind(item, item.get_meta("response"))
+			)
 
 	_previously_focused_item = items[0]
 
@@ -117,7 +122,7 @@ func _apply_responses() -> void:
 	if responses.size() > 0:
 		for response in responses:
 			if hide_failed_responses and not response.is_allowed: continue
-
+			
 			var item: Control
 			if is_instance_valid(response_template):
 				item = response_template.duplicate(DUPLICATE_GROUPS | DUPLICATE_SCRIPTS | DUPLICATE_SIGNALS)
@@ -128,18 +133,18 @@ func _apply_responses() -> void:
 			if not response.is_allowed:
 				item.name = item.name + &"Disallowed"
 				item.disabled = true
-
+			
 			# If the item has a response property then use that
 			if "response" in item:
 				item.response = response
 			# Otherwise assume we can just set the text
 			else:
 				item.text = response.text
-
+			
 			item.set_meta("response", response)
-
+			
 			add_child(item)
-
+		
 		if auto_configure_focus:
 			configure_focus()
 
@@ -162,6 +167,13 @@ func _on_response_mouse_entered(item: Control) -> void:
 	if "Disallowed" in item.name: return
 
 	item.grab_focus()
+
+
+func _on_response_pressed(item: Control, response) -> void:
+	if "Disallowed" in item.name: return
+	get_viewport().set_input_as_handled()
+	response_selected.emit(response)
+	
 
 
 func _on_response_gui_input(event: InputEvent, item: Control, response) -> void:

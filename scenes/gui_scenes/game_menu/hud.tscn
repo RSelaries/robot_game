@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvmdtgnli0k2"]
+[gd_scene load_steps=3 format=3 uid="uid://dvmdtgnli0k2"]
 
 [ext_resource type="Theme" uid="uid://dn3ympkptdjlv" path="res://assets/resources/themes/hud_theme.tres" id="1_ejqwy"]
+[ext_resource type="Script" uid="uid://nrat8p61ljc" path="res://scenes/gui_scenes/game_menu/quest_list.gd" id="2_7wj3l"]
 
-[node name="HUD" type="Control" unique_id=1483513308]
+[node name="HUD2" type="Control" unique_id=1483513308]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,12 +13,19 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_ejqwy")
 
-[node name="QuestContainer" type="VBoxContainer" parent="." unique_id=2025670966]
-layout_mode = 1
-offset_right = 42.0
-offset_bottom = 40.0
+[node name="Panel" type="PanelContainer" parent="." unique_id=2008732751]
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 25.0
+
+[node name="TasksContainer" type="VBoxContainer" parent="Panel" unique_id=2025670966]
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="QuestContainer" unique_id=1211517718]
+[node name="Label" type="Label" parent="Panel/TasksContainer" unique_id=1211517718]
 layout_mode = 2
 text = "Taches"
+
+[node name="QuestList" type="VBoxContainer" parent="Panel/TasksContainer" unique_id=478463902]
+layout_mode = 2
+script = ExtResource("2_7wj3l")

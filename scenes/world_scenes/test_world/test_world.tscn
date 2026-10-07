@@ -1,10 +1,11 @@
-[gd_scene load_steps=36 format=3 uid="uid://bv7lknf1s8r0r"]
+[gd_scene format=3 uid="uid://bv7lknf1s8r0r"]
 
-[ext_resource type="Script" uid="uid://b74sqgr6t3p8y" path="res://scenes/world_scenes/world_scene_base.gd" id="1_idnf6"]
+[ext_resource type="Script" uid="uid://b74sqgr6t3p8y" path="res://scripts/custom_nodes/world_scene_base.gd" id="1_idnf6"]
 [ext_resource type="PackedScene" uid="uid://bqxq8g2clwngp" path="res://scenes/player/player.tscn" id="2_4dr8e"]
 [ext_resource type="Script" uid="uid://tg2nqyfd0vap" path="res://scripts/custom_nodes/separator.gd" id="2_j0njx"]
 [ext_resource type="Material" uid="uid://dqhomnpgmc1nf" path="res://assets/resources/materials/foliage/grass_underlay.tres" id="2_ohy5h"]
 [ext_resource type="Shader" uid="uid://b5n026j7i03rb" path="res://assets/shaders/spatials/prototype_grid.gdshader" id="2_sgfbr"]
+[ext_resource type="MultiMesh" uid="uid://bjnwog2w5vspv" path="res://scenes/world_scenes/test_world/grass_multi_mesh.tres" id="3_v0euc"]
 [ext_resource type="Material" uid="uid://cxiqpcsbri12w" path="res://assets/resources/materials/misc/chrome_color.tres" id="5_ohy5h"]
 [ext_resource type="Script" uid="uid://da5sjm5iatkub" path="res://scenes/world_scenes/test_world/test_interact_1.gd" id="6_7mfj5"]
 [ext_resource type="Script" uid="uid://bh57idn6g8no8" path="res://scripts/custom_nodes/components/interactable_areas/pickable_area_3d.gd" id="7_l6al4"]
@@ -15,11 +16,11 @@
 [ext_resource type="Script" uid="uid://cbg1snjl8xg87" path="res://scenes/world_scenes/test_world/test_npc_quest.gd" id="11_hml7c"]
 [ext_resource type="Script" uid="uid://d2o7lmmeecvp2" path="res://addons/quest_manager/components/quest_component.gd" id="12_hbl5r"]
 [ext_resource type="Script" uid="uid://b1phaoxe8da4o" path="res://addons/quest_manager/resources/quest_resource.gd" id="13_btrep"]
-[ext_resource type="Script" uid="uid://ckx3kbgkvl2pb" path="res://addons/quest_manager/resources/quest_item.gd" id="13_hml7c"]
+[ext_resource type="Script" uid="uid://ckx3kbgkvl2pb" path="res://addons/quest_manager/resources/quest_steps/quest_step.gd" id="13_hml7c"]
 [ext_resource type="Resource" uid="uid://otr6u84lvy34" path="res://scenes/world_scenes/test_world/test_npc_dialogue.dialogue" id="15_p4qwf"]
-[ext_resource type="Script" uid="uid://dpxika85qqbw4" path="res://addons/quest_manager/resources/quest_step/quest_object.gd" id="15_trlpp"]
+[ext_resource type="Script" uid="uid://dpxika85qqbw4" path="res://addons/quest_manager/resources/quest_steps/quest_object.gd" id="15_trlpp"]
 [ext_resource type="Script" uid="uid://dwr14nc60d82m" path="res://addons/quest_manager/components/item_area_3d.gd" id="18_vuohe"]
-[ext_resource type="Script" uid="uid://bgqjsl48fcs2k" path="res://addons/quest_manager/resources/quest_step/quest_talk.gd" id="19_f6c80"]
+[ext_resource type="Script" uid="uid://bgqjsl48fcs2k" path="res://addons/quest_manager/resources/quest_steps/quest_talk.gd" id="19_f6c80"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_idnf6"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -33,6 +34,9 @@ background_mode = 2
 sky = SubResource("Sky_4dr8e")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f6c80"]
+size = Vector2(32, 32)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yk5tk"]
 render_priority = 0
@@ -94,7 +98,7 @@ metadata/_custom_type_script = "uid://dpxika85qqbw4"
 
 [sub_resource type="Resource" id="Resource_v0euc"]
 script = ExtResource("19_f6c80")
-talk_id = "droped_cubes"
+talk_id = "drop_cubes_done"
 metadata/_custom_type_script = "uid://bgqjsl48fcs2k"
 
 [sub_resource type="Resource" id="Resource_hml7c"]
@@ -103,7 +107,7 @@ quest_name = "drop_cubes"
 quest_steps = Array[ExtResource("13_hml7c")]([SubResource("Resource_p4qwf"), SubResource("Resource_v0euc")])
 metadata/_custom_type_script = "uid://b1phaoxe8da4o"
 
-[node name="TestWorld" type="Node3D" unique_id=941300603]
+[node name="TestWorld2" type="Node3D" unique_id=941300603]
 script = ExtResource("1_idnf6")
 metadata/_custom_type_script = "uid://b74sqgr6t3p8y"
 
@@ -123,6 +127,17 @@ environment = SubResource("Environment_sgfbr")
 script = ExtResource("2_j0njx")
 shown_name = "World Elements"
 metadata/_custom_type_script = "uid://tg2nqyfd0vap"
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=1388252479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.063863635, 0)
+visible = false
+cast_shadow = 0
+multimesh = ExtResource("3_v0euc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=1266970218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.101266675, 0)
+visible = false
+mesh = SubResource("PlaneMesh_f6c80")
 
 [node name="Floor" type="CSGBox3D" parent="." unique_id=315204120]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
@@ -159,6 +174,11 @@ size = Vector3(3, 1, 2.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.71984863, 0)
 shape = SubResource("BoxShape3D_vuohe")
 debug_color = Color(0.8423707, 0.0010700428, 0.9164581, 1)
+
+[node name="≡≡≡≡ Objects ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡" type="Node" parent="." unique_id=1095525531]
+script = ExtResource("2_j0njx")
+shown_name = "Objects"
+metadata/_custom_type_script = "uid://tg2nqyfd0vap"
 
 [node name="TestInteract1" type="Area3D" parent="." unique_id=32213581 node_paths=PackedStringArray("show_on_focus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1760309, 1.0000002, -1.3366959)
@@ -566,7 +586,7 @@ theme_override_constants/separation = -1
 
 [node name="Label" type="Label" parent="TestNPCQuest/UnprojectMarker/Control2/Control" unique_id=1038195134]
 layout_mode = 2
-text = "TALK"
+text = "PARLER"
 label_settings = SubResource("LabelSettings_j8krb")
 
 [node name="TextureRect" type="TextureRect" parent="TestNPCQuest/UnprojectMarker/Control2/Control" unique_id=1743928454]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://cmqxw36ylevgh"]
 
-[ext_resource type="PackedScene" uid="uid://c0u1n2jxvtls0" path="res://scripts/globals/scene_manager/scene_handler.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://c0u1n2jxvtls0" path="res://scenes/scene_container/scene_handler.tscn" id="1_ig7tw"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=1566396237]
 
-[node name="SceneHandler" parent="." instance=ExtResource("1_ig7tw")]
+[node name="SceneHandler" parent="." unique_id=410659195 instance=ExtResource("1_ig7tw")]

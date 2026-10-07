@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d13wp3v78iv0e"]
 
 [ext_resource type="Shader" uid="uid://bsn24jdep35rh" path="res://assets/shaders/spatials/grass_billboard_sway.gdshader" id="1_w4p6j"]
-[ext_resource type="Texture2D" path="res://assets/textures/foliage/simple_grass_leaves.png" id="2_7kbtm"]
+[ext_resource type="Texture2D" uid="uid://dyw71dryycp2v" path="res://assets/textures/foliage/simple_grass_leaves.png" id="2_7kbtm"]
 
 [resource]
 render_priority = 0

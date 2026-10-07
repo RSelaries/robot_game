@@ -13,6 +13,7 @@ enum PickableTypes {
 const WITH_TARGET := [PickableTypes.CHILD, PickableTypes.CHILD_OF_RIGID_BODY]
 
 
+@export var pickable: bool = true
 ## Defines the behavior of this component.
 @export var pickable_type: PickableTypes:
 	set(value):
